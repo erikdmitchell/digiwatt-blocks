@@ -2,16 +2,28 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { RichText, MediaUpload } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
+/*
+    <div class="front-page-tagline">
+        <div class="wrapper">
+            <div class="image-wrap">
+                <img src="<?php the_field( 'tagline_image' ); ?>" alt="emdotbike logo white" />
+            </div>
+            <div class="title-wrap">
+                <h1><?php the_field( 'tagline_text' ); ?></h1>
+            </div>
+        </div>
+    </div>    
+*/
 
-registerBlockType( 'gutenberg-examples/example-05-recipe-card-esnext', {
-	title: __( 'Example: Recipe Card (ESNext)', 'gutenberg-examples' ),
+registerBlockType( 'dwb/tagline-block', {
+	title: __( 'Tagline', 'dwb' ),
 	icon: 'index-card',
-	category: 'layout',
+	category: 'text',
 	attributes: {
 		title: {
 			type: 'array',
 			source: 'children',
-			selector: 'h2',
+			selector: 'h1',
 		},
 		mediaID: {
 			type: 'number',
@@ -22,41 +34,14 @@ registerBlockType( 'gutenberg-examples/example-05-recipe-card-esnext', {
 			selector: 'img',
 			attribute: 'src',
 		},
-		ingredients: {
-			type: 'array',
-			source: 'children',
-			selector: '.ingredients',
-		},
-		instructions: {
-			type: 'array',
-			source: 'children',
-			selector: '.steps',
-		},
-	},
-	example: {
-		attributes: {
-			title: __( 'Chocolate Chip Cookies', 'gutenberg-examples' ),
-			mediaURL:
-				'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2ChocolateChipCookies.jpg/320px-2ChocolateChipCookies.jpg',
-			ingredients: [
-				__( 'flour', 'gutenberg-examples' ),
-				__( 'sugar', 'gutenberg-examples' ),
-				__( 'chocolate', 'gutenberg-examples' ),
-				'💖',
-			],
-			instructions: [
-				__( 'Mix', 'gutenberg-examples' ),
-				__( 'Bake', 'gutenberg-examples' ),
-				__( 'Enjoy', 'gutenberg-examples' ),
-			],
-		},
 	},
 	edit: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaID, mediaURL, ingredients, instructions },
+			attributes: { title, mediaID, mediaURL },
 			setAttributes,
 		} = props;
+		
 		const onChangeTitle = ( value ) => {
 			setAttributes( { title: value } );
 		};
@@ -67,26 +52,10 @@ registerBlockType( 'gutenberg-examples/example-05-recipe-card-esnext', {
 				mediaID: media.id,
 			} );
 		};
-		const onChangeIngredients = ( value ) => {
-			setAttributes( { ingredients: value } );
-		};
-
-		const onChangeInstructions = ( value ) => {
-			setAttributes( { instructions: value } );
-		};
 
 		return (
 			<div className={ className }>
-				<RichText
-					tagName="h2"
-					placeholder={ __(
-						'Write Recipe title…',
-						'gutenberg-examples'
-					) }
-					value={ title }
-					onChange={ onChangeTitle }
-				/>
-				<div className="recipe-image">
+				<div className="tagline-image">
 					<MediaUpload
 						onSelect={ onSelectImage }
 						allowedTypes="image"
@@ -101,13 +70,13 @@ registerBlockType( 'gutenberg-examples/example-05-recipe-card-esnext', {
 								onClick={ open }
 							>
 								{ ! mediaID ? (
-									__( 'Upload Image', 'gutenberg-examples' )
+									__( 'Upload Image', 'dwb' )
 								) : (
 									<img
 										src={ mediaURL }
 										alt={ __(
-											'Upload Recipe Image',
-											'gutenberg-examples'
+											'tagline-image',
+											'dwb'
 										) }
 									/>
 								) }
@@ -115,63 +84,33 @@ registerBlockType( 'gutenberg-examples/example-05-recipe-card-esnext', {
 						) }
 					/>
 				</div>
-				<h3>{ __( 'Ingredients', 'gutenberg-examples' ) }</h3>
 				<RichText
-					tagName="ul"
-					multiline="li"
+					tagName="h1"
 					placeholder={ __(
-						'Write a list of ingredients…',
-						'gutenberg-examples'
+						'Tagline',
+						'dwb'
 					) }
-					value={ ingredients }
-					onChange={ onChangeIngredients }
-					className="ingredients"
-				/>
-				<h3>{ __( 'Instructions', 'gutenberg-examples' ) }</h3>
-				<RichText
-					tagName="div"
-					multiline="p"
-					className="steps"
-					placeholder={ __(
-						'Write the instructions…',
-						'gutenberg-examples'
-					) }
-					value={ instructions }
-					onChange={ onChangeInstructions }
-				/>
+					value={ title }
+					onChange={ onChangeTitle }
+				/>				
 			</div>
 		);
 	},
 	save: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaURL, ingredients, instructions },
+			attributes: { title, mediaURL },
 		} = props;
 		return (
 			<div className={ className }>
-				<RichText.Content tagName="h2" value={ title } />
-
 				{ mediaURL && (
 					<img
-						className="recipe-image"
+						className="tagline-image"
 						src={ mediaURL }
-						alt={ __( 'Recipe Image', 'gutenberg-examples' ) }
+						alt={ __( 'tagline image', 'dwb' ) }
 					/>
 				) }
-
-				<h3>{ __( 'Ingredients', 'gutenberg-examples' ) }</h3>
-				<RichText.Content
-					tagName="ul"
-					className="ingredients"
-					value={ ingredients }
-				/>
-
-				<h3>{ __( 'Instructions', 'gutenberg-examples' ) }</h3>
-				<RichText.Content
-					tagName="div"
-					className="steps"
-					value={ instructions }
-				/>
+                <RichText.Content tagName="h1" value={ title } />				
 			</div>
 		);
 	},
