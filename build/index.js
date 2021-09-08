@@ -115,10 +115,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
   icon: 'quote',
   category: 'text',
   attributes: {
-    title: {
+    text: {
       type: 'array',
       source: 'children',
-      selector: 'h1'
+      selector: 'p'
     },
     mediaID: {
       type: 'number',
@@ -135,15 +135,15 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
   edit: function edit(props) {
     var className = props.className,
         _props$attributes = props.attributes,
-        title = _props$attributes.title,
+        text = _props$attributes.text,
         mediaID = _props$attributes.mediaID,
         mediaURL = _props$attributes.mediaURL,
         media = _props$attributes.media,
         setAttributes = props.setAttributes;
 
-    var onChangeTitle = function onChangeTitle(value) {
+    var onChangeText = function onChangeText(value) {
       setAttributes({
-        title: value
+        text: value
       });
     };
 
@@ -204,30 +204,41 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
       isLink: true,
       isDestructive: true
     }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Remove image', 'dwb')))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: className,
+      className: className
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "image-wrap",
       style: blockStyle
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "about-text-wrap"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "text-inner"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"], {
-      tagName: "h1",
-      placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Tagline', 'dwb'),
-      value: title,
-      onChange: onChangeTitle
-    })));
+      tagName: "p",
+      placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Sample text', 'dwb'),
+      value: text,
+      onChange: onChangeText
+    })))));
   },
   save: function save(props) {
     var className = props.className,
         _props$attributes2 = props.attributes,
-        title = _props$attributes2.title,
+        text = _props$attributes2.text,
         mediaURL = _props$attributes2.mediaURL;
+    var blockStyle = {
+      backgroundImage: mediaURL != 0 ? 'url("' + mediaURL + '")' : 'none'
+    };
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: className,
+      className: className
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "image-wrap",
       style: blockStyle
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "about-text-wrap"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      class: "tagline-wrapper"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      class: "title-wrap"
+      className: "text-inner"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"].Content, {
-      tagName: "h1",
-      value: title
+      tagName: "p",
+      value: text
     }))));
   }
 });

@@ -8,10 +8,10 @@ registerBlockType( 'dwb/about-block', {
 	icon: 'quote',
 	category: 'text',
 	attributes: {
-		title: {
+		text: {
 			type: 'array',
 			source: 'children',
-			selector: 'h1',
+			selector: 'p',
 		},
 		mediaID: {
 			type: 'number',
@@ -28,12 +28,12 @@ registerBlockType( 'dwb/about-block', {
 	edit: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaID, mediaURL, media },
+			attributes: { text, mediaID, mediaURL, media },
 			setAttributes,
 		} = props;
 		
-		const onChangeTitle = ( value ) => {
-			setAttributes( { title: value } );
+		const onChangeText = ( value ) => {
+			setAttributes( { text: value } );
 		};
 
 		const onSelectImage = ( media ) => {
@@ -53,7 +53,6 @@ registerBlockType( 'dwb/about-block', {
         const blockStyle = {
 		    backgroundImage: mediaURL != 0 ? 'url("' + mediaURL + '")' : 'none'
         };
-        		
 
 		return (
     		<>
@@ -112,16 +111,21 @@ registerBlockType( 'dwb/about-block', {
 				</PanelBody>
             </InspectorControls>
     		
-			<div className={ className } style={ blockStyle }>
-				<RichText
-					tagName="h1"
-					placeholder={ __(
-						'Tagline',
-						'dwb'
-					) }
-					value={ title }
-					onChange={ onChangeTitle }
-				/>				
+			<div className={ className }>
+			    <div className='image-wrap' style={ blockStyle }></div>
+    			<div className='about-text-wrap'>
+                    <div className='text-inner'>
+        				<RichText
+        					tagName="p"
+        					placeholder={ __(
+        						'Sample text',
+        						'dwb'
+        					) }
+        					value={ text }
+        					onChange={ onChangeText }
+        				/>	
+                    </div>
+                </div>
 			</div>
 			</>
 		);
@@ -129,13 +133,19 @@ registerBlockType( 'dwb/about-block', {
 	save: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaURL },
+			attributes: { text, mediaURL },
 		} = props;
+		
+        const blockStyle = {
+		    backgroundImage: mediaURL != 0 ? 'url("' + mediaURL + '")' : 'none'
+        };
+        
 		return (
-			<div className={ className } style={ blockStyle }>
-                <div class="tagline-wrapper">
-    				<div class="title-wrap">
-                        <RichText.Content tagName="h1" value={ title } />				
+			<div className={ className }>
+			    <div className='image-wrap' style={ blockStyle }></div>
+    			<div className='about-text-wrap'>
+                    <div className='text-inner'>
+                        <RichText.Content tagName="p" value={ text } />				
                     </div>
                 </div>
 			</div>
