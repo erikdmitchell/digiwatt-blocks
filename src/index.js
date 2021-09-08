@@ -2,18 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { RichText, MediaUpload } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
-/*
-    <div class="front-page-tagline">
-        <div class="wrapper">
-            <div class="image-wrap">
-                <img src="<?php the_field( 'tagline_image' ); ?>" alt="emdotbike logo white" />
-            </div>
-            <div class="title-wrap">
-                <h1><?php the_field( 'tagline_text' ); ?></h1>
-            </div>
-        </div>
-    </div>    
-*/
 
 registerBlockType( 'dwb/tagline-block', {
 	title: __( 'Tagline', 'dwb' ),
@@ -103,14 +91,20 @@ registerBlockType( 'dwb/tagline-block', {
 		} = props;
 		return (
 			<div className={ className }>
-				{ mediaURL && (
-					<img
-						className="tagline-image"
-						src={ mediaURL }
-						alt={ __( 'tagline image', 'dwb' ) }
-					/>
-				) }
-                <RichText.Content tagName="h1" value={ title } />				
+                <div class="tagline-wrapper">
+    				{ mediaURL && (
+        				<div class="image-wrapper">
+        					<img
+        						className="tagline-image"
+        						src={ mediaURL }
+        						alt={ __( 'tagline image', 'dwb' ) }
+        					/>
+    					</div>
+    				) }
+    				<div class="title-wrap">
+                        <RichText.Content tagName="h1" value={ title } />				
+                    </div>
+                </div>
 			</div>
 		);
 	},

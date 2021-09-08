@@ -110,19 +110,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/*
-    <div class="front-page-tagline">
-        <div class="wrapper">
-            <div class="image-wrap">
-                <img src="<?php the_field( 'tagline_image' ); ?>" alt="emdotbike logo white" />
-            </div>
-            <div class="title-wrap">
-                <h1><?php the_field( 'tagline_text' ); ?></h1>
-            </div>
-        </div>
-    </div>    
-*/
-
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb/tagline-block', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Tagline', 'dwb'),
   icon: 'index-card',
@@ -196,14 +183,20 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
         mediaURL = _props$attributes2.mediaURL;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: className
-    }, mediaURL && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "tagline-wrapper"
+    }, mediaURL && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "image-wrapper"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       className: "tagline-image",
       src: mediaURL,
       alt: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('tagline image', 'dwb')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"].Content, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "title-wrap"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"].Content, {
       tagName: "h1",
       value: title
-    }));
+    }))));
   }
 });
 
