@@ -5,13 +5,13 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"You have Strava watts\" && exit 1",
-    "build": "wp-scripts build",
+    "build": "wp-scripts build blocks/index.js",
     "format": "wp-scripts format",
     "format:js:src": "wp-scripts format-js",
     "lint:js": "wp-scripts lint-js",
     "lint:js:src": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
-    "start": "wp-scripts start"
+    "start": "wp-scripts start blocks/index.js"
   },
   "repository": {
     "type": "git",
