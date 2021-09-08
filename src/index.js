@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { RichText, MediaUpload } from '@wordpress/block-editor';
+import { RichText, MediaUpload, InspectorControls, ColorPalette } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
 
 registerBlockType( 'dwb/tagline-block', {
 	title: __( 'Tagline', 'dwb' ),
-	icon: 'index-card',
+	icon: 'quote',
 	category: 'text',
 	attributes: {
 		title: {
@@ -22,11 +22,15 @@ registerBlockType( 'dwb/tagline-block', {
 			selector: 'img',
 			attribute: 'src',
 		},
+		bg_color: {
+    		type: 'string',
+    		default: '#8ed2fc',
+		}
 	},
 	edit: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaID, mediaURL },
+			attributes: { title, mediaID, mediaURL, bg_color },
 			setAttributes,
 		} = props;
 		
@@ -40,9 +44,27 @@ registerBlockType( 'dwb/tagline-block', {
 				mediaID: media.id,
 			} );
 		};
+		
+        const onChangeBGColor = ( hexColor ) => {
+            setAttributes( { bg_color: hexColor } );
+        };
 
 		return (
-			<div className={ className }>
+    		<>
+    		<InspectorControls key="setting">
+                <div id="gutenpride-controls">
+                    <fieldset>
+                        <legend className="blocks-base-control__label">
+                            { __( 'Background color', 'gutenpride' ) }
+                        </legend>
+                        <ColorPalette // Element Tag for Gutenberg standard colour selector
+                            onChange={ onChangeBGColor }
+                        />
+                    </fieldset>
+                </div>
+            </InspectorControls>
+    		
+			<div className={ className } style={ { backgroundColor: bg_color } }>
 				<div className="tagline-image">
 					<MediaUpload
 						onSelect={ onSelectImage }
@@ -82,6 +104,7 @@ registerBlockType( 'dwb/tagline-block', {
 					onChange={ onChangeTitle }
 				/>				
 			</div>
+			</>
 		);
 	},
 	save: ( props ) => {

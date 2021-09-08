@@ -112,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb/tagline-block', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Tagline', 'dwb'),
-  icon: 'index-card',
+  icon: 'quote',
   category: 'text',
   attributes: {
     title: {
@@ -128,6 +128,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
       source: 'attribute',
       selector: 'img',
       attribute: 'src'
+    },
+    bg_color: {
+      type: 'string',
+      default: '#8ed2fc'
     }
   },
   edit: function edit(props) {
@@ -136,6 +140,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
         title = _props$attributes.title,
         mediaID = _props$attributes.mediaID,
         mediaURL = _props$attributes.mediaURL,
+        bg_color = _props$attributes.bg_color,
         setAttributes = props.setAttributes;
 
     var onChangeTitle = function onChangeTitle(value) {
@@ -151,8 +156,26 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
       });
     };
 
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: className
+    var onChangeBGColor = function onChangeBGColor(hexColor) {
+      setAttributes({
+        bg_color: hexColor
+      });
+    };
+
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InspectorControls"], {
+      key: "setting"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      id: "gutenpride-controls"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("fieldset", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("legend", {
+      className: "blocks-base-control__label"
+    }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Background color', 'gutenpride')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["ColorPalette"] // Element Tag for Gutenberg standard colour selector
+    , {
+      onChange: onChangeBGColor
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: className,
+      style: {
+        backgroundColor: bg_color
+      }
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "tagline-image"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["MediaUpload"], {
@@ -174,7 +197,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
       placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Tagline', 'dwb'),
       value: title,
       onChange: onChangeTitle
-    }));
+    })));
   },
   save: function save(props) {
     var className = props.className,
