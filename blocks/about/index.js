@@ -48,7 +48,12 @@ registerBlockType( 'dwb/about-block', {
         		mediaID: 0,
         		mediaURL: ''
         	});
-        }		
+        }
+        
+        const blockStyle = {
+		    backgroundImage: mediaURL != 0 ? 'url("' + mediaURL + '")' : 'none'
+        };
+        		
 
 		return (
     		<>
@@ -107,9 +112,7 @@ registerBlockType( 'dwb/about-block', {
 				</PanelBody>
             </InspectorControls>
     		
-			<div className={ className }>
-				<div className="tagline-image">
-				</div>
+			<div className={ className } style={ blockStyle }>
 				<RichText
 					tagName="h1"
 					placeholder={ __(
@@ -129,17 +132,8 @@ registerBlockType( 'dwb/about-block', {
 			attributes: { title, mediaURL },
 		} = props;
 		return (
-			<div className={ className }>
+			<div className={ className } style={ blockStyle }>
                 <div class="tagline-wrapper">
-    				{ mediaURL && (
-        				<div class="image-wrapper">
-        					<img
-        						className="tagline-image"
-        						src={ mediaURL }
-        						alt={ __( 'tagline image', 'dwb' ) }
-        					/>
-    					</div>
-    				) }
     				<div class="title-wrap">
                         <RichText.Content tagName="h1" value={ title } />				
                     </div>
