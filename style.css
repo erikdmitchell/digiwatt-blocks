@@ -1,7 +1,10 @@
 .wp-block-dwb-tagline-block {
     margin-bottom: 3rem;
     color: #fff;
-    text-align: center;    
+    text-align: center; 
+/*     margin: 32px calc(25% - 25vw); */
+    max-width: none;
+    width: 100%;       
 }
 
 .wp-block-dwb-tagline-block .tagline-wrapper {

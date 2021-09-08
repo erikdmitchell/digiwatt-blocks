@@ -112,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb/tagline-block', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Tagline', 'dwb'),
-  icon: 'quote',
+  icon: 'dashicons-format-quote',
   category: 'text',
   attributes: {
     title: {
@@ -203,9 +203,13 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
     var className = props.className,
         _props$attributes2 = props.attributes,
         title = _props$attributes2.title,
-        mediaURL = _props$attributes2.mediaURL;
+        mediaURL = _props$attributes2.mediaURL,
+        bg_color = _props$attributes2.bg_color;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: className
+      className: className,
+      style: {
+        backgroundColor: bg_color
+      }
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       class: "tagline-wrapper"
     }, mediaURL && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {

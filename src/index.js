@@ -5,7 +5,7 @@ import { Button } from '@wordpress/components';
 
 registerBlockType( 'dwb/tagline-block', {
 	title: __( 'Tagline', 'dwb' ),
-	icon: 'quote',
+	icon: 'dashicons-format-quote',
 	category: 'text',
 	attributes: {
 		title: {
@@ -110,10 +110,10 @@ registerBlockType( 'dwb/tagline-block', {
 	save: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaURL },
+			attributes: { title, mediaURL, bg_color },
 		} = props;
 		return (
-			<div className={ className }>
+			<div className={ className } style={ { backgroundColor: bg_color } }>
                 <div class="tagline-wrapper">
     				{ mediaURL && (
         				<div class="image-wrapper">
