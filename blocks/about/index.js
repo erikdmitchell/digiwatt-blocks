@@ -3,12 +3,17 @@ import { registerBlockType } from '@wordpress/blocks';
 import { RichText, MediaUpload, InspectorControls, ColorPalette } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
 
-registerBlockType( 'dwb/tagline-block', {
-	title: __( 'Tagline', 'dwb' ),
-	icon: 'dashicons-format-quote',
+/*
+    image
+    text  
+*/
+
+registerBlockType( 'dwb/about-block', {
+	title: __( 'About', 'dwb' ),
+	icon: 'format-quote',
 	category: 'text',
 	attributes: {
-		title: {
+		text: {
 			type: 'array',
 			source: 'children',
 			selector: 'h1',
@@ -22,15 +27,11 @@ registerBlockType( 'dwb/tagline-block', {
 			selector: 'img',
 			attribute: 'src',
 		},
-		bg_color: {
-    		type: 'string',
-    		default: '#8ed2fc',
-		}
 	},
 	edit: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaID, mediaURL, bg_color },
+			attributes: { title, mediaID, mediaURL },
 			setAttributes,
 		} = props;
 		
@@ -44,27 +45,10 @@ registerBlockType( 'dwb/tagline-block', {
 				mediaID: media.id,
 			} );
 		};
-		
-        const onChangeBGColor = ( hexColor ) => {
-            setAttributes( { bg_color: hexColor } );
-        };
 
 		return (
-    		<>
-    		<InspectorControls key="setting">
-                <div id="digiwatt-tagline-controls">
-                    <fieldset>
-                        <legend className="blocks-base-control__label">
-                            { __( 'Background color', 'gutenpride' ) }
-                        </legend>
-                        <ColorPalette // Element Tag for Gutenberg standard colour selector
-                            onChange={ onChangeBGColor }
-                        />
-                    </fieldset>
-                </div>
-            </InspectorControls>
-    		
-			<div className={ className } style={ { backgroundColor: bg_color } }>
+    		<>    		
+			<div className={ className }>
 				<div className="tagline-image">
 					<MediaUpload
 						onSelect={ onSelectImage }
@@ -113,7 +97,7 @@ registerBlockType( 'dwb/tagline-block', {
 			attributes: { title, mediaURL, bg_color },
 		} = props;
 		return (
-			<div className={ className } style={ { backgroundColor: bg_color } }>
+			<div className={ className }>
                 <div class="tagline-wrapper">
     				{ mediaURL && (
         				<div class="image-wrapper">
