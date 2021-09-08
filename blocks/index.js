@@ -1,1 +1,2 @@
 import './tagline';
+import './about';

@@ -97,8 +97,8 @@ final class DWB {
      * @return void
      */
     public function includes() {
-        // bocks
-        include_once( DWB_ABSPATH . 'blocks/tagline.php' );
+        // blocks.
+        include_once( DWB_ABSPATH . 'blocks/blocks.php' );
     }
 
     /**
