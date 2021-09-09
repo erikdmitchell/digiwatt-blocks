@@ -251,50 +251,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
 
 
 
-var PostList = function PostList(props) {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null) // Post Info will be displayed here
-  ;
-};
+ // This is the component markup.
+// The parameters must match what is returned from calls to withSelect and withDispatch in the compose method below.
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withSelect"])(function (select, ownProps) {
-  var _select = select('core '),
-      getEntityRecords = _select.getEntityRecords;
+var RenderPosts = function RenderPosts(_ref) {
+  var posts = _ref.posts;
+  if (null === posts) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Spinner"], null);
+  console.log(posts);
+  var termOptions = posts.map(function (post) {
+    return {
+      label: post.title.raw,
+      value: post.id
+    };
+  });
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["SelectControl"], {
+    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Posts', 'dwb'),
+    value: 2,
+    onChange: function onChange(value) {
+      return console.log(value);
+    },
+    options: termOptions
+  });
+}; // This is the "actual" component, 
+// together with the markup and data.
+// You can add withDispatch as another argument to the compose function and return an object of methods to access in Render.
 
-  var postQuery = {
-    per_page: 10,
-    page: 2
-  };
+
+var Posts = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__["compose"])(Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withSelect"])(function (scopedSelect) {
+  var _scopedSelect = scopedSelect('core'),
+      getEntityRecords = _scopedSelect.getEntityRecords;
+
   return {
-    postList: getEntityRecords('postType', 'post', postQuery)
+    posts: getEntityRecords('postType', 'post', {
+      per_page: 3
+    })
   };
-})(PostList));
+}))(RenderPosts); // Export this component to use as JSX elsewhere 
+// i.e. <Posts />
+
+/* harmony default export */ __webpack_exports__["default"] = (Posts);
+/*
+const PostList = ( props ) => {
+console.log('PostList');
+console.log(props);
+
+  return(<>Post Info will be displayed here</>
+    // Post Info will be displayed here
+  )
+}
+
+
+const applyWithSelect = withSelect((select, props) => {
+    console.log(select('core').getEntityRecords('postType', 'post', {per_page: 2}));
+    
+    return {foo: 'bar', posts: []}
+});
+*/
+
+/**
+* Use compose to return the result of withSelect to Edit({...})
+* @see https://developer.wordpress.org/block-editor/packages/packages-compose/
+*/
+
+/*
+export default compose(
+    applyWithSelect,
+)(PostList);
+*/
+
+/*
+export default withSelect( (select, ownProps ) => {
+console.log('foo');    
+    const { getEntityRecords } = select( 'core ');
+    const postQuery = {
+        per_page: 3
+    }
+console.log(getEntityRecords('postType', 'post', postQuery ));  
+    return {
+        postList: getEntityRecords('postType', 'post', postQuery ),
+    }
+})(PostList)
+*/
+
+/*
+const getPosts = (props) => {
+    let postList = [];
+    
+console.log('getposts');
+withSelect( (select, ownProps ) => {
+console.log('withSelect');    
+    const { getEntityRecords } = select( 'core ');
+    const postQuery = {
+        per_page: 10
+    }
+    
+    postList = getEntityRecords('postType', 'post', postQuery );
+})
+    
+    return {postList}
+}
+
+
+const PostList = (props) => {
+console.log(props);    
+    const posts = getPosts();
+console.log(posts);    
+    return (
+        <div>PostList</div>
+    )
+}
+*/
+
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('dwb/home-grid-block', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Home Grid', 'dwb'),
   icon: 'smiley',
   category: 'common',
   attributes: {},
   edit: function edit(props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, "Das posts");
+    var className = props.className;
+
+    _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
+
+    var setAttributes = props.setAttributes;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Posts, null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, "blockType"));
   },
   save: function save(props) {
     var className = props.className;
 
     _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
-    /*
-    		const blockStyle = {
-    			background:
-    				mediaURL != 0
-    					? 'url("' + mediaURL + '") no-repeat center center fixed'
-    					: 'none',
-    		};
-    */
-
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('DigiWatt Plugin – Nothing to see here.', 'dwb'));
   }
@@ -509,6 +603,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["components"]; }());
+
+/***/ }),
+
+/***/ "@wordpress/compose":
+/*!*********************************!*\
+  !*** external ["wp","compose"] ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["compose"]; }());
 
 /***/ }),
 
