@@ -232,11 +232,98 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
 
 /***/ }),
 
+/***/ "./blocks/home-grid/Posts.js":
+/*!***********************************!*\
+  !*** ./blocks/home-grid/Posts.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+ // This is the component markup.
+// The parameters must match what is returned from calls to withSelect and withDispatch in the compose method below.
+
+var RenderPosts = function RenderPosts(_ref) {
+  var posts = _ref.posts;
+  if (null === posts) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Spinner"], null);
+  console.log(posts);
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "posts-wrapper"
+  }, posts.map(function (post) {
+    var image = postThumbnail('home-grid-large', post.featured_media);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "flex-item post-ID",
+      key: post.id
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      className: "post-thumbnail",
+      href: post.link
+    }, image), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "title"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", null, post.title.raw)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "excerpt"
+    }, "Should be post.excerpt.raw, but that is empty, so create our own"));
+  }));
+};
+
+var postThumbnail = function postThumbnail(thumbSize, thumbID) {
+  // get featured image data.
+  var featuredImageData = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__["useSelect"])(function (select) {
+    return select('core').getMedia(thumbID);
+  });
+  var thumbSizeFull = featuredImageData ? featuredImageData['source_url'] : '';
+  var thumbSizeDetails = featuredImageData ? featuredImageData['media_details']['sizes'][thumbSize] : '';
+  var imageBase = '<img src="' + thumbSizeFull + '" class="img-responsive" />';
+  /*
+  $image = wp_image_add_srcset_and_sizes( $image_base, $image_meta, $image_id );
+  imageBase | featuredImageData | post.featured_media                    
+  */
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    src: thumbSizeDetails['source_url'],
+    alt: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('image alt', 'dwb'),
+    className: "img-responsive"
+  });
+}; // This is the "actual" component,
+// together with the markup and data.
+// You can add withDispatch as another argument to the compose function and return an object of methods to access in Render.
+
+
+var Posts = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__["compose"])(Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__["withSelect"])(function (scopedSelect) {
+  var _scopedSelect = scopedSelect('core'),
+      getEntityRecords = _scopedSelect.getEntityRecords;
+
+  return {
+    posts: getEntityRecords('postType', 'post', {
+      per_page: 3
+    })
+  };
+}))(RenderPosts); // Export this component to use as JSX elsewhere
+// i.e. <Posts />
+
+/* harmony default export */ __webpack_exports__["default"] = (Posts);
+
+/***/ }),
+
 /***/ "./blocks/home-grid/index.js":
 /*!***********************************!*\
   !*** ./blocks/home-grid/index.js ***!
   \***********************************/
-/*! exports provided: default */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -255,73 +342,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Posts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Posts */ "./blocks/home-grid/Posts.js");
 
 
 
 
 
 
- // This is the component markup.
-// The parameters must match what is returned from calls to withSelect and withDispatch in the compose method below.
-
-var RenderPosts = function RenderPosts(_ref) {
-  var posts = _ref.posts;
-  if (null === posts) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Spinner"], null);
-  console.log(posts);
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: "posts-wrapper"
-  }, posts.map(function (post) {
-    var image = postThumbnail('home-grid-large', post.featured_media);
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "flex-item post-ID",
-      key: post.id
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
-      className: "post-thumbnail",
-      href: post.link
-    }, image), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "title"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, post.title.raw)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "excerpt"
-    }, post.excerpt.rendered));
-  }));
-};
-
-var postThumbnail = function postThumbnail(thumbSize, thumbID) {
-  // get featured image data.
-  var featuredImageData = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
-    return select('core').getMedia(thumbID);
-  });
-  var thumbSizeFull = featuredImageData ? featuredImageData['source_url'] : '';
-  var thumbSizeDetails = featuredImageData ? featuredImageData['media_details']['sizes'][thumbSize] : '';
-  var imageBase = '<img src="' + thumbSizeFull + '" class="img-responsive" />';
-  /*
-  $image = wp_image_add_srcset_and_sizes( $image_base, $image_meta, $image_id );
-  imageBase | featuredImageData | post.featured_media                    
-  */
-
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
-    src: thumbSizeDetails['source_url'],
-    alt: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('image alt', 'dwb'),
-    className: "img-responsive"
-  });
-}; // This is the "actual" component,
-// together with the markup and data.
-// You can add withDispatch as another argument to the compose function and return an object of methods to access in Render.
 
 
-var Posts = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__["compose"])(Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withSelect"])(function (scopedSelect) {
-  var _scopedSelect = scopedSelect('core'),
-      getEntityRecords = _scopedSelect.getEntityRecords;
-
-  return {
-    posts: getEntityRecords('postType', 'post', {
-      per_page: 3
-    })
-  };
-}))(RenderPosts); // Export this component to use as JSX elsewhere
-// i.e. <Posts />
-
-/* harmony default export */ __webpack_exports__["default"] = (Posts);
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('dwb/home-grid-block', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Home Grid', 'dwb'),
   icon: 'smiley',
@@ -333,14 +362,16 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('dwb
     _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
 
     var setAttributes = props.setAttributes;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Posts, null);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Posts__WEBPACK_IMPORTED_MODULE_7__["default"], null));
   },
   save: function save(props) {
     var className = props.className;
 
     _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
 
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, "posts");
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: className
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Posts__WEBPACK_IMPORTED_MODULE_7__["default"], null));
   }
 });
 
