@@ -272,17 +272,17 @@ var RenderPosts = function RenderPosts(_ref) {
     className: "posts-wrapper"
   }, posts.map(function (post) {
     var image = postThumbnail('home-grid-large', post.featured_media);
-    var postThumb = '<a class="post-thumbnail" href="' + post.link + '">' + image + '</a>';
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "flex-item post-ID",
       key: post.id
-    }, postThumb, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "post-title"
-    }, post.title.raw), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+      className: "post-thumbnail",
+      href: post.link
+    }, image), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "title"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, post.title.raw)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "excerpt"
-    }, "Exvcerpt"));
+    }, post.excerpt.rendered));
   }));
 };
 
@@ -299,7 +299,11 @@ var postThumbnail = function postThumbnail(thumbSize, thumbID) {
   imageBase | featuredImageData | post.featured_media                    
   */
 
-  return '<img src="' + thumbSizeDetails['source_url'] + '" class="img-responsive" />';
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+    src: thumbSizeDetails['source_url'],
+    alt: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('image alt', 'dwb'),
+    className: "img-responsive"
+  });
 }; // This is the "actual" component,
 // together with the markup and data.
 // You can add withDispatch as another argument to the compose function and return an object of methods to access in Render.
@@ -329,14 +333,14 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('dwb
     _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
 
     var setAttributes = props.setAttributes;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", null, "Posts"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Posts, null));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Posts, null);
   },
   save: function save(props) {
     var className = props.className;
 
     _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
 
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('DigiWatt Plugin – Nothing to see here.', 'dwb'));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, "posts");
   }
 });
 

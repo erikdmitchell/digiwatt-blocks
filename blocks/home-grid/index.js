@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { withSelect, useSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { SelectControl, Spinner } from '@wordpress/components';
+import { Spinner } from '@wordpress/components';
 
 // This is the component markup.
 // The parameters must match what is returned from calls to withSelect and withDispatch in the compose method below.
@@ -13,14 +13,12 @@ const RenderPosts = ( { posts } ) => {
 		<div className="posts-wrapper">
 			{ posts.map( ( post ) => { 
                 const image = postThumbnail('home-grid-large', post.featured_media);
-                const postThumb = '<a class="post-thumbnail" href="'+post.link+'">'+image+'</a>';
 
 				return (
 					<div className="flex-item post-ID" key={ post.id }>
-					    {postThumb}
-						<div className="post-title">{ post.title.raw }</div>
+					    <a className="post-thumbnail" href={post.link}>{image}</a>
                         <div className="title"><h3>{ post.title.raw }</h3></div>
-                        <div className="excerpt">Exvcerpt</div>						
+                        <div className="excerpt">{post.excerpt.rendered}</div>						
 					</div> 					
 				);
 			} ) }
@@ -34,7 +32,6 @@ const postThumbnail = (thumbSize, thumbID) => {
         return select( 'core' ).getMedia( thumbID );
     } );  
 
-    
     const thumbSizeFull = ( featuredImageData ) ? featuredImageData[ 'source_url'] : '';
     const thumbSizeDetails = ( featuredImageData ) ? featuredImageData[ 'media_details' ]['sizes'][thumbSize] : ''; 
     const imageBase = '<img src="'+thumbSizeFull+'" class="img-responsive" />';
@@ -44,11 +41,14 @@ const postThumbnail = (thumbSize, thumbID) => {
     imageBase | featuredImageData | post.featured_media                    
     */
                 
-    return '<img src="'+thumbSizeDetails['source_url']+'" class="img-responsive" />';    
+    return (
+        <img
+			src={ thumbSizeDetails['source_url'] }
+			alt={ __( 'image alt', 'dwb' ) }
+			className='img-responsive'
+		/>
+    );
 }
-
-
-
 
 // This is the "actual" component,
 // together with the markup and data.
@@ -80,10 +80,7 @@ registerBlockType( 'dwb/home-grid-block', {
 		} = props;
 
 		return (
-			<>
-				<h2>Posts</h2>
-				<Posts />
-			</>
+			<Posts />
 		);
 	},
 	save: ( props ) => {
@@ -92,6 +89,8 @@ registerBlockType( 'dwb/home-grid-block', {
 			attributes: {},
 		} = props;
 
-		return <p>{ __( 'DigiWatt Plugin – Nothing to see here.', 'dwb' ) }</p>;
+		return (
+    		<>posts</>
+        );
 	},
 } );
