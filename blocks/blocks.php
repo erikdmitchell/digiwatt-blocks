@@ -39,7 +39,7 @@ function digiwatt_register_block_type($block_slug = '') {
         
     register_block_type( "dwb/dwb-{$block_slug}-block", array(
         'editor_script' => "dwb-{$block_slug}-block-script",
-        'editor_style' => "dwb-{$block_slug}-block-style-editor",
+        'editor_style' => "dwb-{$block_slug}-block-editor",
         'style' => "dwb-{$block_slug}-block-style",
     ) );     
 }
