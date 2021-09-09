@@ -9,7 +9,7 @@ import { Button } from '@wordpress/components';
 
 registerBlockType( 'dwb/about-block', {
 	title: __( 'About', 'dwb' ),
-	icon: 'quote',
+	icon: 'editor-quote',
 	category: 'text',
 	attributes: {
 		text: {
