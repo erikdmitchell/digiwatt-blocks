@@ -1,39 +1,41 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { RichText, MediaUpload, MediaUploadCheck, InspectorControls } from '@wordpress/block-editor';
-import { Button, PanelBody, ResponsiveWrapper } from '@wordpress/components';
+import {
+	RichText,
+	MediaUpload,
+	MediaUploadCheck,
+} from '@wordpress/block-editor';
+import { Button } from '@wordpress/components';
 
 registerBlockType( 'dwb/about-block', {
 	title: __( 'About', 'dwb' ),
 	icon: 'quote',
 	category: 'text',
 	attributes: {
-		title: {
+		text: {
 			type: 'array',
 			source: 'children',
-			selector: 'h1',
+			selector: 'p',
 		},
 		mediaID: {
 			type: 'number',
-			default: 0,
 		},
 		mediaURL: {
 			type: 'string',
-			source: 'attribute',
-			selector: 'img',
-			attribute: 'src',
-			default: '',
+			//source: 'attribute',
+			//selector: 'img',
+			//attribute: 'src',
 		},
 	},
 	edit: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaID, mediaURL, media },
+			attributes: { text, mediaID, mediaURL },
 			setAttributes,
 		} = props;
-		
-		const onChangeTitle = ( value ) => {
-			setAttributes( { title: value } );
+
+		const onChangeText = ( value ) => {
+			setAttributes( { text: value } );
 		};
 
 		const onSelectImage = ( media ) => {
@@ -42,108 +44,116 @@ registerBlockType( 'dwb/about-block', {
 				mediaID: media.id,
 			} );
 		};
-		
-        const removeMedia = () => {
-        	setAttributes({
-        		mediaID: 0,
-        		mediaURL: ''
-        	});
-        }		
+
+		const removeMedia = () => {
+			setAttributes( {
+				mediaID: 0,
+				mediaURL: '',
+			} );
+		};
+
+		const blockStyle = {
+			background:
+				mediaURL != 0
+					? 'url("' + mediaURL + '") no-repeat center center fixed'
+					: 'none',
+		};
 
 		return (
-    		<>
-    		<InspectorControls key="setting">
-				<PanelBody
-					title={__('Select block background image', 'awp')}
-					initialOpen={ true }
-				>
-					<div className="dwb-quote-background-image">					
-                    	<MediaUploadCheck>
-                    	    <MediaUpload
-                        	    onSelect={ onSelectImage }
-                    	        allowedTypes={ ['image'] }
-                    	        value={ mediaID }
-                    	        render={({open}) => (
-                    	            <Button 
-                    	            	className={mediaID == 0 ? 'dwb-quote-background-image__toggle button button-large' : 'dwb-quote-background-image__preview image-button'}
-                    	            	onClick={open}
-                    	            >
-                    	            	{mediaID == 0 && __('Choose an image', 'dwb')}
-                    	            	
-                    	            	{media != undefined && 
-                                            <ResponsiveWrapper
-                                                naturalWidth={ media.media_details.width }
-                                                naturalHeight={ media.media_details.height }
-                                            >
-                                                <img src={media.source_url} />
-                                            </ResponsiveWrapper>
-                                        }
-                    	            </Button>
-                    	        )}
-                    	    />
-                    	</MediaUploadCheck>
+			<>
+				<div className={ className }>
+					<div className="image-wrap" style={ blockStyle }>
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={ onSelectImage }
+								allowedTypes="image"
+								value={ mediaID }
+								render={ ( { open } ) => (
+									<Button
+										className={
+											mediaID
+												? 'image-button'
+												: 'button button-large'
+										}
+										onClick={ open }
+									>
+										{ ! mediaID
+											? __( 'Upload Image', 'dwb' )
+											: '' }
+									</Button>
+								) }
+							/>
+						</MediaUploadCheck>
 
-                        {mediaID != 0 && 
-                        	<MediaUploadCheck>
-                        		<MediaUpload
-                        			title={__('Replace image', 'awp')}
-                        			value={mediaID}
-                        			onSelect={onSelectImage}
-                        			allowedTypes={['image']}
-                        			render={({open}) => (
-                        				<Button onClick={open} isDefault>{__('Replace image', 'dwb')}</Button>
-                        			)}
-                        		/>
-                        	</MediaUploadCheck>
-                        }
-		
-                		{mediaID != 0 && 
-                			<MediaUploadCheck>
-                				<Button onClick={removeMedia} isLink isDestructive>{__('Remove image', 'dwb')}</Button>
-                			</MediaUploadCheck>
-                		}
-		                    	
+						{ mediaID != 0 && (
+							<MediaUploadCheck>
+								<MediaUpload
+									title={ __( 'Replace image', 'awp' ) }
+									value={ mediaID }
+									onSelect={ onSelectImage }
+									allowedTypes={ [ 'image' ] }
+									render={ ( { open } ) => (
+										<Button
+											onClick={ open }
+											isSecondary
+											className="replace-image"
+										>
+											{ __( 'Replace image', 'dwb' ) }
+										</Button>
+									) }
+								/>
+							</MediaUploadCheck>
+						) }
+
+						{ mediaID != 0 && (
+							<MediaUploadCheck>
+								<Button
+									onClick={ removeMedia }
+									isLink
+									isDestructive
+									className="remove-image"
+								>
+									{ __( 'Remove image', 'dwb' ) }
+								</Button>
+							</MediaUploadCheck>
+						) }
 					</div>
-				</PanelBody>
-            </InspectorControls>
-    		
-			<div className={ className }>
-				<div className="tagline-image">
+
+					<div className="about-text-wrap">
+						<div className="text-inner">
+							<RichText
+								tagName="p"
+								placeholder={ __( 'Sample text', 'dwb' ) }
+								value={ text }
+								onChange={ onChangeText }
+							/>
+						</div>
+					</div>
 				</div>
-				<RichText
-					tagName="h1"
-					placeholder={ __(
-						'Tagline',
-						'dwb'
-					) }
-					value={ title }
-					onChange={ onChangeTitle }
-				/>				
-			</div>
 			</>
 		);
 	},
 	save: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaURL },
+			attributes: { text, mediaURL },
 		} = props;
+
+		const blockStyle = {
+			background:
+				mediaURL != 0
+					? 'url("' + mediaURL + '") no-repeat center center fixed'
+					: 'none',
+		};
+
 		return (
 			<div className={ className }>
-                <div class="tagline-wrapper">
-    				{ mediaURL && (
-        				<div class="image-wrapper">
-        					<img
-        						className="tagline-image"
-        						src={ mediaURL }
-        						alt={ __( 'tagline image', 'dwb' ) }
-        					/>
-    					</div>
-    				) }
-    				<div class="title-wrap">
-                        <RichText.Content tagName="h1" value={ title } />				
-                    </div>
-                </div>
+				<div className="image-wrap" style={ blockStyle }></div>
+				<div className="about-text-wrap">
+					<div className="text-inner">
+						<RichText.Content tagName="p" value={ text } />
+					</div>
+				</div>
 			</div>
 		);
 	},

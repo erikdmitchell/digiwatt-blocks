@@ -1,0 +1,17 @@
+/* replace image */
+.wp-block-dwb-about-block .components-button.replace-image {
+    background: rgba(255, 255, 255, 0.85);
+    height: 30px;
+    margin-right: 2rem;
+}
+
+/* remove image */
+.wp-block-dwb-about-block .components-button.remove-image {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: #fff;
+    text-decoration: none;
+}
+
+.wp-block-dwb-about-block .components-button.is-destructive.remove-image:hover {
+    background: rgba(255, 255, 255, 0.85);
+}

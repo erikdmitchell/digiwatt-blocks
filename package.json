@@ -8,7 +8,6 @@
     "build": "wp-scripts build blocks/index.js",
     "format": "wp-scripts format",
     "format:js:src": "wp-scripts format-js",
-    "lint:js": "wp-scripts lint-js",
     "lint:js:src": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
     "start": "wp-scripts start blocks/index.js"
