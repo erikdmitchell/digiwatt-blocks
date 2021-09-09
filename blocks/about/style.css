@@ -3,7 +3,6 @@
 }
 
 .wp-block-dwb-about-block .image-wrap {
-/*     background: url(http://bike.test/wp-content/uploads/stouds-cross-2018-ron-short.jpeg) no-repeat center center fixed; */
     background-size: cover !important;
     width: 100%;
     height: 400px; 

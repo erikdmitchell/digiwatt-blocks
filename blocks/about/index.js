@@ -73,15 +73,7 @@ registerBlockType( 'dwb/about-block', {
                 				>
                 					{ ! mediaID ? (
                 						__( 'Upload Image', 'dwb' )
-                					) : (
-                						<img
-                							src={ mediaURL }
-                							alt={ __(
-                								'quote image',
-                								'dwb'
-                							) }
-                						/>
-                					) }
+                					) : ('') }
                 				</Button>
                 			) }
                 		/>
@@ -95,7 +87,7 @@ registerBlockType( 'dwb/about-block', {
                     			onSelect={onSelectImage}
                     			allowedTypes={['image']}
                     			render={({open}) => (
-                    				<Button onClick={open}>{__('Replace image', 'dwb')}</Button>
+                    				<Button onClick={open} className="replace-image">{__('Replace image', 'dwb')}</Button>
                     			)}
                     		/>
                     	</MediaUploadCheck>
