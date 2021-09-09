@@ -271,30 +271,12 @@ var RenderPosts = function RenderPosts(_ref) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "posts-wrapper"
   }, posts.map(function (post) {
-    var thumbSize = 'home-grid-large';
-    /*
-            $html .= '<a class="post-thumbnail" href="' . get_permalink( $post->ID ) . '">';
-                $html .= $image;
-            $html .= '</a>';  
-    */
-    // get featured image data.
-
-    var featuredImageData = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
-      return select('core').getMedia(post.featured_media);
-    });
-    var thumbSizeFull = featuredImageData ? featuredImageData['source_url'] : '';
-    var thumbSizeDetails = featuredImageData ? featuredImageData['media_details']['sizes'][thumbSize] : '';
-    var imageBase = '<img src="' + thumbSizeFull + '" class="img-responsive" />';
-    /*
-    $image = wp_image_add_srcset_and_sizes( $image_base, $image_meta, $image_id );
-    imageBase | featuredImageData | post.featured_media                    
-    */
-
-    var image = '<img src="' + thumbSizeDetails['source_url'] + '" class="img-responsive" />';
+    var image = postThumbnail('home-grid-large', post.featured_media);
+    var postThumb = '<a class="post-thumbnail" href="' + post.link + '">' + image + '</a>';
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "flex-item post-ID",
       key: post.id
-    }, image, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    }, postThumb, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "post-title"
     }, post.title.raw), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "title"
@@ -302,6 +284,22 @@ var RenderPosts = function RenderPosts(_ref) {
       className: "excerpt"
     }, "Exvcerpt"));
   }));
+};
+
+var postThumbnail = function postThumbnail(thumbSize, thumbID) {
+  // get featured image data.
+  var featuredImageData = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
+    return select('core').getMedia(thumbID);
+  });
+  var thumbSizeFull = featuredImageData ? featuredImageData['source_url'] : '';
+  var thumbSizeDetails = featuredImageData ? featuredImageData['media_details']['sizes'][thumbSize] : '';
+  var imageBase = '<img src="' + thumbSizeFull + '" class="img-responsive" />';
+  /*
+  $image = wp_image_add_srcset_and_sizes( $image_base, $image_meta, $image_id );
+  imageBase | featuredImageData | post.featured_media                    
+  */
+
+  return '<img src="' + thumbSizeDetails['source_url'] + '" class="img-responsive" />';
 }; // This is the "actual" component,
 // together with the markup and data.
 // You can add withDispatch as another argument to the compose function and return an object of methods to access in Render.
