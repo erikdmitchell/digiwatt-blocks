@@ -272,12 +272,17 @@ var RenderPosts = function RenderPosts(_ref) {
     className: "posts-wrapper"
   }, posts.map(function (post) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "flex-item post-ID}",
       key: post.id
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    }, "Thumbnail", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "post-title"
-    }, post.title.raw));
+    }, post.title.raw), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "title"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, post.title.raw)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "excerpt"
+    }, "Exvcerpt"));
   }));
-}; // This is the "actual" component, 
+}; // This is the "actual" component,
 // together with the markup and data.
 // You can add withDispatch as another argument to the compose function and return an object of methods to access in Render.
 
@@ -291,7 +296,7 @@ var Posts = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__["compose"])(O
       per_page: 3
     })
   };
-}))(RenderPosts); // Export this component to use as JSX elsewhere 
+}))(RenderPosts); // Export this component to use as JSX elsewhere
 // i.e. <Posts />
 
 /* harmony default export */ __webpack_exports__["default"] = (Posts);
