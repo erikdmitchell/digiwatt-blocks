@@ -49,7 +49,7 @@ registerBlockType( 'dwb/about-block', {
         }
         
         const blockStyle = {
-		    backgroundImage: mediaURL != 0 ? 'url("' + mediaURL + '")' : 'none'
+		    background: mediaURL != 0 ? 'url("' + mediaURL + '") no-repeat center center fixed' : 'none'
         };
 
 		return (
@@ -133,7 +133,7 @@ registerBlockType( 'dwb/about-block', {
 		} = props;
 		
         const blockStyle = {
-		    backgroundImage: mediaURL != 0 ? 'url("' + mediaURL + '")' : 'none'
+		    background: mediaURL != 0 ? 'url("' + mediaURL + '") no-repeat center center fixed' : 'none'
         };
         
 		return (

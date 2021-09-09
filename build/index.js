@@ -159,7 +159,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
     };
 
     var blockStyle = {
-      backgroundImage: mediaURL != 0 ? 'url("' + mediaURL + '")' : 'none'
+      background: mediaURL != 0 ? 'url("' + mediaURL + '") no-repeat center center fixed' : 'none'
     };
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: className
@@ -212,7 +212,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
         text = _props$attributes2.text,
         mediaURL = _props$attributes2.mediaURL;
     var blockStyle = {
-      backgroundImage: mediaURL != 0 ? 'url("' + mediaURL + '")' : 'none'
+      background: mediaURL != 0 ? 'url("' + mediaURL + '") no-repeat center center fixed' : 'none'
     };
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: className
