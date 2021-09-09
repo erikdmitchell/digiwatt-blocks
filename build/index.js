@@ -112,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb/about-block', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('About', 'dwb'),
-  icon: 'quote',
+  icon: 'editor-quote',
   category: 'text',
   attributes: {
     text: {
@@ -236,10 +236,69 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
 /*!***********************************!*\
   !*** ./blocks/home-grid/index.js ***!
   \***********************************/
-/*! no exports provided */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/blocks/home-grid/index.js: Missing semicolon. (23:49)\n\n\u001b[0m \u001b[90m 21 |\u001b[39m \t\t} \u001b[33m=\u001b[39m props\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 22 |\u001b[39m \t\t\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 23 |\u001b[39m \t\t\u001b[36mconst\u001b[39m getPosts \u001b[33m=\u001b[39m withSelect( select\u001b[33m,\u001b[39m ownProps ) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 24 |\u001b[39m     \t\t\u001b[36mconst\u001b[39m posts \u001b[33m=\u001b[39m select( \u001b[32m'core'\u001b[39m )\u001b[33m.\u001b[39mgetEntityRecords( \u001b[32m'postType'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'post'\u001b[39m\u001b[33m,\u001b[39m { \u001b[32m'per_page'\u001b[39m\u001b[33m:\u001b[39m \u001b[35m2\u001b[39m } )\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 25 |\u001b[39m     \t\t\u001b[36mlet\u001b[39m media \u001b[33m=\u001b[39m {}\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 26 |\u001b[39m     \t\t\u001b[0m\n    at Object._raise (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:807:17)\n    at Object.raiseWithData (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:800:17)\n    at Object.raise (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:761:17)\n    at Object.semicolon (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:3236:10)\n    at Object.parseVarStatement (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:13311:10)\n    at Object.parseStatementContent (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:12893:21)\n    at Object.parseStatement (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:12826:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:13415:25)\n    at Object.parseBlockBody (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:13406:10)\n    at Object.parseBlock (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:13390:10)\n    at Object.parseFunctionBody (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:12275:24)\n    at Object.parseArrowExpression (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:12247:10)\n    at Object.parseParenAndDistinguishExpression (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:11823:12)\n    at Object.parseExprAtom (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:11451:23)\n    at Object.parseExprAtom (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:7169:20)\n    at Object.parseExprSubscripts (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:11119:23)\n    at Object.parseUpdate (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:11099:21)\n    at Object.parseMaybeUnary (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:11077:23)\n    at Object.parseMaybeUnaryOrPrivate (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:10900:77)\n    at Object.parseExprOps (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:10907:23)\n    at Object.parseMaybeConditional (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:10877:23)\n    at Object.parseMaybeAssign (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:10835:21)\n    at /Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:10797:39\n    at Object.allowInAnd (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:12625:12)\n    at Object.parseMaybeAssignAllowIn (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:10797:17)\n    at Object.parseObjectProperty (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:12145:101)\n    at Object.parseObjPropValue (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:12170:100)\n    at Object.parsePropertyDefinition (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:12094:10)\n    at Object.parseObjectLike (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:11983:25)\n    at Object.parseExprAtom (/Users/erikmitchell/vagrant-local/www/embike/public_html/wp-content/plugins/digiwatt-blocks/node_modules/@babel/parser/lib/index.js:11473:23)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/objectDestructuringEmpty */ "./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js");
+/* harmony import */ var _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+var PostList = function PostList(props) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null) // Post Info will be displayed here
+  ;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withSelect"])(function (select, ownProps) {
+  var _select = select('core '),
+      getEntityRecords = _select.getEntityRecords;
+
+  var postQuery = {
+    per_page: 10,
+    page: 2
+  };
+  return {
+    postList: getEntityRecords('postType', 'post', postQuery)
+  };
+})(PostList));
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('dwb/home-grid-block', {
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Home Grid', 'dwb'),
+  icon: 'smiley',
+  category: 'common',
+  attributes: {},
+  edit: function edit(props) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, "Das posts");
+  },
+  save: function save(props) {
+    var className = props.className;
+
+    _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
+    /*
+    		const blockStyle = {
+    			background:
+    				mediaURL != 0
+    					? 'url("' + mediaURL + '") no-repeat center center fixed'
+    					: 'none',
+    		};
+    */
+
+
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('DigiWatt Plugin – Nothing to see here.', 'dwb'));
+  }
+});
 
 /***/ }),
 
@@ -404,6 +463,22 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _objectDestructuringEmpty(obj) {
+  if (obj == null) throw new TypeError("Cannot destructure undefined");
+}
+
+module.exports = _objectDestructuringEmpty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "@wordpress/block-editor":
 /*!*************************************!*\
   !*** external ["wp","blockEditor"] ***!
@@ -434,6 +509,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["components"]; }());
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["data"]; }());
 
 /***/ }),
 
