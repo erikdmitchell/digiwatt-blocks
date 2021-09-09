@@ -1,0 +1,28 @@
+.wp-block-dwb-tagline-block {
+    margin-bottom: 3rem;
+    color: #fff;
+    text-align: center;
+    max-width: 100%;
+    width: 100%;       
+}
+
+.wp-block-dwb-tagline-block .tagline-wrapper {
+    padding: 1.5rem;
+}
+
+.wp-block-dwb-tagline-block .image-wrapper {
+    margin-bottom: 1rem;
+}
+
+.wp-block-dwb-tagline-block .image-wrapper img {
+    width: 150px;
+}
+
+.wp-block-dwb-tagline-block h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: 0em;
+    text-transform: uppercase; 
+}

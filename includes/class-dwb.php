@@ -68,9 +68,10 @@ final class DWB {
      * @return void
      */
     private function define_constants() {
-        $this->define( 'DWB_ABSPATH', dirname( DWB_PLUGIN_FILE ) . '/' );
+        $this->define( 'DWB_ABSPATH', dirname( DWB_PLUGIN_FILE ) . '/' );        
         $this->define( 'DWB_VERSION', $this->version );
         $this->define( 'DWB_PATH', plugin_dir_path( __FILE__ ) );
+        $this->define( 'DWB_ABSURL', plugin_dir_url( DWB_PLUGIN_FILE ) );
         $this->define( 'DWB_URL', plugin_dir_url( __FILE__ ) );
         $this->define( 'DWB_ASSETS_URL', plugin_dir_url( __DIR__ ) . 'assets/' );
     }
@@ -96,7 +97,8 @@ final class DWB {
      * @return void
      */
     public function includes() {
-        include_once( DWB_ABSPATH . 'includes/functions.php' );
+        // blocks.
+        include_once( DWB_ABSPATH . 'blocks/blocks.php' );
     }
 
     /**
