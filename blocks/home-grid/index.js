@@ -6,34 +6,104 @@ import {
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
+import { select, withSelect } from '@wordpress/data';
 
 registerBlockType( 'dwb/home-grid-block', {
 	title: __( 'Home Grid', 'dwb' ),
-	icon: 'quote',
-	category: 'text',
-	attributes: {
-		text: {
-			type: 'array',
-			source: 'children',
-			selector: 'p',
-		},
-		mediaID: {
-			type: 'number',
-		},
-		mediaURL: {
-			type: 'string',
-			//source: 'attribute',
-			//selector: 'img',
-			//attribute: 'src',
-		},
-	},
+	icon: 'smiley',
+	category: 'common',
+	attributes: {},
 	edit: ( props ) => {
 		const {
 			className,
-			attributes: { text, mediaID, mediaURL },
+			attributes: {},
 			setAttributes,
 		} = props;
+		
+		const getPosts = withSelect( select, ownProps ) => {
+    		const posts = select( 'core' ).getEntityRecords( 'postType', 'post', { 'per_page': 2 } );
+    		let media = {};
+    		
+    		posts.forEach( post => {
+    			media[ post.id ] = select('core').getMedia( post.featured_media );
+    		});
+    		
+    		return {
+    			posts,
+    			media
+    		};
+		};
+/*
+    
+   import { withSelect } from '@wordpress/data';
+ 
+function PriceDisplay( { price, currency } ) {
+    return new Intl.NumberFormat( 'en-US', {
+        style: 'currency',
+        currency,
+    } ).format( price );
+}
+ 
+const HammerPriceDisplay = withSelect( ( select, ownProps ) => {
+    const { getPrice } = select( 'my-shop' );
+    const { currency } = ownProps;
+ 
+    return {
+        price: getPrice( 'hammer', currency ),
+    };
+} )( PriceDisplay ); 
 
+
+// Rendered in the application:
+//
+//  <HammerPriceDisplay currency="USD" />
+*/
+
+/*
+
+	 props => {
+
+		const { media, posts } = props;
+
+		if ( ! posts || ! media ) {
+			return (
+				<p>{ __( 'Loading...', 'wholesomecode' ) }</p>
+			);
+		}
+
+		return (
+			<ul>
+			{ posts.map(
+				( post ) => {
+					if ( media[ post.id ] ) {
+						const imageThumbnailSrc = media[ post.id ].media_details.sizes.thumbnail.source_url;
+					return (
+						<li>
+							<img src={ imageThumbnailSrc } />
+							<a href={ post.link }>
+								{ post.title.raw }
+							</a>
+						</li>
+					)
+					}
+				}
+			) }
+			</ul>
+		);
+*/
+	} ),
+
+	save() {
+		return (
+			<p>
+				{ __( 'Wholesome Plugin – Nothing to see here.', 'wholesomecode' ) }
+			</p>
+		);
+	},
+
+		
+
+/*
 		const onChangeText = ( value ) => {
 			setAttributes( { text: value } );
 		};
@@ -58,103 +128,53 @@ registerBlockType( 'dwb/home-grid-block', {
 					? 'url("' + mediaURL + '") no-repeat center center fixed'
 					: 'none',
 		};
+*/
 
 		return (
-			<>
-				<div className={ className }>
-					<div className="image-wrap" style={ blockStyle }>
-						<MediaUploadCheck>
-							<MediaUpload
-								onSelect={ onSelectImage }
-								allowedTypes="image"
-								value={ mediaID }
-								render={ ( { open } ) => (
-									<Button
-										className={
-											mediaID
-												? 'image-button'
-												: 'button button-large'
-										}
-										onClick={ open }
-									>
-										{ ! mediaID
-											? __( 'Upload Image', 'dwb' )
-											: '' }
-									</Button>
-								) }
-							/>
-						</MediaUploadCheck>
-
-						{ mediaID != 0 && (
-							<MediaUploadCheck>
-								<MediaUpload
-									title={ __( 'Replace image', 'awp' ) }
-									value={ mediaID }
-									onSelect={ onSelectImage }
-									allowedTypes={ [ 'image' ] }
-									render={ ( { open } ) => (
-										<Button
-											onClick={ open }
-											isSecondary
-											className="replace-image"
-										>
-											{ __( 'Replace image', 'dwb' ) }
-										</Button>
-									) }
-								/>
-							</MediaUploadCheck>
-						) }
-
-						{ mediaID != 0 && (
-							<MediaUploadCheck>
-								<Button
-									onClick={ removeMedia }
-									isLink
-									isDestructive
-									className="remove-image"
-								>
-									{ __( 'Remove image', 'dwb' ) }
-								</Button>
-							</MediaUploadCheck>
-						) }
-					</div>
-
-					<div className="about-text-wrap">
-						<div className="text-inner">
-							<RichText
-								tagName="p"
-								placeholder={ __( 'Sample text', 'dwb' ) }
-								value={ text }
-								onChange={ onChangeText }
-							/>
-						</div>
-					</div>
-				</div>
-			</>
+            <div className="emdotbike-home-grid grid-wrapper">
+            
+                if has posts
+                    <div className="flex-grid front-page-grid">
+                        <div className="flex-col"> 
+                            while : post   
+                            
+                            col check based on post num
+                       
+                                <div className="flex-item post-POSTID">
+                                    thumbnail
+                                    <div className="title"><h3>title</h3></div>
+                                    <div className="excerpt">excerpt</div>
+                                </div>          
+                            endwhile
+                        </div>
+                    </div>
+                    if more posts
+                        <div className="more-articles"><a href="#">More Articles</a></div>        
+                    endif
+                endif
+            
+            </div>
 		);
 	},
 	save: ( props ) => {
 		const {
 			className,
-			attributes: { text, mediaURL },
+			attributes: {},
 		} = props;
 
+/*
 		const blockStyle = {
 			background:
 				mediaURL != 0
 					? 'url("' + mediaURL + '") no-repeat center center fixed'
 					: 'none',
 		};
+*/
 
 		return (
-			<div className={ className }>
-				<div className="image-wrap" style={ blockStyle }></div>
-				<div className="about-text-wrap">
-					<div className="text-inner">
-						<RichText.Content tagName="p" value={ text } />
-					</div>
-				</div>
-			</div>
+			<p>
+				{ __( 'DigiWatt Plugin – Nothing to see here.', 'dwb' ) }
+			</p>
 		);
 	},
 } );
