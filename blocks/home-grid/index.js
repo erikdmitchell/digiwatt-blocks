@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { withSelect } from '@wordpress/data';
+import { withSelect, useSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { SelectControl, Spinner } from '@wordpress/components';
 
@@ -11,10 +11,35 @@ const RenderPosts = ( { posts } ) => {
 	console.log( posts );
 	return (
 		<div className="posts-wrapper">
-			{ posts.map( ( post ) => {
+			{ posts.map( ( post ) => { 
+    			const thumbSize = 'home-grid-large';
+    			
+/*
+        $html .= '<a class="post-thumbnail" href="' . get_permalink( $post->ID ) . '">';
+            $html .= $image;
+        $html .= '</a>';  
+*/			
+    			
+                // get featured image data.
+                const featuredImageData = useSelect( ( select ) => {
+                    return select( 'core' ).getMedia( post.featured_media );
+                } );  
+
+                
+                const thumbSizeFull = ( featuredImageData ) ? featuredImageData[ 'source_url'] : '';
+                const thumbSizeDetails = ( featuredImageData ) ? featuredImageData[ 'media_details' ]['sizes'][thumbSize] : ''; 
+                const imageBase = '<img src="'+thumbSizeFull+'" class="img-responsive" />';
+                
+                /*
+                $image = wp_image_add_srcset_and_sizes( $image_base, $image_meta, $image_id );
+                imageBase | featuredImageData | post.featured_media                    
+                */
+                
+                const image = '<img src="'+thumbSizeDetails['source_url']+'" class="img-responsive" />';
+
 				return (
-					<div className="flex-item post-ID}" key={ post.id }>
-					    Thumbnail
+					<div className="flex-item post-ID" key={ post.id }>
+					    {image}
 						<div className="post-title">{ post.title.raw }</div>
                         <div className="title"><h3>{ post.title.raw }</h3></div>
                         <div className="excerpt">Exvcerpt</div>						
@@ -24,6 +49,9 @@ const RenderPosts = ( { posts } ) => {
 		</div>
 	);
 };
+
+
+
 
 // This is the "actual" component,
 // together with the markup and data.
