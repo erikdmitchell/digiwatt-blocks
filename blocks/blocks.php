@@ -14,7 +14,7 @@ function digiwatts_register_blocks() {
 	    
     // automatically load dependencies and version
     $asset_file = include( DWB_ABSPATH . 'build/index.asset.php');
-    $blocks = array('tagline', 'about');
+    $blocks = array('tagline', 'about', 'home-grid');
     
     // register blocks.
     foreach ($blocks as $block) {
