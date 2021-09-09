@@ -87,7 +87,7 @@ registerBlockType( 'dwb/about-block', {
                     			onSelect={onSelectImage}
                     			allowedTypes={['image']}
                     			render={({open}) => (
-                    				<Button onClick={open} className="replace-image">{__('Replace image', 'dwb')}</Button>
+                    				<Button onClick={open} isSecondary className="replace-image">{__('Replace image', 'dwb')}</Button>
                     			)}
                     		/>
                     	</MediaUploadCheck>
@@ -95,10 +95,10 @@ registerBlockType( 'dwb/about-block', {
 	
             		{mediaID != 0 && 
             			<MediaUploadCheck>
-            				<Button onClick={removeMedia} isLink isDestructive>{__('Remove image', 'dwb')}</Button>
+            				<Button onClick={removeMedia} isLink isDestructive className="remove-image">{__('Remove image', 'dwb')}</Button>
             			</MediaUploadCheck>
             		}
-
+            		
                 </div>
             	
     			<div className='about-text-wrap'>
