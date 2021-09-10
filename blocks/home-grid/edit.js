@@ -37,7 +37,7 @@ import { store as coreStore } from '@wordpress/core-data';
  *
  */
 const POSTSTOSHOW = 3; // postsToShow
-const EXCERPT_LENGTH = 35; // excerptLength
+const EXCERPT_LENGTH = 5; // excerptLength
 
 export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
@@ -151,63 +151,35 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
     const getPostExcerpt = (post) => {
 		let excerpt = post.excerpt.rendered;
 
-		const excerptElement = document.createElement( 'div' );
-		excerptElement.innerHTML = excerpt;
-
-		excerpt =
-			excerptElement.textContent ||
-			excerptElement.innerText ||
-			'';
-			
 		const needsReadMore =
 			EXCERPT_LENGTH < excerpt.trim().split( ' ' ).length &&
 			post.excerpt.raw === '';
 
 		const postExcerpt = needsReadMore ? (
-			<>
+                excerpt
+					.trim()
+					.split( ' ', EXCERPT_LENGTH )
+					.join( ' ' )
+// 			<>
+/*
 				{ excerpt
 					.trim()
 					.split( ' ', EXCERPT_LENGTH )
 					.join( ' ' ) }
-				{ /* translators: excerpt truncation character, default …  */ }
-				{ __( ' … ' ) }
+*/
+/*
 				<a href={ post.link } rel="noopener noreferrer">
 					{ __( 'Read more' ) }
 				</a>
-			</>
+*/
+// 			</>
 		) : (
 			excerpt
 		);
-					
-        //return postExcerpt;
-        
-        return post.content.raw.trim();
-    }
-/*
-function emdotbike_get_post_excerpt_by_id( $post, $length = 10, $tags = '<a><em><strong>', $extra = ' . . .' ) {
-    if ( is_int( $post ) ) {
-        // get the post object of the passed ID.
-        $post = get_post( $post );
-    } elseif ( ! is_object( $post ) ) {
-        return false;
-    }
 
-    if ( has_excerpt( $post->ID ) ) {
-        $the_excerpt = $post->post_excerpt;
-        return apply_filters( 'the_content', $the_excerpt );
-    } else {
-        $the_excerpt = $post->post_content;
+        return postExcerpt;
     }
-
-    $the_excerpt = strip_shortcodes( strip_tags( $the_excerpt ) );
-    $the_excerpt = preg_split( '/\b/', $the_excerpt, $length * 2 + 1 );
-    $excerpt_waste = array_pop( $the_excerpt );
-    $the_excerpt = implode( $the_excerpt );
-    $the_excerpt .= $extra;
-
-    return apply_filters( 'emdotbike_get_post_excerpt_by_id', $the_excerpt );
-}    
-*/     
+    
 	return (
 		<div className="posts-wrapper">
 			
@@ -275,7 +247,9 @@ function emdotbike_get_post_excerpt_by_id( $post, $length = 10, $tags = '<a><em>
 							} }
 						/>
 					);
-
+					
+					//const excerpt = getPostExcerpt(post);
+//console.log(excerpt);
 					return (
 						<div className="flex-item post-ID" key={ i }>
                             <div className={ imageClasses }>
