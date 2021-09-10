@@ -14,7 +14,7 @@ function digiwatts_register_blocks() {
 	    
     // automatically load dependencies and version
     $asset_file = include( DWB_ABSPATH . 'build/index.asset.php');
-    $blocks = array('tagline', 'about', 'home-grid');
+    $blocks = array('tagline', 'about');
     
     // register blocks.
     foreach ($blocks as $block) {
@@ -23,6 +23,34 @@ function digiwatts_register_blocks() {
         digitwatt_register_block_style($block, 'style', $asset_file);
         digitwatt_register_block_style($block, 'editor', $asset_file);        
     }
+    
+$block_slug = 'home-grid';
+register_block_type(
+    'dwb/'.$block_slug,
+    array(
+        'attributes' => array(
+            'align' => array(
+                'type' => 'string',
+                'enum' => array( 'left', 'center', 'right', 'wide', 'full' ),
+            ),
+            'day' => array(
+                'type' => 'integer',
+            ),
+            'month' => array(
+                'type' => 'integer',
+            ),
+            'year' => array(
+                'type' => 'integer',
+            ),
+        ),
+        'render_callback' => 'render_block_digiwatt_home_grid',
+        'editor_script' => "dwb-{$block_slug}-block-script",
+        'editor_style' => "dwb-{$block_slug}-block-editor",
+        'style' => "dwb-{$block_slug}-block-style",
+ 
+    )
+);
+    
 }
 add_action( 'init', 'digiwatts_register_blocks' );
 
@@ -36,12 +64,12 @@ add_action( 'init', 'digiwatts_register_blocks' );
 function digiwatt_register_block_type($block_slug = '') {
     if (empty($block_slug))
         return;
-        
+            
     register_block_type( "dwb/dwb-{$block_slug}-block", array(
         'editor_script' => "dwb-{$block_slug}-block-script",
         'editor_style' => "dwb-{$block_slug}-block-editor",
         'style' => "dwb-{$block_slug}-block-style",
-    ) );     
+    ) );    
 }
 
 /**
@@ -83,4 +111,31 @@ function digitwatt_register_block_style($block_slug = '', $filename = 'style', $
         array(),
         filemtime( DWB_ABSPATH . "blocks/{$block_slug}/{$filename}.css" )
     );    
+}
+
+
+
+function render_block_digiwatt_home_grid( $attributes ) {
+//echo 'render_block_digiwatt_home_grid<br />';
+//print_r($attributes);
+/*
+	$type       = isset( $attributes['type'] ) ? $attributes['type'] : null;
+	$is_archive = is_archive();
+	if ( ! $type || ( 'archive' === $type && ! $is_archive ) ) {
+		return '';
+	}
+	$title = '';
+	if ( $is_archive ) {
+		$title = get_the_archive_title();
+	}
+	$tag_name           = isset( $attributes['level'] ) ? 'h' . (int) $attributes['level'] : 'h1';
+	$align_class_name   = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
+	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
+	return sprintf(
+		'<%1$s %2$s>%3$s</%1$s>',
+		$tag_name,
+		$wrapper_attributes,
+		$title
+	);
+*/
 }
