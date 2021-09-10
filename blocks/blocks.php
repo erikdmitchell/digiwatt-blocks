@@ -29,18 +29,13 @@ register_block_type(
     'dwb/'.$block_slug,
     array(
         'attributes' => array(
-            'align' => array(
-                'type' => 'string',
-                'enum' => array( 'left', 'center', 'right', 'wide', 'full' ),
+            'postsToShow' => array(
+    			'type' => 'number',
+                'default' => 3,
             ),
-            'day' => array(
-                'type' => 'integer',
-            ),
-            'month' => array(
-                'type' => 'integer',
-            ),
-            'year' => array(
-                'type' => 'integer',
+            'postsToShow' => array(
+    			'type' => 'number',
+                'default' => 35,
             ),
         ),
         'render_callback' => 'render_block_digiwatt_home_grid',
