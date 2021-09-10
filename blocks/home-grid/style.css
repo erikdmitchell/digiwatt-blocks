@@ -1,0 +1,64 @@
+/*
+img {
+  max-width: 100%;
+}
+
+h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+p {
+  line-height: 1.45em;
+  font-size: 1.25rem;
+  font-family: 'Open Sans', sans-serif; 
+}
+
+footer {
+  text-align: center;
+  color: #AFAFAF;
+  font-size: 0.85rem;
+  font-family: 'Open Sans', sans-serif; 
+}
+
+footer a {
+  color: #999999;
+  transition: color 0.5s ease;
+}
+
+footer a:hover {
+  color: #333333;
+}
+*/
+/***************/
+
+.wp-block-columns {
+  display: flex;
+  margin: 20px 0;
+}
+
+.wp-block-column {
+  flex: 1;
+  margin: 0 20px;
+}
+
+@media (max-width: 764px) {
+  .wp-block-columns.has-3-columns {
+    flex-flow: row wrap;
+  }
+
+  .has-3-columns .wp-block-column:first-child {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 478px) {
+  .wp-block-columns.has-3-columns {
+    display: block;
+  }
+
+  .wp-block-column {
+    margin: 20px 0;
+  }
+}

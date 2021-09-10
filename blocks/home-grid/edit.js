@@ -158,7 +158,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 									href={ post.link }
 									rel="noreferrer noopener"
 								>
-									Read more
+									read more...
 								</a>
 								</>
 		) : (
@@ -170,7 +170,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
     
 	return (
 		<div className="posts-wrapper">
-			
+            <div className="front-page-grid">
 				{ displayPosts.map( ( post, i ) => {
 					const titleTrimmed = invoke( post, [
 						'title',
@@ -197,9 +197,9 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 							} }
 						/>
 					);
-
+					
 					return (
-						<div className="flex-item post-ID" key={ i }>
+						<div className="front-page-post" key={ i }>
                             <div className={ imageClasses }>
 								<a
 									href={ post.link }
@@ -218,8 +218,8 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
                             </div>
                         </div>
 					);
-				} ) }		
-			
+				} ) }
+			</div>
 		</div>
 	);
 }
