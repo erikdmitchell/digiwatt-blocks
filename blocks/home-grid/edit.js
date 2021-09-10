@@ -37,7 +37,7 @@ import { store as coreStore } from '@wordpress/core-data';
  *
  */
 const POSTSTOSHOW = 3; // postsToShow
-const EXCERPT_LENGTH = 5; // excerptLength
+const EXCERPT_LENGTH = 35; // excerptLength
 
 export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
@@ -151,28 +151,33 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
     const getPostExcerpt = (post) => {
 		let excerpt = post.excerpt.rendered;
 
+					const excerptElement = document.createElement( 'div' );
+					excerptElement.innerHTML = excerpt;
+
+					excerpt =
+						excerptElement.textContent ||
+						excerptElement.innerText ||
+						'';
+
 		const needsReadMore =
 			EXCERPT_LENGTH < excerpt.trim().split( ' ' ).length &&
 			post.excerpt.raw === '';
 
 		const postExcerpt = needsReadMore ? (
-                excerpt
+                <>
+                {excerpt
 					.trim()
 					.split( ' ', EXCERPT_LENGTH )
-					.join( ' ' )
-// 			<>
-/*
-				{ excerpt
-					.trim()
-					.split( ' ', EXCERPT_LENGTH )
-					.join( ' ' ) }
-*/
-/*
-				<a href={ post.link } rel="noopener noreferrer">
-					{ __( 'Read more' ) }
-				</a>
-*/
-// 			</>
+					.join( ' ' )}
+					
+
+								<a
+									href={ post.link }
+									rel="noreferrer noopener"
+								>
+									Read more
+								</a>
+								</>
 		) : (
 			excerpt
 		);
@@ -189,38 +194,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 						'rendered',
 						'trim',
 					] );
-// -> excerpt					
-/*
-					let excerpt = post.excerpt.rendered;
 
-					const excerptElement = document.createElement( 'div' );
-					excerptElement.innerHTML = excerpt;
-
-					excerpt =
-						excerptElement.textContent ||
-						excerptElement.innerText ||
-						'';
-						
-					const needsReadMore =
-						EXCERPT_LENGTH < excerpt.trim().split( ' ' ).length &&
-						post.excerpt.raw === '';
-
-					const postExcerpt = needsReadMore ? (
-						<>
-							{ excerpt
-								.trim()
-								.split( ' ', EXCERPT_LENGTH )
-								.join( ' ' ) }
-							{ __( ' … ' ) }
-							<a href={ post.link } rel="noopener noreferrer">
-								{ __( 'Read more' ) }
-							</a>
-						</>
-					) : (
-						excerpt
-					);
-*/						
-// <- excerpt
 					const {
 						featuredImageInfo: {
 							url: imageSourceUrl,
@@ -229,14 +203,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 					} = post;
 					
 					const imageClasses = 'img-responsive';
-					
-/*
-					const imageClasses = classnames( {
-						'wp-block-latest-posts__featured-image': true,
-						[ `align${ featuredImageAlign }` ]: !! featuredImageAlign,
-					} );
-*/					
-						
+									
 					const featuredImage = (
 						<img
 							src={ imageSourceUrl }
@@ -247,9 +214,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 							} }
 						/>
 					);
-					
-					//const excerpt = getPostExcerpt(post);
-//console.log(excerpt);
+
 					return (
 						<div className="flex-item post-ID" key={ i }>
                             <div className={ imageClasses }>
@@ -266,9 +231,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
                             </h3></div>
 
                             <div className="excerpt">
-								<RawHTML key="html">
-									{getPostExcerpt(post)}
-								</RawHTML>
+								{getPostExcerpt(post)}
                             </div>
                         </div>
 					);
