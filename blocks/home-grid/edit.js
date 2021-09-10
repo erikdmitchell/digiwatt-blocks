@@ -10,44 +10,41 @@ import { get, includes, invoke, isUndefined, pickBy } from 'lodash';
 import { RawHTML } from '@wordpress/element';
 import {
 // 	Placeholder,
-	QueryControls,
-	RadioControl,
-	RangeControl,
+// 	QueryControls,
+// 	RadioControl,
+// 	RangeControl,
 	Spinner,
-	ToggleControl,
-	ToolbarGroup,
+// 	ToggleControl,
+// 	ToolbarGroup,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { dateI18n, format, __experimentalGetSettings } from '@wordpress/date';
 import {
 // 	InspectorControls,
-	BlockAlignmentToolbar,
-	BlockControls,
+// 	BlockAlignmentToolbar,
+// 	BlockControls,
 	__experimentalImageSizeControl as ImageSizeControl,
-	useBlockProps,
+// 	useBlockProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 //import { pin, list, grid } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 
-/**
- * Module Constants
- */
-const MIN_EXCERPT_LENGTH = 10;
-const MAX_EXCERPT_LENGTH = 100;
-
-export default function LatestPostsEdit( { attributes, setAttributes } ) {
+export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
 		postsToShow,
-		displayFeaturedImage,
-		displayPostContent,
+// 		displayFeaturedImage,
+// 		displayPostContent,
 		excerptLength,
 		featuredImageSizeSlug,
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
-		addLinkToFeaturedImage,
+// 		addLinkToFeaturedImage,
 	} = attributes;
+	
+	setAttributes({postsToShow: 3});
+	
 	const {
 		imageSizeOptions,
 		latestPosts,
@@ -60,6 +57,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 			);
 			const { getSettings } = select( blockEditorStore );
 			const { imageSizes, imageDimensions } = getSettings();
+			
 			const latestPostsQuery = pickBy(
 				{
 					per_page: postsToShow,
@@ -111,7 +109,6 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 							}
 							const featuredImageInfo = {
 								url,
-								// eslint-disable-next-line camelcase
 								alt: image?.alt_text,
 							};
 							return { ...post, featuredImageInfo };
@@ -145,8 +142,8 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 			: latestPosts;
 
 	return (
-		<div>
-			<ul>
+		<div className="posts-wrapper">
+			
 				{ displayPosts.map( ( post, i ) => {
 					const titleTrimmed = invoke( post, [
 						'title',
@@ -169,10 +166,17 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 							alt: featuredImageAlt,
 						} = {},
 					} = post;
-					const imageClasses = '';
-					const renderFeaturedImage =
-						displayFeaturedImage && imageSourceUrl;
-					const featuredImage = renderFeaturedImage && (
+					
+					const imageClasses = 'img-responsive';
+					
+/*
+					const imageClasses = classnames( {
+						'wp-block-latest-posts__featured-image': true,
+						[ `align${ featuredImageAlign }` ]: !! featuredImageAlign,
+					} );
+*/					
+						
+					const featuredImage = (
 						<img
 							src={ imageSourceUrl }
 							alt={ featuredImageAlt }
@@ -204,46 +208,29 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					);
 
 					return (
-						<li key={ i }>
-							{ renderFeaturedImage && (
-								<div className={ imageClasses }>
-									{ addLinkToFeaturedImage ? (
-										<a
-											href={ post.link }
-											rel="noreferrer noopener"
-										>
-											{ featuredImage }
-										</a>
-									) : (
-										featuredImage
-									) }
-								</div>
-							) }
-							<a href={ post.link } rel="noreferrer noopener">
-								{ titleTrimmed ? (
-									<RawHTML>{ titleTrimmed }</RawHTML>
-								) : (
-									__( '(no title)' )
-								) }
-							</a>
-							{ displayPostContent &&
-								displayPostContentRadio === 'excerpt' && (
-									<div className="wp-block-latest-posts__post-excerpt">
-										{ postExcerpt }
-									</div>
-								) }
-							{ displayPostContent &&
-								displayPostContentRadio === 'full_post' && (
-									<div className="wp-block-latest-posts__post-full-content">
-										<RawHTML key="html">
-											{ post.content.raw.trim() }
-										</RawHTML>
-									</div>
-								) }
-						</li>
+						<div className="flex-item post-ID" key={ i }>
+                            <div className={ imageClasses }>
+								<a
+									href={ post.link }
+									rel="noreferrer noopener"
+								>
+									{ featuredImage }
+								</a>
+							</div>
+
+                            <div className="title"><h3>
+								<RawHTML>{ titleTrimmed }</RawHTML>
+                            </h3></div>
+
+                            <div className="excerpt">
+								<RawHTML key="html">
+									{ post.content.raw.trim() }
+								</RawHTML>
+                            </div>
+                        </div>
 					);
-				} ) }
-			</ul>
+				} ) }		
+			
 		</div>
 	);
 }

@@ -241,7 +241,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LatestPostsEdit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HomeGridEdit; });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
@@ -284,23 +284,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  //import { pin, list, grid } from '@wordpress/icons';
 
 
-/**
- * Module Constants
- */
-
-var MIN_EXCERPT_LENGTH = 10;
-var MAX_EXCERPT_LENGTH = 100;
-function LatestPostsEdit(_ref) {
+function HomeGridEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
   var postsToShow = attributes.postsToShow,
-      displayFeaturedImage = attributes.displayFeaturedImage,
-      displayPostContent = attributes.displayPostContent,
       excerptLength = attributes.excerptLength,
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
-      featuredImageSizeHeight = attributes.featuredImageSizeHeight,
-      addLinkToFeaturedImage = attributes.addLinkToFeaturedImage;
+      featuredImageSizeHeight = attributes.featuredImageSizeHeight;
+  setAttributes({
+    postsToShow: 3
+  });
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
     var _select = select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_8__["store"]),
@@ -345,7 +339,6 @@ function LatestPostsEdit(_ref) {
 
         var featuredImageInfo = {
           url: url,
-          // eslint-disable-next-line camelcase
           alt: image === null || image === void 0 ? void 0 : image.alt_text
         };
         return _objectSpread(_objectSpread({}, post), {}, {
@@ -367,7 +360,9 @@ function LatestPostsEdit(_ref) {
 
 
   var displayPosts = latestPosts.length > postsToShow ? latestPosts.slice(0, postsToShow) : latestPosts;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", null, displayPosts.map(function (post, i) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "posts-wrapper"
+  }, displayPosts.map(function (post, i) {
     var titleTrimmed = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["invoke"])(post, ['title', 'rendered', 'trim']);
     var excerpt = post.excerpt.rendered;
     var excerptElement = document.createElement('div');
@@ -377,9 +372,15 @@ function LatestPostsEdit(_ref) {
     _post$featuredImageIn = _post$featuredImageIn === void 0 ? {} : _post$featuredImageIn;
     var imageSourceUrl = _post$featuredImageIn.url,
         featuredImageAlt = _post$featuredImageIn.alt;
-    var imageClasses = '';
-    var renderFeaturedImage = displayFeaturedImage && imageSourceUrl;
-    var featuredImage = renderFeaturedImage && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+    var imageClasses = 'img-responsive';
+    /*
+    					const imageClasses = classnames( {
+    						'wp-block-latest-posts__featured-image': true,
+    						[ `align${ featuredImageAlign }` ]: !! featuredImageAlign,
+    					} );
+    */
+
+    var featuredImage = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
       src: imageSourceUrl,
       alt: featuredImageAlt,
       style: {
@@ -392,24 +393,22 @@ function LatestPostsEdit(_ref) {
       href: post.link,
       rel: "noopener noreferrer"
     }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Read more'))) : excerpt;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("li", {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "flex-item post-ID",
       key: i
-    }, renderFeaturedImage && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: imageClasses
-    }, addLinkToFeaturedImage ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
       href: post.link,
       rel: "noreferrer noopener"
-    }, featuredImage) : featuredImage), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
-      href: post.link,
-      rel: "noreferrer noopener"
-    }, titleTrimmed ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["RawHTML"], null, titleTrimmed) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('(no title)')), displayPostContent && displayPostContentRadio === 'excerpt' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "wp-block-latest-posts__post-excerpt"
-    }, postExcerpt), displayPostContent && displayPostContentRadio === 'full_post' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "wp-block-latest-posts__post-full-content"
+    }, featuredImage)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "title"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["RawHTML"], null, titleTrimmed))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "excerpt"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["RawHTML"], {
       key: "html"
     }, post.content.raw.trim())));
-  })));
+  }));
 }
 
 /***/ }),
@@ -437,7 +436,7 @@ import { Spinner } from '@wordpress/components';
 */
 
 
-var name = "dwb/home-grid";
+var name = 'dwb/home-grid';
 /*
 registerBlockType(name, {
     title: "Home Grid",
@@ -450,7 +449,7 @@ registerBlockType(name, {
 */
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])(name, {
-  title: "Home Grid",
+  title: 'Home Grid',
   icon: 'smiley',
   category: 'common',
   attributes: {},

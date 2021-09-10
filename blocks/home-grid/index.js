@@ -8,7 +8,7 @@ import { Spinner } from '@wordpress/components';
 
 import edit from './edit';
 
-const name = "dwb/home-grid";
+const name = 'dwb/home-grid';
 /*
 registerBlockType(name, {
     title: "Home Grid",
@@ -19,10 +19,10 @@ registerBlockType(name, {
     save
 });
 */
-registerBlockType(name, {
-    title: "Home Grid",
+registerBlockType( name, {
+	title: 'Home Grid',
 	icon: 'smiley',
-	category: 'common',  
-    attributes: {},
-    edit,
-});
+	category: 'common',
+	attributes: {},
+	edit,
+} );
