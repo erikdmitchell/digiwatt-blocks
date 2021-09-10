@@ -284,17 +284,22 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  //import { pin, list, grid } from '@wordpress/icons';
 
 
+/**
+ * Module Constants
+ * note - these were attributes, but we currently don't use any settings
+ *
+ */
+
+var POSTSTOSHOW = 3; // postsToShow
+
+var EXCERPT_LENGTH = 35; // excerptLength
+
 function HomeGridEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
-  var postsToShow = attributes.postsToShow,
-      excerptLength = attributes.excerptLength,
-      featuredImageSizeSlug = attributes.featuredImageSizeSlug,
+  var featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight;
-  setAttributes({
-    postsToShow: 3
-  });
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
     var _select = select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_8__["store"]),
@@ -309,7 +314,7 @@ function HomeGridEdit(_ref) {
         imageDimensions = _getSettings.imageDimensions;
 
     var latestPostsQuery = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["pickBy"])({
-      per_page: postsToShow
+      per_page: POSTSTOSHOW
     }, function (value) {
       return !Object(lodash__WEBPACK_IMPORTED_MODULE_2__["isUndefined"])(value);
     });
@@ -346,7 +351,7 @@ function HomeGridEdit(_ref) {
         });
       })
     };
-  }, [featuredImageSizeSlug, postsToShow]),
+  }, [featuredImageSizeSlug, POSTSTOSHOW]),
       imageSizeOptions = _useSelect.imageSizeOptions,
       latestPosts = _useSelect.latestPosts,
       defaultImageWidth = _useSelect.defaultImageWidth,
@@ -359,7 +364,7 @@ function HomeGridEdit(_ref) {
   } // Removing posts from display should be instant.
 
 
-  var displayPosts = latestPosts.length > postsToShow ? latestPosts.slice(0, postsToShow) : latestPosts;
+  var displayPosts = latestPosts.length > POSTSTOSHOW ? latestPosts.slice(0, POSTSTOSHOW) : latestPosts;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "posts-wrapper"
   }, displayPosts.map(function (post, i) {
@@ -388,8 +393,8 @@ function HomeGridEdit(_ref) {
         maxHeight: featuredImageSizeHeight
       }
     });
-    var needsReadMore = excerptLength < excerpt.trim().split(' ').length && post.excerpt.raw === '';
-    var postExcerpt = needsReadMore ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, excerpt.trim().split(' ', excerptLength).join(' '), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])(' … '), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+    var needsReadMore = EXCERPT_LENGTH < excerpt.trim().split(' ').length && post.excerpt.raw === '';
+    var postExcerpt = needsReadMore ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, excerpt.trim().split(' ', EXCERPT_LENGTH).join(' '), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])(' … '), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
       href: post.link,
       rel: "noopener noreferrer"
     }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Read more'))) : excerpt;

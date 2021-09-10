@@ -31,19 +31,25 @@ import { useSelect } from '@wordpress/data';
 //import { pin, list, grid } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 
+/**
+ * Module Constants
+ * note - these were attributes, but we currently don't use any settings
+ *
+ */
+const POSTSTOSHOW = 3; // postsToShow
+const EXCERPT_LENGTH = 35; // excerptLength
+
 export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
-		postsToShow,
+// 		postsToShow,
 // 		displayFeaturedImage,
 // 		displayPostContent,
-		excerptLength,
+// 		excerptLength,
 		featuredImageSizeSlug,
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
 // 		addLinkToFeaturedImage,
 	} = attributes;
-	
-	setAttributes({postsToShow: 3});
 	
 	const {
 		imageSizeOptions,
@@ -60,7 +66,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 			
 			const latestPostsQuery = pickBy(
 				{
-					per_page: postsToShow,
+					per_page: POSTSTOSHOW,
 				},
 				( value ) => ! isUndefined( value )
 			);
@@ -117,7 +123,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		},
 		[
 			featuredImageSizeSlug,
-			postsToShow,
+			POSTSTOSHOW,
 		]
 	);
 
@@ -137,8 +143,8 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 
 	// Removing posts from display should be instant.
 	const displayPosts =
-		latestPosts.length > postsToShow
-			? latestPosts.slice( 0, postsToShow )
+		latestPosts.length > POSTSTOSHOW
+			? latestPosts.slice( 0, POSTSTOSHOW )
 			: latestPosts;
 
 	return (
@@ -188,14 +194,14 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 					);
 
 					const needsReadMore =
-						excerptLength < excerpt.trim().split( ' ' ).length &&
+						EXCERPT_LENGTH < excerpt.trim().split( ' ' ).length &&
 						post.excerpt.raw === '';
 
 					const postExcerpt = needsReadMore ? (
 						<>
 							{ excerpt
 								.trim()
-								.split( ' ', excerptLength )
+								.split( ' ', EXCERPT_LENGTH )
 								.join( ' ' ) }
 							{ /* translators: excerpt truncation character, default …  */ }
 							{ __( ' … ' ) }
