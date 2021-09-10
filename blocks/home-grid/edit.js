@@ -2,33 +2,21 @@
  * External dependencies
  */
 import { get, includes, invoke, isUndefined, pickBy } from 'lodash';
-//import classnames from 'classnames';
 
 /**
  * WordPress dependencies
  */
 import { RawHTML } from '@wordpress/element';
 import {
-// 	Placeholder,
-// 	QueryControls,
-// 	RadioControl,
-// 	RangeControl,
 	Spinner,
-// 	ToggleControl,
-// 	ToolbarGroup,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { dateI18n, format, __experimentalGetSettings } from '@wordpress/date';
 import {
-// 	InspectorControls,
-// 	BlockAlignmentToolbar,
-// 	BlockControls,
 	__experimentalImageSizeControl as ImageSizeControl,
-// 	useBlockProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-//import { pin, list, grid } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 
 /**
@@ -41,14 +29,9 @@ const EXCERPT_LENGTH = 35; // excerptLength
 
 export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
-// 		postsToShow,
-// 		displayFeaturedImage,
-// 		displayPostContent,
-// 		excerptLength,
 		featuredImageSizeSlug,
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
-// 		addLinkToFeaturedImage,
 	} = attributes;
 	
 	const {

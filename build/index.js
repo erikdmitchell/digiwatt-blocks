@@ -270,7 +270,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 /**
  * External dependencies
  */
- //import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -281,7 +280,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
- //import { pin, list, grid } from '@wordpress/icons';
 
 
 /**
@@ -364,27 +362,30 @@ function HomeGridEdit(_ref) {
   } // Removing posts from display should be instant.
 
 
-  var displayPosts = latestPosts.length > POSTSTOSHOW ? latestPosts.slice(0, POSTSTOSHOW) : latestPosts;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: "posts-wrapper"
-  }, displayPosts.map(function (post, i) {
-    var titleTrimmed = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["invoke"])(post, ['title', 'rendered', 'trim']);
+  var displayPosts = latestPosts.length > POSTSTOSHOW ? latestPosts.slice(0, POSTSTOSHOW) : latestPosts; // setup our excerpt.
+
+  var getPostExcerpt = function getPostExcerpt(post) {
     var excerpt = post.excerpt.rendered;
     var excerptElement = document.createElement('div');
     excerptElement.innerHTML = excerpt;
     excerpt = excerptElement.textContent || excerptElement.innerText || '';
+    var needsReadMore = EXCERPT_LENGTH < excerpt.trim().split(' ').length && post.excerpt.raw === '';
+    var postExcerpt = needsReadMore ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, excerpt.trim().split(' ', EXCERPT_LENGTH).join(' '), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+      href: post.link,
+      rel: "noreferrer noopener"
+    }, "Read more")) : excerpt;
+    return postExcerpt;
+  };
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "posts-wrapper"
+  }, displayPosts.map(function (post, i) {
+    var titleTrimmed = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["invoke"])(post, ['title', 'rendered', 'trim']);
     var _post$featuredImageIn = post.featuredImageInfo;
     _post$featuredImageIn = _post$featuredImageIn === void 0 ? {} : _post$featuredImageIn;
     var imageSourceUrl = _post$featuredImageIn.url,
         featuredImageAlt = _post$featuredImageIn.alt;
     var imageClasses = 'img-responsive';
-    /*
-    					const imageClasses = classnames( {
-    						'wp-block-latest-posts__featured-image': true,
-    						[ `align${ featuredImageAlign }` ]: !! featuredImageAlign,
-    					} );
-    */
-
     var featuredImage = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
       src: imageSourceUrl,
       alt: featuredImageAlt,
@@ -393,11 +394,6 @@ function HomeGridEdit(_ref) {
         maxHeight: featuredImageSizeHeight
       }
     });
-    var needsReadMore = EXCERPT_LENGTH < excerpt.trim().split(' ').length && post.excerpt.raw === '';
-    var postExcerpt = needsReadMore ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, excerpt.trim().split(' ', EXCERPT_LENGTH).join(' '), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])(' … '), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
-      href: post.link,
-      rel: "noopener noreferrer"
-    }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Read more'))) : excerpt;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "flex-item post-ID",
       key: i
@@ -410,9 +406,7 @@ function HomeGridEdit(_ref) {
       className: "title"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["RawHTML"], null, titleTrimmed))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "excerpt"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["RawHTML"], {
-      key: "html"
-    }, post.content.raw.trim())));
+    }, getPostExcerpt(post)));
   }));
 }
 
