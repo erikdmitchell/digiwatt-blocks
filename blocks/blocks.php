@@ -202,7 +202,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
 
 		$title = get_the_title( $post );
 		if ( ! $title ) {
-			$title = __( '(no title)' );
+			$title = __( '(No Title)' );
 		}
 		
 		$posts_markup .= sprintf(
@@ -210,7 +210,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
 			$title
 		);
 
-        $posts_markup .= '<a class="read-more" href="'.$post_link.'">read more</a>';
+        $posts_markup .= '<a class="read-more" href="'.$post_link.'">Read More</a>';
 
 		$posts_markup .= "</div>\n";
 	}
