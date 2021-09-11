@@ -292,6 +292,8 @@ var POSTSTOSHOW = 3; // postsToShow
 
 var EXCERPT_LENGTH = 35; // excerptLength
 
+var COLUMNS = 2; // columns
+
 function HomeGridEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
@@ -377,10 +379,13 @@ function HomeGridEdit(_ref) {
     return postExcerpt;
   };
 
+  var blockClasses = function blockClasses() {
+    var classes = ['columns-' + COLUMNS, 'wp-block-dwb-home-grid-block'];
+    return classes.join(' ');
+  };
+
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: "posts-wrapper"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: "front-page-grid"
+    className: blockClasses()
   }, displayPosts.map(function (post, i) {
     var titleTrimmed = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["invoke"])(post, ['title', 'rendered', 'trim']);
     var _post$featuredImageIn = post.featuredImageInfo;
@@ -397,7 +402,7 @@ function HomeGridEdit(_ref) {
       }
     });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "front-page-post",
+      className: "home-grid-post",
       key: i
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: imageClasses
@@ -409,7 +414,7 @@ function HomeGridEdit(_ref) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["RawHTML"], null, titleTrimmed))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "excerpt"
     }, getPostExcerpt(post)));
-  })));
+  }));
 }
 
 /***/ }),

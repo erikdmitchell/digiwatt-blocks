@@ -7,9 +7,7 @@ import { get, includes, invoke, isUndefined, pickBy } from 'lodash';
  * WordPress dependencies
  */
 import { RawHTML } from '@wordpress/element';
-import {
-	Spinner,
-} from '@wordpress/components';
+import { Spinner } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { dateI18n, format, __experimentalGetSettings } from '@wordpress/date';
 import {
@@ -26,6 +24,7 @@ import { store as coreStore } from '@wordpress/core-data';
  */
 const POSTSTOSHOW = 3; // postsToShow
 const EXCERPT_LENGTH = 35; // excerptLength
+const COLUMNS = 2; // columns
 
 export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
@@ -33,7 +32,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
 	} = attributes;
-	
+
 	const {
 		imageSizeOptions,
 		latestPosts,
@@ -41,12 +40,10 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		defaultImageHeight,
 	} = useSelect(
 		( select ) => {
-			const { getEntityRecords, getMedia } = select(
-				coreStore
-			);
+			const { getEntityRecords, getMedia } = select( coreStore );
 			const { getSettings } = select( blockEditorStore );
 			const { imageSizes, imageDimensions } = getSettings();
-			
+
 			const latestPostsQuery = pickBy(
 				{
 					per_page: POSTSTOSHOW,
@@ -104,10 +101,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 					  } ),
 			};
 		},
-		[
-			featuredImageSizeSlug,
-			POSTSTOSHOW,
-		]
+		[ featuredImageSizeSlug, POSTSTOSHOW ]
 	);
 
 	const hasPosts = !! latestPosts?.length;
@@ -130,96 +124,92 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 			? latestPosts.slice( 0, POSTSTOSHOW )
 			: latestPosts;
 
-    // setup our excerpt.
-    const getPostExcerpt = (post) => {
+	// setup our excerpt.
+	const getPostExcerpt = ( post ) => {
 		let excerpt = post.excerpt.rendered;
 
-					const excerptElement = document.createElement( 'div' );
-					excerptElement.innerHTML = excerpt;
+		const excerptElement = document.createElement( 'div' );
+		excerptElement.innerHTML = excerpt;
 
-					excerpt =
-						excerptElement.textContent ||
-						excerptElement.innerText ||
-						'';
+		excerpt = excerptElement.textContent || excerptElement.innerText || '';
 
 		const needsReadMore =
 			EXCERPT_LENGTH < excerpt.trim().split( ' ' ).length &&
 			post.excerpt.raw === '';
 
 		const postExcerpt = needsReadMore ? (
-                <>
-                {excerpt
-					.trim()
-					.split( ' ', EXCERPT_LENGTH )
-					.join( ' ' )}
-					
+			<>
+				{ excerpt.trim().split( ' ', EXCERPT_LENGTH ).join( ' ' ) }
 
-								<a
-									href={ post.link }
-									rel="noreferrer noopener"
-								>
-									read more...
-								</a>
-								</>
+				<a href={ post.link } rel="noreferrer noopener">
+					read more...
+				</a>
+			</>
 		) : (
 			excerpt
 		);
 
-        return postExcerpt;
-    }
-    
+		return postExcerpt;
+	};
+
+	const blockClasses = () => {
+		const classes = [
+			'columns-' + COLUMNS,
+			'wp-block-dwb-home-grid-block',
+		];
+
+		return classes.join( ' ' );
+	};
+
 	return (
-		<div className="posts-wrapper">
-            <div className="front-page-grid">
-				{ displayPosts.map( ( post, i ) => {
-					const titleTrimmed = invoke( post, [
-						'title',
-						'rendered',
-						'trim',
-					] );
+		<div className={ blockClasses() }>
+			{ displayPosts.map( ( post, i ) => {
+				const titleTrimmed = invoke( post, [
+					'title',
+					'rendered',
+					'trim',
+				] );
 
-					const {
-						featuredImageInfo: {
-							url: imageSourceUrl,
-							alt: featuredImageAlt,
-						} = {},
-					} = post;
-					
-					const imageClasses = 'img-responsive';
-									
-					const featuredImage = (
-						<img
-							src={ imageSourceUrl }
-							alt={ featuredImageAlt }
-							style={ {
-								maxWidth: featuredImageSizeWidth,
-								maxHeight: featuredImageSizeHeight,
-							} }
-						/>
-					);
-					
-					return (
-						<div className="front-page-post" key={ i }>
-                            <div className={ imageClasses }>
-								<a
-									href={ post.link }
-									rel="noreferrer noopener"
-								>
-									{ featuredImage }
-								</a>
-							</div>
+				const {
+					featuredImageInfo: {
+						url: imageSourceUrl,
+						alt: featuredImageAlt,
+					} = {},
+				} = post;
 
-                            <div className="title"><h3>
+				const imageClasses = 'img-responsive';
+
+				const featuredImage = (
+					<img
+						src={ imageSourceUrl }
+						alt={ featuredImageAlt }
+						style={ {
+							maxWidth: featuredImageSizeWidth,
+							maxHeight: featuredImageSizeHeight,
+						} }
+					/>
+				);
+
+				return (
+					<div className="home-grid-post" key={ i }>
+						<div className={ imageClasses }>
+							<a href={ post.link } rel="noreferrer noopener">
+								{ featuredImage }
+							</a>
+						</div>
+
+						<div className="title">
+							<h3>
 								<RawHTML>{ titleTrimmed }</RawHTML>
-                            </h3></div>
+							</h3>
+						</div>
 
-                            <div className="excerpt">
-								{getPostExcerpt(post)}
-                            </div>
-                        </div>
-					);
-				} ) }
-			</div>
+						<div className="excerpt">
+							{ getPostExcerpt( post ) }
+						</div>
+					</div>
+				);
+			} ) }
 		</div>
 	);
 }
