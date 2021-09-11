@@ -202,7 +202,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
 
 		$title = get_the_title( $post );
 		if ( ! $title ) {
-			$title = __( '(No Title)' );
+			$title = __( '(no title)' );
 		}
 		
 		$posts_markup .= sprintf(
@@ -210,7 +210,34 @@ function render_block_digiwatt_home_grid( $attributes ) {
 			$title
 		);
 
-        $posts_markup .= '<a class="read-more" href="'.$post_link.'">Read More</a>';
+        // begin excerpt
+        $extra = ' <a href="'.get_permalink( $post ).'" rel="noreferrer noopener">read more...</a>';
+        
+        if ( post_password_required( $post ) ) {
+            $trimmed_excerpt = __( 'This content is password protected.' );
+        }
+        
+        if ( has_excerpt( $post->ID ) ) {
+            $the_excerpt = $post->post_excerpt;
+            return apply_filters( 'the_content', $the_excerpt );
+        } else {
+            $the_excerpt = $post->post_content;
+        }
+			
+        $the_excerpt = strip_shortcodes( strip_tags( $the_excerpt ) );
+        $the_excerpt = preg_split( '/\b/', $the_excerpt, $excerpt_length * 2 + 1 );
+        $excerpt_waste = array_pop( $the_excerpt );
+        $the_excerpt = implode( $the_excerpt );
+        $the_excerpt .= $extra;
+        
+        // fix
+        $trimmed_excerpt = $the_excerpt;
+        
+		$posts_markup .= sprintf(
+			'<div class="excerpt">%1$s</div>',
+			$trimmed_excerpt
+		);
+		// end excertp
 
 		$posts_markup .= "</div>\n";
 	}
