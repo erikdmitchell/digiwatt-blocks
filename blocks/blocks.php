@@ -191,11 +191,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
 				)
 			);
 
-			$featured_image = sprintf(
-				'<a href="%1$s">%2$s</a>',
-				$post_link,
-				$featured_image
-			);
+            $featured_image = emdotbike_theme_get_post_thumbnail_custom( $post, 'home-grid-large' );
 
 			$posts_markup .= sprintf(
 				'<div class="%1$s">%2$s</div>',
@@ -245,6 +241,9 @@ function render_block_digiwatt_home_grid( $attributes ) {
 
 		$posts_markup .= "</div>\n";
 	}
+
+
+// <!--             <div class="more-articles"><a href="'.get_permalink( get_option( 'page_for_posts' ) ).'">More Articles</a></div>         -->
 
 	$class = 'wp-block-dwb-home-grid-block';
 
