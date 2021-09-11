@@ -124,11 +124,14 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
       type: 'number'
     },
     mediaURL: {
-      type: 'string' //source: 'attribute',
-      //selector: 'img',
-      //attribute: 'src',
-
+      type: 'string'
+    },
+    align: {
+      type: 'string'
     }
+  },
+  supports: {
+    align: ['wide', 'full']
   },
   edit: function edit(props) {
     var className = props.className,
@@ -508,7 +511,13 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
     bg_color: {
       type: 'string',
       default: '#8ed2fc'
+    },
+    align: {
+      type: 'string'
     }
+  },
+  supports: {
+    align: ['wide', 'full']
   },
   edit: function edit(props) {
     var className = props.className,

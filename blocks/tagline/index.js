@@ -31,6 +31,12 @@ registerBlockType( 'dwb/tagline-block', {
 			type: 'string',
 			default: '#8ed2fc',
 		},
+		align: {
+    		type: 'string',
+		}
+	},
+	supports: {
+		align: ['wide', 'full']
 	},
 	edit: ( props ) => {
 		const {
@@ -65,7 +71,7 @@ registerBlockType( 'dwb/tagline-block', {
 							<ColorPalette // Element Tag for Gutenberg standard colour selector
 								onChange={ onChangeBGColor }
 							/>
-						</fieldset>
+						</fieldset>						
 					</div>
 				</InspectorControls>
 
