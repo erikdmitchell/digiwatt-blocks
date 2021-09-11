@@ -5,7 +5,7 @@ const name = 'dwb/home-grid';
 
 registerBlockType( name, {
 	title: 'Home Grid',
-	icon: 'smiley',
+	icon: 'editor-table',
 	category: 'common',
 	attributes: {},
 	edit,

@@ -436,7 +436,7 @@ __webpack_require__.r(__webpack_exports__);
 var name = 'dwb/home-grid';
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name, {
   title: 'Home Grid',
-  icon: 'smiley',
+  icon: 'editor-table',
   category: 'common',
   attributes: {},
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -488,7 +488,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb/tagline-block', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Tagline', 'dwb'),
-  icon: 'dashicons-format-quote',
+  icon: 'format-status',
   category: 'text',
   attributes: {
     title: {

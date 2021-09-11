@@ -10,7 +10,7 @@ import { Button } from '@wordpress/components';
 
 registerBlockType( 'dwb/tagline-block', {
 	title: __( 'Tagline', 'dwb' ),
-	icon: 'dashicons-format-quote',
+	icon: 'format-status',
 	category: 'text',
 	attributes: {
 		title: {
