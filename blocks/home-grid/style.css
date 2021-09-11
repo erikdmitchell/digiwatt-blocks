@@ -6,13 +6,17 @@
 
 .home-grid-post {
     flex: 1;
-    margin: 0 20px;
+    margin-right: 20px;
 }
 
 .home-grid-post:first-child {
     flex-basis: 100%;
     max-width: 100%;
     margin: 0 0 2rem 0;
+}
+
+.home-grid-post:nth-child(odd) {
+    margin-right: 0;
 }
 
 .img-responsive {

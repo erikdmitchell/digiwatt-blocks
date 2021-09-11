@@ -51,7 +51,7 @@ function digiwatts_register_blocks() {
                 ), 
         		'featuredImageSizeSlug' => array(
         			'type' => 'string',
-        			'default' => 'full',
+        			'default' => 'home-grid',
         		),
         		'featuredImageSizeWidth' => array(
         			'type' => 'number',
@@ -68,6 +68,8 @@ function digiwatts_register_blocks() {
             'style' => "dwb-{$block_slug}-block-style",
         )
     );
+    
+    add_image_size( 'home-grid', 99999, 450, true );
 
     $filename = 'style';
     wp_register_style(
@@ -249,7 +251,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
 
 	return sprintf(
-		'<ul %1$s>%2$s</ul>',
+		'<div %1$s>%2$s</div>',
 		$wrapper_attributes,
 		$posts_markup
 	);
