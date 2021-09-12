@@ -17,21 +17,6 @@
     margin: 0 auto;
 }
 
-.wp-block-dwb-home-grid-block .read-more {
-    background-color: #eee;
-    text-transform: lowercase;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    padding: 7px 15px;
-    border-radius: 13px;
-    border: none;   
-    position: absolute;  
-    bottom: 0;
-    right: 0;
-}
-
 .wp-block-dwb-home-grid-block .more-articles {
     width: 100%;
     text-align: center;
@@ -45,6 +30,6 @@
     font-size: 1rem;
     letter-spacing: 1px;
     padding: 7px 15px;
-    border-radius: 13px;
+    border-radius: 5px;
     border: none;     
 }
