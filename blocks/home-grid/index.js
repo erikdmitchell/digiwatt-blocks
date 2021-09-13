@@ -1,39 +1,12 @@
-import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { withSelect, useSelect } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
-import { Spinner } from '@wordpress/components';
+import edit from './edit';
 
-import Posts from './Posts';
+const name = 'dwb/home-grid';
 
-registerBlockType( 'dwb/home-grid-block', {
-	title: __( 'Home Grid', 'dwb' ),
-	icon: 'smiley',
+registerBlockType( name, {
+	title: 'Home Grid',
+	icon: 'editor-table',
 	category: 'common',
 	attributes: {},
-	edit: ( props ) => {
-		const {
-			className,
-			attributes: {},
-			setAttributes,
-		} = props;
-
-		return (
-    		<div>
-			<Posts />
-			</div>
-		);
-	},
-	save: ( props ) => {
-		const {
-			className,
-			attributes: {},
-		} = props;
-
-		return (
-    		<div className={className}>
-        		<Posts />
-            </div>
-        );
-	},
+	edit,
 } );

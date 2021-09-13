@@ -22,10 +22,13 @@ registerBlockType( 'dwb/about-block', {
 		},
 		mediaURL: {
 			type: 'string',
-			//source: 'attribute',
-			//selector: 'img',
-			//attribute: 'src',
 		},
+		align: {
+    		type: 'string',
+		}
+	},
+	supports: {
+		align: ['wide', 'full']		
 	},
 	edit: ( props ) => {
 		const {
