@@ -10,7 +10,7 @@ import { Button } from '@wordpress/components';
 
 registerBlockType( 'dwb/tagline-block', {
 	title: __( 'Tagline', 'dwb' ),
-	icon: 'dashicons-format-quote',
+	icon: 'format-status',
 	category: 'text',
 	attributes: {
 		title: {
@@ -31,6 +31,12 @@ registerBlockType( 'dwb/tagline-block', {
 			type: 'string',
 			default: '#8ed2fc',
 		},
+		align: {
+    		type: 'string',
+		}
+	},
+	supports: {
+		align: ['wide', 'full']
 	},
 	edit: ( props ) => {
 		const {
@@ -65,7 +71,7 @@ registerBlockType( 'dwb/tagline-block', {
 							<ColorPalette // Element Tag for Gutenberg standard colour selector
 								onChange={ onChangeBGColor }
 							/>
-						</fieldset>
+						</fieldset>						
 					</div>
 				</InspectorControls>
 
@@ -73,7 +79,7 @@ registerBlockType( 'dwb/tagline-block', {
 					className={ className }
 					style={ { backgroundColor: bg_color } }
 				>
-					<div className="tagline-image">
+				    <div className="tagline-wrapper">
 						<MediaUpload
 							onSelect={ onSelectImage }
 							allowedTypes="image"
@@ -90,21 +96,26 @@ registerBlockType( 'dwb/tagline-block', {
 									{ ! mediaID ? (
 										__( 'Upload Image', 'dwb' )
 									) : (
-										<img
-											src={ mediaURL }
-											alt={ __( 'tagline-image', 'dwb' ) }
-										/>
+    									<div className="image-wrapper">
+    										<img
+    										    className="tagline-image"
+    											src={ mediaURL }
+    											alt={ __( 'tagline image', 'dwb' ) }
+    										/>
+										</div>
 									) }
 								</Button>
 							) }
 						/>
-					</div>
-					<RichText
-						tagName="h1"
-						placeholder={ __( 'Tagline', 'dwb' ) }
-						value={ title }
-						onChange={ onChangeTitle }
-					/>
+                        <div className="title-wrap">
+        					<RichText
+        						tagName="h1"
+        						placeholder={ __( 'Tagline', 'dwb' ) }
+        						value={ title }
+        						onChange={ onChangeTitle }
+        					/>
+                        </div>
+                    </div>
 				</div>
 			</>
 		);
@@ -119,9 +130,9 @@ registerBlockType( 'dwb/tagline-block', {
 				className={ className }
 				style={ { backgroundColor: bg_color } }
 			>
-				<div class="tagline-wrapper">
+				<div className="tagline-wrapper">
 					{ mediaURL && (
-						<div class="image-wrapper">
+						<div className="image-wrapper">
 							<img
 								className="tagline-image"
 								src={ mediaURL }
@@ -129,7 +140,7 @@ registerBlockType( 'dwb/tagline-block', {
 							/>
 						</div>
 					) }
-					<div class="title-wrap">
+					<div className="title-wrap">
 						<RichText.Content tagName="h1" value={ title } />
 					</div>
 				</div>
