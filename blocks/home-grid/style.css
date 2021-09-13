@@ -9,13 +9,21 @@
 .home-grid-post {
     margin: 0 0 25px;
     position: relative;
-    width: 32%;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .home-grid-post {
+        width: 32%;
+    }
 }
 
 .home-grid-post img {
     display: block;
     margin: 0 auto;
 }
+
+
 
 .wp-block-dwb-home-grid-block .more-articles {
     width: 100%;
