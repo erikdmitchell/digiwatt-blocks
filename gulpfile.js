@@ -30,6 +30,7 @@ var buildInclude = [
 	'!./{vendor,vendor/**/*}',
 	'!svn/**',
 	'!**/*.log',
+	'!build/**',
 ];
 
 var phpSrc = [
@@ -89,8 +90,7 @@ const gulp = require( 'gulp' ),
 	gphpcbf = require( 'gulp-phpcbf' ), // PHP Code Beautifier
 	gutil = require( 'gulp-util' ), // gulp util
 	gzip = require( 'gulp-zip' ), // gulp zip
-	beautify = require( 'gulp-jsbeautifier' ),
-	cssbeautify = require( 'gulp-cssbeautify' );
+	beautify = require( 'gulp-jsbeautifier' );
 
 /**
  * Styles
@@ -178,15 +178,6 @@ function lintcss( done ) {
 	done();
 }
 
-// make pretty
-function beautifycss( done ) {
-	return gulp
-		.src( cssInclude )
-		.pipe( cssbeautify() )
-		.pipe( gulp.dest( './' ) );
-	done();
-}
-
 /**
  * Scripts
  */
@@ -266,7 +257,7 @@ function watchFiles() {
 function zip( done ) {
 	return gulp
 		.src( buildInclude )
-		.pipe( gzip( 'strava-watts.zip' ) )
+		.pipe( gzip( 'digiwatt-blocks.zip' ) )
 		.pipe( gulp.dest( './../' ) );
 	done();
 }
@@ -281,7 +272,6 @@ const watch = gulp.parallel( styles, scripts, watchFiles ); // Watch Task
 exports.sass = sass;
 exports.mincss = mincss;
 exports.lintcss = lintcss;
-exports.beautifycss = beautifycss;
 exports.styles = styles;
 exports.js = js;
 exports.lintjs = lintjs;
