@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"You have Strava watts\" && exit 1",
     "build": "wp-scripts build blocks/index.js",
-    "format": "wp-scripts format",
     "format:js:src": "wp-scripts format-js",
     "lint:js:src": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
