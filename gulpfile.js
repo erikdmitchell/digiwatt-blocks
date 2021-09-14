@@ -16,7 +16,7 @@ var buildInclude = [
 
 	// include specific files and folders
 	//'screenshot.png',
-	'readme.txt',
+	//'readme.txt',
 
 	// exclude files and folders
 	'!./composer.json',
@@ -29,8 +29,7 @@ var buildInclude = [
 	'!./.stylelintrc',
 	'!./{vendor,vendor/**/*}',
 	'!svn/**',
-	'!**/*.log',
-	'!build/**',
+	'!**/*.log'
 ];
 
 var phpSrc = [
@@ -49,6 +48,8 @@ var cssInclude = [
 	'!style.css',
 	'!inc/css/*',
 	'!vendor/**',
+	'!build/**',
+	'!blocks/**',	
 ];
 
 var jsInclude = [
@@ -62,15 +63,15 @@ var jsInclude = [
 	'!**/gulpfile.js',
 	'!inc/js/html5shiv.js',
 	'!inc/js/respond.js',
+    '!build/**',
+	'!blocks/**',
 ];
 
 // Load plugins
 const gulp = require( 'gulp' ),
 	autoprefixer = require( 'gulp-autoprefixer' ), // Autoprefixing magic
 	minifycss = require( 'gulp-uglifycss' ),
-	filter = require( 'gulp-filter' ),
 	uglify = require( 'gulp-uglify' ),
-	newer = require( 'gulp-newer' ),
 	rename = require( 'gulp-rename' ),
 	concat = require( 'gulp-concat' ),
 	notify = require( 'gulp-notify' ),
@@ -81,7 +82,6 @@ const gulp = require( 'gulp' ),
 	} ),
 	ignore = require( 'gulp-ignore' ), // Helps with ignoring files and directories in our run tasks
 	plumber = require( 'gulp-plumber' ), // Helps prevent stream crashing on errors
-	cache = require( 'gulp-cache' ),
 	sourcemaps = require( 'gulp-sourcemaps' ),
 	jshint = require( 'gulp-jshint' ), // JSHint plugin
 	stylish = require( 'jshint-stylish' ), // JSHint Stylish plugin
@@ -89,8 +89,7 @@ const gulp = require( 'gulp' ),
 	gulpphpcs = require( 'gulp-phpcs' ), // Gulp plugin for running PHP Code Sniffer.
 	gphpcbf = require( 'gulp-phpcbf' ), // PHP Code Beautifier
 	gutil = require( 'gulp-util' ), // gulp util
-	gzip = require( 'gulp-zip' ), // gulp zip
-	beautify = require( 'gulp-jsbeautifier' );
+	gzip = require( 'gulp-zip' );
 
 /**
  * Styles
