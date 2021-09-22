@@ -6,7 +6,7 @@
  * @access public
  * @return void
  */
-function digiwatts_register_blocks() {
+function digiwatt_register_blocks() {
     // Fail if block editor is not supported
 	if ( ! function_exists( 'register_block_type' ) ) {
 		return;
@@ -19,9 +19,9 @@ function digiwatts_register_blocks() {
     // register blocks.
     foreach ($blocks as $block) {
         digiwatt_register_block_type($block);
-        digitwatt_register_block_script($block, $asset_file);
-        digitwatt_register_block_style($block, 'style', $asset_file);
-        digitwatt_register_block_style($block, 'editor', $asset_file);        
+        digiwatt_register_block_script($block, $asset_file);
+        digiwatt_register_block_style($block, 'style', $asset_file);
+        digiwatt_register_block_style($block, 'editor', $asset_file);        
     }
     
     $block_slug = 'home-grid';
@@ -69,7 +69,7 @@ function digiwatts_register_blocks() {
         )
     );
     
-    add_image_size( 'home-grid', 99999, 450, true );
+    add_image_size( 'digiwatt-home-grid-large', 650, 375, true );
 
     $filename = 'style';
     wp_register_style(
@@ -87,7 +87,7 @@ function digiwatts_register_blocks() {
         filemtime( DWB_ABSPATH . "blocks/{$block_slug}/{$filename}.css" )
     );
 }
-add_action( 'init', 'digiwatts_register_blocks' );
+add_action( 'init', 'digiwatt_register_blocks' );
 
 /**
  * Register blok type.
@@ -115,7 +115,7 @@ function digiwatt_register_block_type($block_slug = '') {
  * @param array $asset_file (default: array())
  * @return void
  */
-function digitwatt_register_block_script($block_slug = '', $asset_file = array()) {
+function digiwatt_register_block_script($block_slug = '', $asset_file = array()) {
     if (empty($block_slug) || empty($asset_file))
         return;
 
@@ -136,7 +136,7 @@ function digitwatt_register_block_script($block_slug = '', $asset_file = array()
  * @param array $asset_file (default: array())
  * @return void
  */
-function digitwatt_register_block_style($block_slug = '', $filename = 'style', $asset_file = array()) {
+function digiwatt_register_block_style($block_slug = '', $filename = 'style', $asset_file = array()) {
     if (empty($block_slug) || empty($asset_file))
         return;
 
@@ -191,7 +191,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
 				)
 			);
 
-            $featured_image = emdotbike_theme_get_post_thumbnail_custom( $post, 'home-grid-large' );
+            $featured_image = digiwatt_get_post_thumbnail_custom( $post, 'digiwatt-home-grid-large' );
 
 			$posts_markup .= sprintf(
 				'<div class="%1$s">%2$s</div>',
@@ -253,4 +253,50 @@ function render_block_digiwatt_home_grid( $attributes ) {
 		$wrapper_attributes,
 		$posts_markup
 	);
+}
+
+/**
+ * Get custom post thumbnail.
+ *
+ * Used in home grid block.
+ *
+ * @access public
+ * @param string $post (default: '').
+ * @param string $size (default: 'full').
+ * @param bool   $link (default: true).
+ * @return image
+ */
+function digiwatt_get_post_thumbnail_custom( $post = '', $size = 'full', $link = true ) {
+    if ( is_int( $post ) ) {
+        // get the post object of the passed ID.
+        $post = get_post( $post );
+    } elseif ( ! is_object( $post ) ) {
+        return false;
+    }
+
+    $html = null;
+
+    $image_id = get_post_thumbnail_id( $post->ID );
+    $image_src = wp_get_attachment_image_url( $image_id, $size );
+    $image_meta = wp_get_attachment_metadata( $image_id );
+    $image_base = '<img src="' . $image_src . '" class="img-responsive" />';
+    $image = wp_image_add_srcset_and_sizes( $image_base, $image_meta, $image_id );
+
+    if ( post_password_required( $post ) || ! has_post_thumbnail( $post ) ) {
+        return;
+    }
+
+    if ( $link ) :
+        $html .= '<a class="post-thumbnail" href="' . get_permalink( $post->ID ) . '">';
+            $html .= $image;
+        $html .= '</a>';
+    else :
+        $html .= '<div class="post-thumbnail">';
+            $html .= $image;
+        $html .= '</div>';
+    endif;
+
+    $image = apply_filters( 'edigiwatt_post_thumbnail_custom', $html, $size, $image );
+
+    return $image;
 }
