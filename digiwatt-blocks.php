@@ -2,12 +2,12 @@
 /**
  * Plugin Name:     DigiWatt Blocks
  * Plugin URI:
- * Description:     
+ * Description:
  * Author:          Erik Mitchell
  * Author URI:      https://erikmitchell.net
  * Text Domain:     dwb
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.1.1
  *
  * @package         dwb
  */

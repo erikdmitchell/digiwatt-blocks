@@ -21,7 +21,7 @@ final class DWB {
      * @var string
      * @access public
      */
-    public $version = '0.1.0';
+    public $version = '0.1.1';
 
     /**
      * _instance
@@ -68,7 +68,7 @@ final class DWB {
      * @return void
      */
     private function define_constants() {
-        $this->define( 'DWB_ABSPATH', dirname( DWB_PLUGIN_FILE ) . '/' );        
+        $this->define( 'DWB_ABSPATH', dirname( DWB_PLUGIN_FILE ) . '/' );
         $this->define( 'DWB_VERSION', $this->version );
         $this->define( 'DWB_PATH', plugin_dir_path( __FILE__ ) );
         $this->define( 'DWB_ABSURL', plugin_dir_url( DWB_PLUGIN_FILE ) );

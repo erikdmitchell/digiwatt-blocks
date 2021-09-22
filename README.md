@@ -1,6 +1,10 @@
 # DigiWatt Blocks
 
-* Version 0.1.0
+* Version 0.1.1
+fixed thumbnail bug with home grid block
+
+* 0.1.0
+init
 
 ## Blocks
 
