@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name:     DigiWatt Blocks
+ * Plugin Name: DigiWatt Blocks
  * Plugin URI:
- * Description:
- * Author:          Erik Mitchell
- * Author URI:      https://erikmitchell.net
- * Text Domain:     dwb
- * Domain Path:     /languages
- * Version:         0.1.1
+ * Description: A collection of Gutenberg Blocks for more awesomeness.
+ * Author: Erik Mitchell
+ * Author URI: https://erikmitchell.net
+ * Text Domain: dwb
+ * Domain Path: /languages
+ * Version: 0.1.2
  *
- * @package         dwb
+ * @package dwb
  */
 
 // If this file is called directly, abort.
