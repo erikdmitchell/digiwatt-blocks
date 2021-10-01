@@ -51,7 +51,7 @@ function digiwatt_register_blocks() {
                 ),
                 'featuredImageSizeSlug' => array(
                     'type' => 'string',
-                    'default' => 'home-grid',
+                    'default' => 'digiwatt-home-grid',
                 ),
                 'featuredImageSizeWidth' => array(
                     'type' => 'number',
@@ -61,6 +61,14 @@ function digiwatt_register_blocks() {
                     'type' => 'number',
                     'default' => null,
                 ),
+                'featuredImageLargeSizeSlug' => array(
+                    'type' => 'string',
+                    'default' => 'digiwatt-home-grid-large',
+                ), 
+                'featuredPostExcerptLength' => array(
+                    'type' => 'number',
+                    'default' => 95,
+                ),                               
             ),
             'render_callback' => 'render_block_digiwatt_home_grid',
             'editor_script' => "dwb-{$block_slug}-block-script",
@@ -69,7 +77,8 @@ function digiwatt_register_blocks() {
         )
     );
 
-    add_image_size( 'digiwatt-home-grid-large', 650, 375, true );
+    add_image_size( 'digiwatt-home-grid', 650, 300, true );
+    add_image_size( 'digiwatt-home-grid-large', 765, 550, true );    
 
     $filename = 'style';
     wp_register_style(
@@ -154,8 +163,6 @@ function digiwatt_register_block_style( $block_slug = '', $filename = 'style', $
     );
 }
 
-
-
 function render_block_digiwatt_home_grid( $attributes ) {
     global $post;
 
@@ -167,14 +174,18 @@ function render_block_digiwatt_home_grid( $attributes ) {
         'suppress_filters' => false,
     );
 
-    $excerpt_length = $attributes['excerptLength'];
-
     $recent_posts = get_posts( $args );
-
+    $last_post_key = count($recent_posts) - 1;
+    $col_counter = 1;
     $posts_markup = '';
 
-    foreach ( $recent_posts as $post ) {
+    foreach ( $recent_posts as $key => $post ) {
         $post_link = esc_url( get_permalink( $post ) );
+
+        // first post gets its own col, then the second post begins the second col.
+        if (0 == $key || 1 == $key) {
+            $posts_markup  .= '<div class="home-grid-col hgc-'.$col_counter.'">';
+        }
 
         $posts_markup .= '<div class="home-grid-post">';
 
@@ -188,16 +199,23 @@ function render_block_digiwatt_home_grid( $attributes ) {
             }
 
             $image_classes = 'img-responsive';
+            
+            // first post gets larger thumb.
+            if (0 == $key) {
+                $image_size_slug = $attributes['featuredImageLargeSizeSlug'];
+            } else {
+                $image_size_slug = $attributes['featuredImageSizeSlug'];   
+            }
 
             $featured_image = get_the_post_thumbnail(
                 $post,
-                $attributes['featuredImageSizeSlug'],
+                $image_size_slug,
                 array(
                     'style' => $image_style,
                 )
             );
 
-            $featured_image = digiwatt_get_post_thumbnail_custom( $post, 'digiwatt-home-grid-large' );
+            $featured_image = digiwatt_get_post_thumbnail_custom( $post, $image_size_slug );
 
             $posts_markup .= sprintf(
                 '<div class="%1$s">%2$s</div>',
@@ -229,6 +247,13 @@ function render_block_digiwatt_home_grid( $attributes ) {
         } else {
             $the_excerpt = $post->post_content;
         }
+        
+        // first post gets longer excerpt.
+        if (0 == $key) {
+            $excerpt_length = $attributes['featuredPostExcerptLength'];  
+        } else {
+            $excerpt_length = $attributes['excerptLength'];  
+        }
 
         $the_excerpt = strip_shortcodes( strip_tags( $the_excerpt ) );
         $the_excerpt = preg_split( '/\b/', $the_excerpt, $excerpt_length * 2 + 1 );
@@ -245,7 +270,13 @@ function render_block_digiwatt_home_grid( $attributes ) {
         );
         // end excertp
 
-        $posts_markup .= "</div>\n";
+        $posts_markup .= '</div>';
+
+        // first post gets its own col, then the last post closes the second col.
+        if (0 == $key || $last_post_key == $key) {
+            $posts_markup .= '</div>';
+            $col_counter++;
+        }        
     }
 
     $posts_markup .= '<div class="more-articles"><a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">More Articles</a></div>';
