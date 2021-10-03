@@ -279,26 +279,19 @@ function render_block_digiwatt_home_grid( $attributes ) {
         }        
     }
 
-    $posts_markup .= '<div class="more-articles"><a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">More Articles</a></div>';
+    $more_button = '<div class="more-articles"><a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">More Articles</a></div>';
 
-    $class = 'wp-block-dwb-home-grid-block wp-block-columns';
+    $class = 'wp-block-dwb-home-grid-block';
 
     $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
 
     return sprintf(
-        '<div %1$s>%2$s</div>',
+        '<div %1$s><div class="wp-block-columns">%2$s</div>%3$s</div>',
         $wrapper_attributes,
-        $posts_markup
+        $posts_markup,
+        $more_button
     );
 }
-
-
-/*
-<div class="wp-block-columns">
-    <div class="wp-block-column" style="flex-basis:33.34%"></div>
-    <div class="wp-block-column" style="flex-basis:33.33%"></div>
-</div>
-*/
 
 /**
  * Get custom post thumbnail.
