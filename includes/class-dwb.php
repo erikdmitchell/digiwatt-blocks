@@ -21,7 +21,7 @@ final class DWB {
      * @var string
      * @access public
      */
-    public $version = '0.1.2';
+    public $version = '0.1.21';
 
     /**
      * _instance

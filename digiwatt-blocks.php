@@ -7,7 +7,7 @@
  * Author URI: https://erikmitchell.net
  * Text Domain: dwb
  * Domain Path: /languages
- * Version: 0.1.2
+ * Version: 0.1.21
  *
  * @package dwb
  */
