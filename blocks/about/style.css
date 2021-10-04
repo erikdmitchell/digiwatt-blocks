@@ -23,3 +23,9 @@
     font-weight: 400;
     line-height: 1.75rem;
 }
+
+@media (max-width: 768px) {
+    .wp-block-dwb-about-block .about-text-wrap .text-inner {
+        width: 80%;
+    }
+}
