@@ -36,7 +36,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
 	} = attributes;
-
+console.log(postsToShow);
 	const {
 		imageSizeOptions,
 		latestPosts,
