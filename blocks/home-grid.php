@@ -1,85 +1,26 @@
 <?php
-
 /**
- * Register blocks.
+ * The home grid block.
  *
  * @access public
  * @return void
  */
-function digiwatt_register_blocks() {
-    // Fail if block editor is not supported
-    if ( ! function_exists( 'register_block_type' ) ) {
-        return;
-    }
+/*
 
-    // automatically load dependencies and version
-    $asset_file = include( DWB_ABSPATH . 'build/index.asset.php' );
-    $block_slug = 'home-grid';
-
-    register_block_type(
-        'dwb/' . $block_slug,
-        array(
-            'attributes' => array(
-                'postsToShow' => array(
-                    'type' => 'number',
-                    'default' => 3,
-                ),
-                'excerptLength' => array(
-                    'type' => 'number',
-                    'default' => 35,
-                ),
-                'columns' => array(
-                    'type' => 'number',
-                    'default' => 2,
-                ),
-                'order' => array(
-                    'type' => 'string',
-                    'default' => 'desc',
-                ),
-                'orderBy' => array(
-                    'type' => 'string',
-                    'default' => 'date',
-                ),
-                'featuredImageSizeSlug' => array(
-                    'type' => 'string',
-                    'default' => 'digiwatt-home-grid',
-                ),
-                'featuredImageSizeWidth' => array(
-                    'type' => 'number',
-                    'default' => null,
-                ),
-                'featuredImageSizeHeight' => array(
-                    'type' => 'number',
-                    'default' => null,
-                ),
-                'featuredImageLargeSizeSlug' => array(
-                    'type' => 'string',
-                    'default' => 'digiwatt-home-grid-large',
-                ),
-                'featuredPostExcerptLength' => array(
-                    'type' => 'number',
-                    'default' => 95,
-                ),
-            ),
-            'render_callback' => 'render_block_digiwatt_home_grid',
-            'editor_script' => 'dwb-block-script',
-            'editor_style' => "dwb-{$block_slug}-block-editor",
-            'style' => "dwb-{$block_slug}-block-style",
-        )
-    );
-
+/**
+ * Register hime grid block function.
+ * 
+ * @access public
+ * @return void
+ */
+function dwb_register_block_home_grid() {
     add_image_size( 'digiwatt-home-grid', 650, 300, true );
     add_image_size( 'digiwatt-home-grid-large', 765, 550, true );
 
-    wp_register_script(
-        'dwb-block-script',
-        DWB_ABSURL . 'build/index.js',
-        $asset_file['dependencies'],
-        $asset_file['version']
-    );
+    $block_slug = 'home-grid';
 
     $editor_css = 'editor.css';
-    wp_register_style(
+    wp_enqueue_style(
         "dwb-{$block_slug}-block-editor",
         DWB_ABSURL . "blocks/{$block_slug}/{$editor_css}",
         array(),
@@ -87,16 +28,31 @@ function digiwatt_register_blocks() {
     );
 
     $style_css = 'style.css';
-    wp_register_style(
+    wp_enqueue_style(
         "dwb-{$block_slug}-block-style",
         DWB_ABSURL . "blocks/{$block_slug}/{$style_css}",
         array(),
         filemtime( DWB_ABSPATH . "blocks/{$block_slug}/{$style_css}" )
-    );
+    );    
+      
+	register_block_type_from_metadata(
+		DWB_ABSPATH . 'home-grid',
+		array(
+			'render_callback' => 'render_block_digiwatt_home_grid',
+		)
+	);
 }
-add_action( 'init', 'digiwatt_register_blocks' );
+add_action( 'init', 'dwb_register_block_home_grid' );
 
+/**
+ * Displays the home grid block.
+ * 
+ * @access public
+ * @param mixed $attributes
+ * @return void
+ */
 function render_block_digiwatt_home_grid( $attributes ) {
+echo "abc";    
     global $post;
 
     $args = array(

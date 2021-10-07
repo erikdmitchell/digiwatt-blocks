@@ -235,6 +235,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
 
 /***/ }),
 
+/***/ "./blocks/home-grid/block.json":
+/*!*************************************!*\
+  !*** ./blocks/home-grid/block.json ***!
+  \*************************************/
+/*! exports provided: apiVersion, name, title, category, description, textdomain, attributes, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"apiVersion\":2,\"name\":\"dwb/home-grid\",\"title\":\"Home Grid\",\"category\":\"common\",\"description\":\"A grid layout for posts\",\"textdomain\":\"dwb\",\"attributes\":{\"postsToShow\":{\"type\":\"number\",\"default\":3},\"excerptLength\":{\"type\":\"number\",\"default\":35},\"columns\":{\"type\":\"number\",\"default\":2},\"order\":{\"type\":\"string\",\"default\":\"desc\"},\"orderBy\":{\"type\":\"string\",\"default\":\"date\"},\"featuredImageSizeSlug\":{\"type\":\"string\",\"default\":\"digiwatt-home-grid\"},\"featuredImageSizeWidth\":{\"type\":\"number\",\"default\":null},\"featuredImageSizeHeight\":{\"type\":\"number\",\"default\":null},\"featuredImageLargeSizeSlug\":{\"type\":\"string\",\"default\":\"digiwatt-home-grid-large\"},\"featuredPostExcerptLength\":{\"type\":\"number\",\"default\":95}}}");
+
+/***/ }),
+
 /***/ "./blocks/home-grid/constants.js":
 /*!***************************************!*\
   !*** ./blocks/home-grid/constants.js ***!
@@ -318,7 +329,6 @@ function HomeGridEdit(_ref) {
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight;
-  console.log(postsToShow);
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
     var _select = select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_8__["store"]),
@@ -465,14 +475,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./blocks/home-grid/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block.json */ "./blocks/home-grid/block.json");
+var _block_json__WEBPACK_IMPORTED_MODULE_2___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./block.json */ "./blocks/home-grid/block.json", 1);
 
 
-var name = 'dwb/home-grid';
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name, {
-  title: 'Home Grid',
+
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(_block_json__WEBPACK_IMPORTED_MODULE_2__, {
   icon: 'editor-table',
-  category: 'common',
-  attributes: {},
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 

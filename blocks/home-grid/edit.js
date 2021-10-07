@@ -36,7 +36,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
 	} = attributes;
-console.log(postsToShow);
+
 	const {
 		imageSizeOptions,
 		latestPosts,
@@ -128,9 +128,9 @@ console.log(postsToShow);
 							! hasPosts
 								? MAX_POSTS
 								: Math.min(
-										MAX_POSTS,
-										latestPosts.length
-								  )
+								    MAX_POSTS,
+                                    latestPosts.length
+								)
 						}
 						required
 					/>
