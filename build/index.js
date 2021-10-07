@@ -329,7 +329,6 @@ function HomeGridEdit(_ref) {
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight;
-  console.log(postsToShow);
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
     var _select = select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_8__["store"]),
@@ -478,43 +477,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./blocks/home-grid/edit.js");
 /* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block.json */ "./blocks/home-grid/block.json");
 var _block_json__WEBPACK_IMPORTED_MODULE_2___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./block.json */ "./blocks/home-grid/block.json", 1);
-//import { registerBlockType } from '@wordpress/blocks';
-//import edit from './edit';
-
-/*
-const name = 'dwb/home-grid';
-
-registerBlockType( name, {
-	title: 'Home Grid',
-	icon: 'editor-table',
-	category: 'common',
-	attributes: {},
-	edit,
-} );
-*/
-
-/**
- * WordPress dependencies
- */
-//import { postList as icon } from '@wordpress/icons';
-
-/**
- * Internal dependencies
- */
-
-/*
-import edit from './edit';
-import metadata from './block.json';
-
-const { name } = metadata;
-export { metadata, name };
-
-export const settings = {
-	icon: 'editor-table',
-	example: {},
-	edit,
-};
-*/
 
 
 

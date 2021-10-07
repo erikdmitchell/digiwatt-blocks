@@ -1,6 +1,6 @@
 <?php
 /**
- * Register home grid block.
+ * The home grid block.
  *
  * @access public
  * @return void
@@ -8,7 +8,10 @@
 /*
 
 /**
- * Registers the home grid block.
+ * Register hime grid block function.
+ * 
+ * @access public
+ * @return void
  */
 function dwb_register_block_home_grid() {
     add_image_size( 'digiwatt-home-grid', 650, 300, true );
@@ -41,7 +44,15 @@ function dwb_register_block_home_grid() {
 }
 add_action( 'init', 'dwb_register_block_home_grid' );
 
+/**
+ * Displays the home grid block.
+ * 
+ * @access public
+ * @param mixed $attributes
+ * @return void
+ */
 function render_block_digiwatt_home_grid( $attributes ) {
+echo "abc";    
     global $post;
 
     $args = array(
