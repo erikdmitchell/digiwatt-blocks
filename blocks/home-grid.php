@@ -60,8 +60,7 @@ add_action( 'init', 'dwb_register_block_home_grid' );
  * @param mixed $attributes
  * @return void
  */
-function render_block_digiwatt_home_grid( $attributes ) {
-echo "abc";    
+function render_block_digiwatt_home_grid( $attributes ) {   
     global $post;
 
     $args = array(
