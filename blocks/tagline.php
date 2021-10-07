@@ -21,6 +21,7 @@ function dwb_tagline_block_init() {
         $asset_file['dependencies'],
         $asset_file['version']
     );
+    
     $editor_css = 'editor.css';
     wp_register_style(
         "dwb-{$block_slug}-block-editor",

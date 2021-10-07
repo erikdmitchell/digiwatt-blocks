@@ -17,7 +17,16 @@ function dwb_register_block_home_grid() {
     add_image_size( 'digiwatt-home-grid', 650, 300, true );
     add_image_size( 'digiwatt-home-grid-large', 765, 550, true );
 
+    // automatically load dependencies and version
+    $asset_file = include( DWB_ABSPATH . 'build/index.asset.php' );
     $block_slug = 'home-grid';
+
+    wp_enqueue_script(
+        'dwb-block-script',
+        DWB_ABSURL . 'build/index.js',
+        $asset_file['dependencies'],
+        $asset_file['version']
+    );
 
     $editor_css = 'editor.css';
     wp_enqueue_style(
