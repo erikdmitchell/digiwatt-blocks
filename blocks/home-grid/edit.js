@@ -1,5 +1,8 @@
 /**
  * External dependencies
+ *
+ * These are mostly used for out get posts
+ *
  */
 import { get, includes, invoke, isUndefined, pickBy } from 'lodash';
 
@@ -7,7 +10,7 @@ import { get, includes, invoke, isUndefined, pickBy } from 'lodash';
  * WordPress dependencies
  */
 import { RawHTML } from '@wordpress/element';
-import { Spinner } from '@wordpress/components';
+import { Spinner, Panel, PanelBody, RangeControl } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { dateI18n, format, __experimentalGetSettings } from '@wordpress/date';
 import {
@@ -16,18 +19,19 @@ import {
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
+import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 
 /**
- * Module Constants
- * note - these were attributes, but we currently don't use any settings
- *
+ * Import constant vars.
  */
-const POSTSTOSHOW = 3; // postsToShow
-const EXCERPT_LENGTH = 35; // excerptLength
-const COLUMNS = 2; // columns
+import {
+	EXCERPT_LENGTH,
+	MAX_POSTS,
+} from './constants';
 
 export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
+    	postsToShow,
 		featuredImageSizeSlug,
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
@@ -46,7 +50,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 
 			const latestPostsQuery = pickBy(
 				{
-					per_page: POSTSTOSHOW,
+					per_page: postsToShow,
 				},
 				( value ) => ! isUndefined( value )
 			);
@@ -101,10 +105,39 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 					  } ),
 			};
 		},
-		[ featuredImageSizeSlug, POSTSTOSHOW ]
+		[ featuredImageSizeSlug, postsToShow ]
 	);
 
 	const hasPosts = !! latestPosts?.length;
+	
+	const inspectorControls = (
+		<InspectorControls>
+			<Panel>
+				<PanelBody
+					title={ __( 'Block Content Settings', 'wholesome-plugin' ) }
+					icon="admin-plugins"
+				>
+					<RangeControl
+						label={ __( 'Posts' ) }
+						value={ postsToShow }
+						onChange={ ( value ) =>
+							setAttributes( { postsToShow: value } )
+						}
+						min={ 3 }
+						max={
+							! hasPosts
+								? MAX_POSTS
+								: Math.min(
+										MAX_POSTS,
+										latestPosts.length
+								  )
+						}
+						required
+					/>
+				</PanelBody>
+			</Panel>
+		</InspectorControls>    	
+    );
 
 	if ( ! hasPosts ) {
 		return (
@@ -120,8 +153,8 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 
 	// Removing posts from display should be instant.
 	const displayPosts =
-		latestPosts.length > POSTSTOSHOW
-			? latestPosts.slice( 0, POSTSTOSHOW )
+		latestPosts.length > postsToShow
+			? latestPosts.slice( 0, postsToShow )
 			: latestPosts;
 
 	// setup our excerpt.
@@ -154,62 +187,64 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 
 	const blockClasses = () => {
 		const classes = [
-			'columns-' + COLUMNS,
 			'wp-block-dwb-home-grid-block',
 		];
 
 		return classes.join( ' ' );
 	};
 
-	return (
-		<div className={ blockClasses() }>
-			{ displayPosts.map( ( post, i ) => {
-				const titleTrimmed = invoke( post, [
-					'title',
-					'rendered',
-					'trim',
-				] );
-
-				const {
-					featuredImageInfo: {
-						url: imageSourceUrl,
-						alt: featuredImageAlt,
-					} = {},
-				} = post;
-
-				const imageClasses = 'img-responsive';
-
-				const featuredImage = (
-					<img
-						src={ imageSourceUrl }
-						alt={ featuredImageAlt }
-						style={ {
-							maxWidth: featuredImageSizeWidth,
-							maxHeight: featuredImageSizeHeight,
-						} }
-					/>
-				);
-
-				return (
-					<div className="home-grid-post" key={ i }>
-						<div className={ imageClasses }>
-							<a href={ post.link } rel="noreferrer noopener">
-								{ featuredImage }
-							</a>
-						</div>
-
-						<div className="title">
-							<h3>
-								<RawHTML>{ titleTrimmed }</RawHTML>
-							</h3>
-						</div>
-
-						<div className="excerpt">
-							{ getPostExcerpt( post ) }
-						</div>
-					</div>
-				);
-			} ) }
+	return (  	
+    	<div>
+        	{ inspectorControls }
+    		<div className={ blockClasses() }>
+    			{ displayPosts.map( ( post, i ) => {
+    				const titleTrimmed = invoke( post, [
+    					'title',
+    					'rendered',
+    					'trim',
+    				] );
+    
+    				const {
+    					featuredImageInfo: {
+    						url: imageSourceUrl,
+    						alt: featuredImageAlt,
+    					} = {},
+    				} = post;
+    
+    				const imageClasses = 'img-responsive';
+    
+    				const featuredImage = (
+    					<img
+    						src={ imageSourceUrl }
+    						alt={ featuredImageAlt }
+    						style={ {
+    							maxWidth: featuredImageSizeWidth,
+    							maxHeight: featuredImageSizeHeight,
+    						} }
+    					/>
+    				);
+    
+    				return (
+    					<div className="home-grid-post" key={ i }>
+    						<div className={ imageClasses }>
+    							<a href={ post.link } rel="noreferrer noopener">
+    								{ featuredImage }
+    							</a>
+    						</div>
+    
+    						<div className="title">
+    							<h3>
+    								<RawHTML>{ titleTrimmed }</RawHTML>
+    							</h3>
+    						</div>
+    
+    						<div className="excerpt">
+    							{ getPostExcerpt( post ) }
+    						</div>
+    					</div>
+    				);
+    			} ) }
+    		</div>
 		</div>
 	);
 }
