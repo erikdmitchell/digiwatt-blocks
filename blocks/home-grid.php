@@ -126,14 +126,14 @@ function render_block_digiwatt_home_grid( $attributes ) {
 
     foreach ( $recent_posts as $key => $post ) {
         $post_link = esc_url( get_permalink( $post ) );
-        
+       
         // at the begining create "row".
-        if ( 0 == $key ) {
+        if ( 0 == $key || 3 == $key ) {
             $posts_markup .= '<div class="wp-block-columns">';    
         }
 
         // first post gets its own col, then the second post begins the second col.
-        if ( 0 == $key || 1 == $key ) {
+        if ( 0 == $key || 1 == $key || 3 == $key ) {
             $posts_markup  .= '<div class="wp-block-column home-grid-col hgc-' . $col_counter . '">';
         }
 
@@ -175,6 +175,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
         }
 
         $title = get_the_title( $post );
+        
         if ( ! $title ) {
             $title = __( '(no title)' );
         }
@@ -184,7 +185,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
             $title
         );
 
-        // begin excerpt
+        // begin excerpt.
         $extra = ' <a href="' . get_permalink( $post ) . '" rel="noreferrer noopener">read more...</a>';
 
         if ( post_password_required( $post ) ) {
@@ -218,19 +219,24 @@ function render_block_digiwatt_home_grid( $attributes ) {
             '<div class="excerpt">%1$s</div>',
             $trimmed_excerpt
         );
-        // end excertp
+        // end excerpt.
 
         $posts_markup .= '</div>';
 
         // first post gets its own col, then the last post closes the second col.
-        if ( 0 == $key || $last_post_key == $key ) {
+        if ( 0 == $key || 2 == $key ) {
             $posts_markup .= '</div>';
             $col_counter++;
         }
 
-        // close .wp-block-columns.
-        if ( $last_post_key == $key ) {
+        // close first "row".
+        if ( 2 == $key ) {
             $posts_markup .= '</div>';
+        }
+
+        // close .wp-block-columns and column at final post.
+        if ( $last_post_key == $key ) {
+            $posts_markup .= '</div></div>';
         }
     }
 
