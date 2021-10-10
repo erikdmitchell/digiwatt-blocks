@@ -123,12 +123,14 @@ function render_block_digiwatt_home_grid( $attributes ) {
     $last_post_key = count( $recent_posts ) - 1;
     $col_counter = 1;
     $posts_markup = '';
-    
-    // start first "row".
-    $posts_markup .= '<div class="wp-block-columns">';
 
     foreach ( $recent_posts as $key => $post ) {
         $post_link = esc_url( get_permalink( $post ) );
+        
+        // at the begining create "row".
+        if ( 0 == $key ) {
+            $posts_markup .= '<div class="wp-block-columns">';    
+        }
 
         // first post gets its own col, then the second post begins the second col.
         if ( 0 == $key || 1 == $key ) {
@@ -225,13 +227,12 @@ function render_block_digiwatt_home_grid( $attributes ) {
             $posts_markup .= '</div>';
             $col_counter++;
         }
+
+        // close .wp-block-columns.
+        if ( $last_post_key == $key ) {
+            $posts_markup .= '</div>';
+        }
     }
-    
-    // end first "row".
-    $posts_markup .= '</div>';
-    
-    // test.
-    $posts_markup .= '<div class="wp-block-columns"><div class="wp-block-column">CLOUMN</div></div>';
 
     $more_button = '<div class="more-articles"><a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">More Articles</a></div>';
 
