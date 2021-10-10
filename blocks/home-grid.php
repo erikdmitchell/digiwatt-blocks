@@ -123,6 +123,9 @@ function render_block_digiwatt_home_grid( $attributes ) {
     $last_post_key = count( $recent_posts ) - 1;
     $col_counter = 1;
     $posts_markup = '';
+    
+    // start first "row".
+    $posts_markup .= '<div class="wp-block-columns">';
 
     foreach ( $recent_posts as $key => $post ) {
         $post_link = esc_url( get_permalink( $post ) );
@@ -223,6 +226,12 @@ function render_block_digiwatt_home_grid( $attributes ) {
             $col_counter++;
         }
     }
+    
+    // end first "row".
+    $posts_markup .= '</div>';
+    
+    // test.
+    $posts_markup .= '<div class="wp-block-columns"><div class="wp-block-column">CLOUMN</div></div>';
 
     $more_button = '<div class="more-articles"><a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">More Articles</a></div>';
 
@@ -231,7 +240,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
     $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
 
     return sprintf(
-        '<div %1$s><div class="wp-block-columns">%2$s</div>%3$s</div>',
+        '<div %1$s>%2$s%3$s</div>',
         $wrapper_attributes,
         $posts_markup,
         $more_button
