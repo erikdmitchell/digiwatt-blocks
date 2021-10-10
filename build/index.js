@@ -388,7 +388,7 @@ function HomeGridEdit(_ref) {
       });
     },
     min: 3,
-    max: !hasPosts ? _constants__WEBPACK_IMPORTED_MODULE_9__["MAX_POSTS"] : Math.min(_constants__WEBPACK_IMPORTED_MODULE_9__["MAX_POSTS"], latestPosts.length),
+    max: _constants__WEBPACK_IMPORTED_MODULE_9__["MAX_POSTS"],
     required: true
   }))));
 

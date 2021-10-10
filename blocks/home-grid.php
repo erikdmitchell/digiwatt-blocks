@@ -3,8 +3,7 @@
  * Register home grid block.
  *
  */
- 
- 
+  
 function digiwatt_register_home_grid_block() {
     // Fail if block editor is not supported
     if ( ! function_exists( 'register_block_type' ) ) {

@@ -108,8 +108,8 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		[ featuredImageSizeSlug, postsToShow ]
 	);
 
-	const hasPosts = !! latestPosts?.length;
-	
+	const hasPosts = !! latestPosts?.length;								
+									
 	const inspectorControls = (
 		<InspectorControls>
 			<Panel>
@@ -124,14 +124,7 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 							setAttributes( { postsToShow: value } )
 						}
 						min={ 3 }
-						max={
-							! hasPosts
-								? MAX_POSTS
-								: Math.min(
-								    MAX_POSTS,
-                                    latestPosts.length
-								)
-						}
+						max={ MAX_POSTS }
 						required
 					/>
 				</PanelBody>
