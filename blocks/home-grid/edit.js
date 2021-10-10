@@ -25,16 +25,19 @@ import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-edi
  * Import constant vars.
  */
 import {
-	EXCERPT_LENGTH,
+	MAX_EXCERPT_LENGTH,
+    MAX_FEATURED_POST_EXCERPT_LENGTH,
 	MAX_POSTS,
 } from './constants';
 
 export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
     	postsToShow,
+    	excerptLength,
 		featuredImageSizeSlug,
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
+		featuredPostExcerptLength,
 	} = attributes;
 
 	const {
@@ -114,8 +117,8 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		<InspectorControls>
 			<Panel>
 				<PanelBody
-					title={ __( 'Block Content Settings', 'wholesome-plugin' ) }
-					icon="admin-plugins"
+					title={ __( 'Home Grid', 'dwb' ) }
+					icon="editor-table"
 				>
 					<RangeControl
 						label={ __( 'Posts' ) }
@@ -125,6 +128,28 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 						}
 						min={ 3 }
 						max={ MAX_POSTS }
+						required
+					/>
+
+					<RangeControl
+						label={ __( 'Excerpt Length' ) }
+						value={ excerptLength }
+						onChange={ ( value ) =>
+							setAttributes( { excerptLength: value } )
+						}
+						min={ 30 }
+						max={ MAX_EXCERPT_LENGTH }
+						required
+					/>
+					
+					<RangeControl
+						label={ __( 'Featured Post Excerpt Length' ) }
+						value={ featuredPostExcerptLength }
+						onChange={ ( value ) =>
+							setAttributes( { featuredPostExcerptLength: value } )
+						}
+						min={ 30 }
+						max={ MAX_FEATURED_POST_EXCERPT_LENGTH }
 						required
 					/>
 				</PanelBody>
@@ -160,12 +185,12 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		excerpt = excerptElement.textContent || excerptElement.innerText || '';
 
 		const needsReadMore =
-			EXCERPT_LENGTH < excerpt.trim().split( ' ' ).length &&
+			excerptLength < excerpt.trim().split( ' ' ).length &&
 			post.excerpt.raw === '';
 
 		const postExcerpt = needsReadMore ? (
 			<>
-				{ excerpt.trim().split( ' ', EXCERPT_LENGTH ).join( ' ' ) }
+				{ excerpt.trim().split( ' ', excerptLength ).join( ' ' ) }
 
 				<a href={ post.link } rel="noreferrer noopener">
 					read more...

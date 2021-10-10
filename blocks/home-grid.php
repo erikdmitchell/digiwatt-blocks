@@ -3,7 +3,14 @@
  * Register home grid block.
  *
  */
-  
+
+
+/**
+ * Register the Home Grid Block.
+ * 
+ * @access public
+ * @return void
+ */
 function digiwatt_register_home_grid_block() {
     // Fail if block editor is not supported
     if ( ! function_exists( 'register_block_type' ) ) {
@@ -94,6 +101,13 @@ function digiwatt_register_home_grid_block() {
 }
 add_action( 'init', 'digiwatt_register_home_grid_block' );
 
+/**
+ * Displays the Home Grid block.
+ * 
+ * @access public
+ * @param mixed $attributes (array).
+ * @return string
+ */
 function render_block_digiwatt_home_grid( $attributes ) {
     global $post;
 
