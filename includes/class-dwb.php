@@ -99,7 +99,7 @@ final class DWB {
     public function includes() {
         include_once( DWB_ABSPATH . 'blocks/about.php' );
         include_once( DWB_ABSPATH . 'blocks/home-grid.php' );
-        include_once( DWB_ABSPATH . 'blocks/read-time.php' );        
+        include_once( DWB_ABSPATH . 'blocks/read-time.php' );
         include_once( DWB_ABSPATH . 'blocks/tagline.php' );
     }
 

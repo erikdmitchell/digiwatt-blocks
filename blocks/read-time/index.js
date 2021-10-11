@@ -1,33 +1,12 @@
-import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
+import edit from './edit';
 
-registerBlockType( 'dwb/read-time', {
-	title: __( 'Read Time', 'dwb' ),
-	icon: 'visibility',
-	category: 'text',
-	edit: ( props ) => {
-		const {
-			className,
-			attributes: {},
-			setAttributes,
-		} = props;
+const name = 'dwb/read-time';
 
-		return (
-			<div className={ className }>
-                Read Time
-            </div>
-		);
-	},
-	save: ( props ) => {
-		const {
-			className,
-			attributes: {},
-		} = props; 
-		   	
-		return (
-			<div className={ className }>
-                Read Time
-            </div>
-		);
-	},
+registerBlockType( name, {
+	title: 'Home Grid',
+	icon: 'editor-table',
+	category: 'common',
+	attributes: {},
+	edit,
 } );

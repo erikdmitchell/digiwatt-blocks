@@ -8,7 +8,7 @@
 
 /**
  * Register Read Time block.
- * 
+ *
  * @access public
  * @return void
  */
@@ -56,4 +56,20 @@ function dwb_read_time_block_init() {
 }
 add_action( 'init', 'dwb_read_time_block_init' );
 
-
+function dwb_reading_time() {
+    global $post;
+    
+    $content = get_post_field( 'post_content', $post->ID );
+    $word_count = str_word_count( strip_tags( $content ) );
+    $readingtime = ceil( $word_count / 200 );
+    
+    if ( $readingtime == 1 ) {
+        $timer = ' minute';
+    } else {
+        $timer = ' minutes';
+    }
+    
+    $totalreadingtime = $readingtime . $timer;
+    
+    return $totalreadingtime;
+}
