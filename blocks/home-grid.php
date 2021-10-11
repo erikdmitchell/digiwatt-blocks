@@ -1,13 +1,12 @@
 <?php
 /**
  * Register home grid block.
- *
  */
 
 
 /**
  * Register the Home Grid Block.
- * 
+ *
  * @access public
  * @return void
  */
@@ -103,7 +102,7 @@ add_action( 'init', 'digiwatt_register_home_grid_block' );
 
 /**
  * Displays the Home Grid block.
- * 
+ *
  * @access public
  * @param mixed $attributes (array).
  * @return string
@@ -126,10 +125,10 @@ function render_block_digiwatt_home_grid( $attributes ) {
 
     foreach ( $recent_posts as $key => $post ) {
         $post_link = esc_url( get_permalink( $post ) );
-       
+
         // at the begining create "row".
         if ( 0 == $key || 3 == $key ) {
-            $posts_markup .= '<div class="wp-block-columns">';    
+            $posts_markup .= '<div class="wp-block-columns">';
         }
 
         // first post gets its own col, then the second post begins the second col.
@@ -175,7 +174,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
         }
 
         $title = get_the_title( $post );
-        
+
         if ( ! $title ) {
             $title = __( '(no title)' );
         }
