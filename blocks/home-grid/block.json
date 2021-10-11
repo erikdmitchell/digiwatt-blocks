@@ -1,13 +1,11 @@
-import { registerBlockType } from '@wordpress/blocks';
-import edit from './edit';
-
-const name = 'dwb/home-grid';
-
-registerBlockType( name, {
-	title: 'Home Grid',
-	icon: 'editor-table',
-	category: 'common',
-	attributes: {
+{
+	"apiVersion": 2,
+	"name": "dwb/home-grid",
+	"title": "Home Grid",
+	"category": "common",
+	"description": "A grid layout for posts",
+	"textdomain": "dwb",
+	"attributes": {
         "postsToShow": {
             "type": "number",
             "default": 3
@@ -47,7 +45,6 @@ registerBlockType( name, {
         "featuredPostExcerptLength": {
             "type": "number",
             "default": 95
-        }    	
-	},
-	edit,
-} );
+        }
+    }
+}

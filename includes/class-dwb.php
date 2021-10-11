@@ -98,7 +98,9 @@ final class DWB {
      */
     public function includes() {
         // blocks.
-        include_once( DWB_ABSPATH . 'blocks/blocks.php' );
+        include_once( DWB_ABSPATH . 'blocks/about.php' );
+        include_once( DWB_ABSPATH . 'blocks/home-grid.php' );
+        include_once( DWB_ABSPATH . 'blocks/tagline.php' );
     }
 
     /**
