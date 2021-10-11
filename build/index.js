@@ -556,9 +556,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tagline__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tagline */ "./blocks/tagline/index.js");
 /* harmony import */ var _about__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./about */ "./blocks/about/index.js");
 /* harmony import */ var _home_grid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home-grid */ "./blocks/home-grid/index.js");
+/* harmony import */ var _read_time__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./read-time */ "./blocks/read-time/index.js");
 
 
 
+
+
+/***/ }),
+
+/***/ "./blocks/read-time/index.js":
+/*!***********************************!*\
+  !*** ./blocks/read-time/index.js ***!
+  \***********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/objectDestructuringEmpty */ "./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js");
+/* harmony import */ var _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('dwb/read-time', {
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Read Time', 'dwb'),
+  icon: 'visibility',
+  category: 'text',
+  edit: function edit(props) {
+    var className = props.className;
+
+    _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
+
+    var setAttributes = props.setAttributes;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: className
+    }, "Read Time");
+  },
+  save: function save(props) {
+    var className = props.className;
+
+    _babel_runtime_helpers_objectDestructuringEmpty__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes);
+
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: className
+    }, "Read Time");
+  }
+});
 
 /***/ }),
 
@@ -739,6 +789,22 @@ function _defineProperty(obj, key, value) {
 }
 
 module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _objectDestructuringEmpty(obj) {
+  if (obj == null) throw new TypeError("Cannot destructure undefined");
+}
+
+module.exports = _objectDestructuringEmpty;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
