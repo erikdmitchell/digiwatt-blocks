@@ -1,19 +1,10 @@
-.wp-block-dwb-home-grid-block .wp-block-columns {
-    justify-content: center;    
-}
-
-.home-grid-col {
+.home-grid-col.hgc-2 {
     flex-basis: 39.66%;
     flex-grow: 0;
 }
 
 .home-grid-col.hgc-1 {
     flex-basis: 63.33%;
-    flex-grow: 0;  
-}
-
-.home-grid-col.hgc-3 {
-    flex-basis: 33.333333%;
     flex-grow: 0;  
 }
 

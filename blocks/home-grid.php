@@ -133,7 +133,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
         }
 
         // first post gets its own col, then the second post begins the second col.
-        if ( 0 == $key || 1 == $key || 3 == $key ) {
+        if ( 0 == $key || 1 == $key || 3 <= $key ) {
             $posts_markup  .= '<div class="wp-block-column home-grid-col hgc-' . $col_counter . '">';
         }
 
@@ -224,7 +224,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
         $posts_markup .= '</div>';
 
         // first post gets its own col, then the last post closes the second col.
-        if ( 0 == $key || 2 == $key ) {
+        if ( 0 == $key || 2 == $key || 3 <= $key ) {
             $posts_markup .= '</div>';
             $col_counter++;
         }
@@ -236,7 +236,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
 
         // close .wp-block-columns and column at final post.
         if ( $last_post_key == $key ) {
-            $posts_markup .= '</div></div>';
+            $posts_markup .= '</div>';
         }
     }
 
