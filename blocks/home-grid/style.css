@@ -1,3 +1,7 @@
+.wp-block-dwb-home-grid-block .wp-block-columns {
+    justify-content: center;    
+}
+
 .home-grid-col {
     flex-basis: 39.66%;
     flex-grow: 0;
