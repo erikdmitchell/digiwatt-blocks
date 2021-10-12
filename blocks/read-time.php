@@ -48,6 +48,49 @@ function dwb_read_time_block_init() {
     register_block_type(
         "dwb/{$block_slug}-block",
         array(
+            'attributes' => array(
+                'postsToShow' => array(
+                    'type' => 'number',
+                    'default' => 3,
+                ),
+                'excerptLength' => array(
+                    'type' => 'number',
+                    'default' => 35,
+                ),
+                'columns' => array(
+                    'type' => 'number',
+                    'default' => 2,
+                ),
+                'order' => array(
+                    'type' => 'string',
+                    'default' => 'desc',
+                ),
+                'orderBy' => array(
+                    'type' => 'string',
+                    'default' => 'date',
+                ),
+                'featuredImageSizeSlug' => array(
+                    'type' => 'string',
+                    'default' => 'digiwatt-home-grid',
+                ),
+                'featuredImageSizeWidth' => array(
+                    'type' => 'number',
+                    'default' => null,
+                ),
+                'featuredImageSizeHeight' => array(
+                    'type' => 'number',
+                    'default' => null,
+                ),
+                'featuredImageLargeSizeSlug' => array(
+                    'type' => 'string',
+                    'default' => 'digiwatt-home-grid-large',
+                ),
+                'featuredPostExcerptLength' => array(
+                    'type' => 'number',
+                    'default' => 95,
+                ),
+            ),
+            'render_callback' => 'render_block_digiwatt_read_time',            
             'editor_script' => 'dwb-block-script',
             'editor_style' => "dwb-{$block_slug}-block-editor",
             'style' => "dwb-{$block_slug}-block-style",
@@ -55,6 +98,10 @@ function dwb_read_time_block_init() {
     );
 }
 add_action( 'init', 'dwb_read_time_block_init' );
+
+function render_block_digiwatt_read_time( $attributes ) { }
+
+
 
 function dwb_reading_time() {
     global $post;

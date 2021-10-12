@@ -584,6 +584,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__);
+
+
 
 
 
@@ -592,7 +598,10 @@ __webpack_require__.r(__webpack_exports__);
 function ReadTimeEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
-  var className = attributes.className;
+  var className = attributes.className,
+      text = attributes.text,
+      pluralText = attributes.pluralText,
+      position = attributes.position;
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
     var _select = select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_3__["store"]),
@@ -600,23 +609,52 @@ function ReadTimeEdit(_ref) {
 
     var currentPostId = select('core/editor').getCurrentPostId();
     return {
-      post: getEntityRecord('postType', 'post', 2020)
+      post: getEntityRecord('postType', 'post', currentPostId)
     };
   }),
-      post = _useSelect.post;
+      post = _useSelect.post; // setup reading timer.
+
 
   var postWordCount = Object(_wordpress_wordcount__WEBPACK_IMPORTED_MODULE_2__["count"])(post.content.raw, 'words', {});
   var readingTime = Math.ceil(postWordCount / 200);
-  var timer = ' minutes';
+  var timer = pluralText;
 
   if (1 == readingTime) {
-    timer = ' minute';
-  }
+    timer = text;
+  } // position
 
-  readingTime = readingTime + timer;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+
+  readingTime = readingTime + ' ' + timer; // END setup reading timer.
+
+  var getReadingTime = function getReadingTime() {
+    return 'readig time holder';
+  };
+
+  var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Read Table', 'dwb'),
+    icon: "editor-table"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["SelectControl"], {
+    label: "What's your favorite animal?",
+    value: attributes.favoriteAnimal,
+    options: [{
+      label: "Dogs",
+      value: 'dogs'
+    }, {
+      label: "Cats",
+      value: 'cats'
+    }, {
+      label: "Something else",
+      value: 'weird_one'
+    }],
+    onChange: function onChange(newval) {
+      return setAttributes({
+        favoriteAnimal: newval
+      });
+    }
+  }))));
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: className
-  }, "Read Time: ", readingTime);
+  }, "Read Time: getReadingTime()"));
 }
 
 /***/ }),
@@ -637,10 +675,24 @@ __webpack_require__.r(__webpack_exports__);
 
 var name = 'dwb/read-time';
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name, {
-  title: 'Home Grid',
+  title: 'Read Time',
   icon: 'editor-table',
   category: 'common',
-  attributes: {},
+  attributes: {
+    "text": {
+      "type": "string",
+      "default": 'minute'
+    },
+    "pluralText": {
+      "type": "string",
+      "default": 'minutes'
+    },
+    "position": {
+      "type": "string",
+      "selector": "before,after",
+      "default": "before"
+    }
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
