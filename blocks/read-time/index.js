@@ -14,7 +14,7 @@ registerBlockType( name, {
 		},
 		timePosition: {
 			type: 'string',
-			default: 'before',
+			default: 'after',
 		},
 	},
 	edit,

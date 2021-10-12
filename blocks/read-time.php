@@ -46,77 +46,68 @@ function dwb_read_time_block_init() {
     );
 
     register_block_type(
-        "dwb/{$block_slug}-block",
+        "dwb/{$block_slug}",
         array(
             'attributes' => array(
-                'postsToShow' => array(
-                    'type' => 'number',
-                    'default' => 3,
-                ),
-                'excerptLength' => array(
-                    'type' => 'number',
-                    'default' => 35,
-                ),
-                'columns' => array(
-                    'type' => 'number',
-                    'default' => 2,
-                ),
-                'order' => array(
+                'readTimeText' => array(
                     'type' => 'string',
-                    'default' => 'desc',
+                    'default' => 'Minute Read',
                 ),
-                'orderBy' => array(
+                'timePosition' => array(
                     'type' => 'string',
-                    'default' => 'date',
-                ),
-                'featuredImageSizeSlug' => array(
-                    'type' => 'string',
-                    'default' => 'digiwatt-home-grid',
-                ),
-                'featuredImageSizeWidth' => array(
-                    'type' => 'number',
-                    'default' => null,
-                ),
-                'featuredImageSizeHeight' => array(
-                    'type' => 'number',
-                    'default' => null,
-                ),
-                'featuredImageLargeSizeSlug' => array(
-                    'type' => 'string',
-                    'default' => 'digiwatt-home-grid-large',
-                ),
-                'featuredPostExcerptLength' => array(
-                    'type' => 'number',
-                    'default' => 95,
+                    'default' => 'after',
                 ),
             ),
             'render_callback' => 'render_block_digiwatt_read_time',
             'editor_script' => 'dwb-block-script',
             'editor_style' => "dwb-{$block_slug}-block-editor",
             'style' => "dwb-{$block_slug}-block-style",
-        )
+        ),
     );
 }
 add_action( 'init', 'dwb_read_time_block_init' );
 
-function render_block_digiwatt_read_time( $attributes ) { }
+/**
+ * Render the Read Time block.
+ * 
+ * @access public
+ * @param mixed $attributes (array).
+ * @return html
+ */
+function render_block_digiwatt_read_time( $attributes ) {
+    $reading_time_text = dwb_reading_time( $attributes );
 
+    $class = 'wp-block-dwb-read-time-block';
 
+    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
 
-function dwb_reading_time() {
+    return sprintf(
+        '<div %1$s>%2$s</div>',
+        $wrapper_attributes,
+        $reading_time_text,
+    );
+}
+
+/**
+ * Calculate post read time.
+ * 
+ * @access public
+ * @param mixed $attributes (array).
+ * @return html
+ */
+function dwb_reading_time( $attributes ) {
     global $post;
 
     $content = get_post_field( 'post_content', $post->ID );
     $word_count = str_word_count( strip_tags( $content ) );
-    $readingtime = ceil( $word_count / 200 );
+    $reading_time_number = ceil( $word_count / 200 );
+    $reading_time = '';
 
-    if ( $readingtime == 1 ) {
-        $timer = ' minute';
+    if ( 'before' == $attributes['timePosition'] ) {
+        $reading_time = $attributes['readTimeText'] . ' ' . $reading_time_number;
     } else {
-        $timer = ' minutes';
+        $reading_time = $reading_time_number . ' ' . $attributes['readTimeText'];
     }
 
-    $totalreadingtime = $readingtime . $timer;
-
-    return $totalreadingtime;
+    return $reading_time;
 }
