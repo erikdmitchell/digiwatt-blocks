@@ -668,9 +668,47 @@ function ReadTimeEdit(_ref) {
     className: "header-content"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "title"
-  }, postTitle), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
+    className: "entry-title"
+  }, postTitle)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "meta"
   }, "check post type = post emdotbike_theme_posted_on func"))), "swap some classes if we have a post thumbnail", postImage));
+  /*
+      <header class="entry-header">  
+          <div class="featured-columns">
+              <div class="featured-column"> 
+                  <div class="header-content"> 
+                      <div class="title">
+                          <?php
+                          if ( is_single() ) :
+                              the_title( '<h1 class="entry-title">', '</h1>' );
+                          else :
+                              the_title( '<h1 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h1>' );
+                          endif;
+                          ?>
+                              
+                      </div>
+                      <div class="meta">
+                          <?php
+                          if ( 'post' == get_post_type() ) {
+                              emdotbike_theme_posted_on();
+                          }
+                          ?>
+                      </div>
+                  </div>              
+              </div>
+              <?php if (has_post_thumbnail()) : ?>
+                  <div class="featured-column">
+                      <?php emdotbike_theme_post_thumbnail( 'single' ); ?>
+              <?php else : ?>
+                  <div class="featured-column no-thumb">
+              <?php endif; ?>
+                  
+              </div>
+          </div>
+      </header>
+  */
+
   var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["SelectControl"], {
     label: "Time Position",
     labelPosition: "side",
