@@ -19,21 +19,25 @@ import {
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	RichText,
+	useBlockProps,
+} from '@wordpress/block-editor';
 
 /**
  * Import constant vars.
  */
 import {
 	MAX_EXCERPT_LENGTH,
-    MAX_FEATURED_POST_EXCERPT_LENGTH,
+	MAX_FEATURED_POST_EXCERPT_LENGTH,
 	MAX_POSTS,
 } from './constants';
 
 export default function HomeGridEdit( { attributes, setAttributes } ) {
 	const {
-    	postsToShow,
-    	excerptLength,
+		postsToShow,
+		excerptLength,
 		featuredImageSizeSlug,
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
@@ -111,8 +115,8 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 		[ featuredImageSizeSlug, postsToShow ]
 	);
 
-	const hasPosts = !! latestPosts?.length;								
-									
+	const hasPosts = !! latestPosts?.length;
+
 	const inspectorControls = (
 		<InspectorControls>
 			<Panel>
@@ -141,12 +145,14 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 						max={ MAX_EXCERPT_LENGTH }
 						required
 					/>
-					
+
 					<RangeControl
 						label={ __( 'Featured Post Excerpt Length' ) }
 						value={ featuredPostExcerptLength }
 						onChange={ ( value ) =>
-							setAttributes( { featuredPostExcerptLength: value } )
+							setAttributes( {
+								featuredPostExcerptLength: value,
+							} )
 						}
 						min={ 30 }
 						max={ MAX_FEATURED_POST_EXCERPT_LENGTH }
@@ -154,8 +160,8 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 			</Panel>
-		</InspectorControls>    	
-    );
+		</InspectorControls>
+	);
 
 	if ( ! hasPosts ) {
 		return (
@@ -204,65 +210,63 @@ export default function HomeGridEdit( { attributes, setAttributes } ) {
 	};
 
 	const blockClasses = () => {
-		const classes = [
-			'wp-block-dwb-home-grid-block',
-		];
+		const classes = [ 'wp-block-dwb-home-grid-block' ];
 
 		return classes.join( ' ' );
 	};
 
-	return (  	
-    	<div>
-        	{ inspectorControls }
-    		<div className={ blockClasses() }>
-    			{ displayPosts.map( ( post, i ) => {
-    				const titleTrimmed = invoke( post, [
-    					'title',
-    					'rendered',
-    					'trim',
-    				] );
-    
-    				const {
-    					featuredImageInfo: {
-    						url: imageSourceUrl,
-    						alt: featuredImageAlt,
-    					} = {},
-    				} = post;
-    
-    				const imageClasses = 'img-responsive';
-    
-    				const featuredImage = (
-    					<img
-    						src={ imageSourceUrl }
-    						alt={ featuredImageAlt }
-    						style={ {
-    							maxWidth: featuredImageSizeWidth,
-    							maxHeight: featuredImageSizeHeight,
-    						} }
-    					/>
-    				);
-    
-    				return (
-    					<div className="home-grid-post" key={ i }>
-    						<div className={ imageClasses }>
-    							<a href={ post.link } rel="noreferrer noopener">
-    								{ featuredImage }
-    							</a>
-    						</div>
-    
-    						<div className="title">
-    							<h3>
-    								<RawHTML>{ titleTrimmed }</RawHTML>
-    							</h3>
-    						</div>
-    
-    						<div className="excerpt">
-    							{ getPostExcerpt( post ) }
-    						</div>
-    					</div>
-    				);
-    			} ) }
-    		</div>
+	return (
+		<div>
+			{ inspectorControls }
+			<div className={ blockClasses() }>
+				{ displayPosts.map( ( post, i ) => {
+					const titleTrimmed = invoke( post, [
+						'title',
+						'rendered',
+						'trim',
+					] );
+
+					const {
+						featuredImageInfo: {
+							url: imageSourceUrl,
+							alt: featuredImageAlt,
+						} = {},
+					} = post;
+
+					const imageClasses = 'img-responsive';
+
+					const featuredImage = (
+						<img
+							src={ imageSourceUrl }
+							alt={ featuredImageAlt }
+							style={ {
+								maxWidth: featuredImageSizeWidth,
+								maxHeight: featuredImageSizeHeight,
+							} }
+						/>
+					);
+
+					return (
+						<div className="home-grid-post" key={ i }>
+							<div className={ imageClasses }>
+								<a href={ post.link } rel="noreferrer noopener">
+									{ featuredImage }
+								</a>
+							</div>
+
+							<div className="title">
+								<h3>
+									<RawHTML>{ titleTrimmed }</RawHTML>
+								</h3>
+							</div>
+
+							<div className="excerpt">
+								{ getPostExcerpt( post ) }
+							</div>
+						</div>
+					);
+				} ) }
+			</div>
 		</div>
 	);
 }

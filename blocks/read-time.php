@@ -1,11 +1,18 @@
 <?php
 /**
- * Register tagline block
+ * Register Read Time block
  *
  * @package dwb
+ * @since 0.2.0
  */
 
-function dwb_tagline_block_init() {
+/**
+ * Register Read Time block.
+ *
+ * @access public
+ * @return void
+ */
+function dwb_read_time_block_init() {
     // Skip block registration if Gutenberg is not enabled/merged.
     if ( ! function_exists( 'register_block_type' ) ) {
         return;
@@ -13,7 +20,7 @@ function dwb_tagline_block_init() {
 
     // automatically load dependencies and version
     $asset_file = include( DWB_ABSPATH . 'build/index.asset.php' );
-    $block_slug = 'tagline';
+    $block_slug = 'read-time';
 
     wp_register_script(
         'dwb-block-script',
@@ -39,12 +46,44 @@ function dwb_tagline_block_init() {
     );
 
     register_block_type(
-        "dwb/{$block_slug}-block",
+        "dwb/{$block_slug}",
         array(
+            'attributes' => array(
+                'readTimeText' => array(
+                    'type' => 'string',
+                    'default' => 'Minute Read',
+                ),
+                'timePosition' => array(
+                    'type' => 'string',
+                    'default' => 'after',
+                ),
+            ),
+            'render_callback' => 'render_block_digiwatt_read_time',
             'editor_script' => 'dwb-block-script',
             'editor_style' => "dwb-{$block_slug}-block-editor",
             'style' => "dwb-{$block_slug}-block-style",
-        )
+        ),
     );
 }
-add_action( 'init', 'dwb_tagline_block_init' );
+add_action( 'init', 'dwb_read_time_block_init' );
+
+/**
+ * Render the Read Time block.
+ * 
+ * @access public
+ * @param mixed $attributes (array).
+ * @return html
+ */
+function render_block_digiwatt_read_time( $attributes ) {
+    $reading_time_text = dwb_reading_time( $attributes );
+
+    $class = 'wp-block-dwb-read-time-block';
+
+    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
+
+    return sprintf(
+        '<div %1$s>%2$s</div>',
+        $wrapper_attributes,
+        $reading_time_text,
+    );
+}
