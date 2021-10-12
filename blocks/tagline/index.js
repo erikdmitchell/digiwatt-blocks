@@ -32,11 +32,11 @@ registerBlockType( 'dwb/tagline-block', {
 			default: '#8ed2fc',
 		},
 		align: {
-    		type: 'string',
-		}
+			type: 'string',
+		},
 	},
 	supports: {
-		align: ['wide', 'full']
+		align: [ 'wide', 'full' ],
 	},
 	edit: ( props ) => {
 		const {
@@ -71,7 +71,7 @@ registerBlockType( 'dwb/tagline-block', {
 							<ColorPalette // Element Tag for Gutenberg standard colour selector
 								onChange={ onChangeBGColor }
 							/>
-						</fieldset>						
+						</fieldset>
 					</div>
 				</InspectorControls>
 
@@ -79,7 +79,7 @@ registerBlockType( 'dwb/tagline-block', {
 					className={ className }
 					style={ { backgroundColor: bg_color } }
 				>
-				    <div className="tagline-wrapper">
+					<div className="tagline-wrapper">
 						<MediaUpload
 							onSelect={ onSelectImage }
 							allowedTypes="image"
@@ -96,26 +96,29 @@ registerBlockType( 'dwb/tagline-block', {
 									{ ! mediaID ? (
 										__( 'Upload Image', 'dwb' )
 									) : (
-    									<div className="image-wrapper">
-    										<img
-    										    className="tagline-image"
-    											src={ mediaURL }
-    											alt={ __( 'tagline image', 'dwb' ) }
-    										/>
+										<div className="image-wrapper">
+											<img
+												className="tagline-image"
+												src={ mediaURL }
+												alt={ __(
+													'tagline image',
+													'dwb'
+												) }
+											/>
 										</div>
 									) }
 								</Button>
 							) }
 						/>
-                        <div className="title-wrap">
-        					<RichText
-        						tagName="h1"
-        						placeholder={ __( 'Tagline', 'dwb' ) }
-        						value={ title }
-        						onChange={ onChangeTitle }
-        					/>
-                        </div>
-                    </div>
+						<div className="title-wrap">
+							<RichText
+								tagName="h1"
+								placeholder={ __( 'Tagline', 'dwb' ) }
+								value={ title }
+								onChange={ onChangeTitle }
+							/>
+						</div>
+					</div>
 				</div>
 			</>
 		);

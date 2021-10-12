@@ -24,11 +24,11 @@ registerBlockType( 'dwb/about-block', {
 			type: 'string',
 		},
 		align: {
-    		type: 'string',
-		}
+			type: 'string',
+		},
 	},
 	supports: {
-		align: ['wide', 'full']		
+		align: [ 'wide', 'full' ],
 	},
 	edit: ( props ) => {
 		const {

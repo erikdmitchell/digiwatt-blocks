@@ -595,7 +595,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 function ReadTimeEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
