@@ -595,13 +595,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function ReadTimeEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
   var className = attributes.className,
       text = attributes.text,
       pluralText = attributes.pluralText,
-      position = attributes.position;
+      timePosition = attributes.timePosition;
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
     var _select = select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_3__["store"]),
@@ -615,46 +616,69 @@ function ReadTimeEdit(_ref) {
       post = _useSelect.post; // setup reading timer.
 
 
-  var postWordCount = Object(_wordpress_wordcount__WEBPACK_IMPORTED_MODULE_2__["count"])(post.content.raw, 'words', {});
-  var readingTime = Math.ceil(postWordCount / 200);
-  var timer = pluralText;
-
-  if (1 == readingTime) {
-    timer = text;
-  } // position
-
-
-  readingTime = readingTime + ' ' + timer; // END setup reading timer.
-
   var getReadingTime = function getReadingTime() {
-    return 'readig time holder';
+    var postWordCount = Object(_wordpress_wordcount__WEBPACK_IMPORTED_MODULE_2__["count"])(post.content.raw, 'words', {});
+    var readingTime = Math.ceil(postWordCount / 200);
+    var timer = pluralText;
+
+    if (1 == readingTime) {
+      timer = text;
+    } // position
+
+
+    readingTime = readingTime + ' ' + timer;
+    return readingTime;
   };
 
   var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Read Table', 'dwb'),
     icon: "editor-table"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["SelectControl"], {
-    label: "What's your favorite animal?",
-    value: attributes.favoriteAnimal,
+    label: "Time Position",
+    value: attributes.timePosition,
     options: [{
-      label: "Dogs",
-      value: 'dogs'
+      label: "Before",
+      value: 'before'
     }, {
-      label: "Cats",
-      value: 'cats'
-    }, {
-      label: "Something else",
-      value: 'weird_one'
+      label: "After",
+      value: 'after'
     }],
     onChange: function onChange(newval) {
       return setAttributes({
-        favoriteAnimal: newval
+        timePosition: newval
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["__experimentalInputControl"], {
+    label: "Text",
+    labelPosition: "side",
+    value: attributes.text,
+    onChange: function onChange(newval) {
+      return setAttributes({
+        text: newval
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["__experimentalInputControl"], {
+    label: "Plural Text",
+    labelPosition: "side",
+    value: attributes.pluralText,
+    onChange: function onChange(newval) {
+      return setAttributes({
+        pluralText: newval
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["__experimentalInputControl"], {
+    label: "Before Text?",
+    labelPosition: "side",
+    value: attributes.pluralText,
+    onChange: function onChange(newval) {
+      return setAttributes({
+        pluralText: newval
       });
     }
   }))));
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: className
-  }, "Read Time: getReadingTime()"));
+  }, "Read Time: ", getReadingTime()));
 }
 
 /***/ }),
@@ -687,10 +711,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
       "type": "string",
       "default": 'minutes'
     },
-    "position": {
+    "timePosition": {
       "type": "string",
-      "selector": "before,after",
-      "default": "before"
+      "default": "after"
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]

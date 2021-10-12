@@ -16,10 +16,9 @@ registerBlockType( name, {
             "type": "string",
             "default": 'minutes',
         },
-        "position": {
+        "timePosition": {
             "type": "string",
-            "selector": "before,after",
-            "default": "before"
+            "default": "after"
         },                    
 	},
 	edit,

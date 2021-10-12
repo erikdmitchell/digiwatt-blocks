@@ -2,16 +2,16 @@ import { __ } from '@wordpress/i18n';
 import { count } from '@wordpress/wordcount';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-
-import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
-import { ToggleControl, PanelBody, PanelRow, CheckboxControl, SelectControl, ColorPicker } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
+import { ToggleControl, PanelBody, PanelRow, SelectControl } from '@wordpress/components';
+import { __experimentalInputControl as InputControl } from '@wordpress/components';
 
 export default function ReadTimeEdit( { attributes, setAttributes } ) {
 	const {
     	className,
     	text,
     	pluralText,
-    	position,
+    	timePosition,
 	} = attributes;
 
     const {
@@ -27,24 +27,22 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 		}
 	);
 
-// setup reading timer.
-    const postWordCount = count( post.content.raw, 'words', {} );
-    
-    let readingTime = Math.ceil( postWordCount / 200 );
-    let timer = pluralText;
-    
-    if (1 == readingTime) {
-        timer = text;
-    }
-
-// position
-
-    readingTime = readingTime + ' ' + timer;
-// END setup reading timer.
-
-
+    // setup reading timer.
 	const getReadingTime = () => {
-		return 'readig time holder';
+        const postWordCount = count( post.content.raw, 'words', {} );
+        
+        let readingTime = Math.ceil( postWordCount / 200 );
+        let timer = pluralText;
+        
+        if (1 == readingTime) {
+            timer = text;
+        }
+    
+        // position
+    
+        readingTime = readingTime + ' ' + timer;
+        
+        return readingTime;
 	};
 
 	const inspectorControls = (
@@ -55,15 +53,38 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 			>
 			    <PanelRow>
 					<SelectControl
-						label="What's your favorite animal?"
-						value={attributes.favoriteAnimal}
+						label="Time Position"
+						value={attributes.timePosition}
 						options={[
-							{label: "Dogs", value: 'dogs'},
-							{label: "Cats", value: 'cats'},
-							{label: "Something else", value: 'weird_one'},
+							{label: "Before", value: 'before'},
+							{label: "After", value: 'after'},
 						]}
-						onChange={(newval) => setAttributes({ favoriteAnimal: newval })}
+						onChange={(newval) => setAttributes({ timePosition: newval })}
 					/>
+                </PanelRow>
+                <PanelRow>
+                    <InputControl
+                        label="Text"
+                        labelPosition="side"
+                        value={ attributes.text }
+                        onChange={(newval) => setAttributes({ text: newval })}
+                    />                
+                </PanelRow>
+                <PanelRow>
+                    <InputControl
+                        label="Plural Text"
+                        labelPosition="side"
+                        value={ attributes.pluralText }
+                        onChange={(newval) => setAttributes({ pluralText: newval })}
+                    />                
+                </PanelRow>
+                <PanelRow>
+                    <InputControl
+                        label="Before Text?"
+                        labelPosition="side"
+                        value={ attributes.pluralText }
+                        onChange={(newval) => setAttributes({ pluralText: newval })}
+                    />                
                 </PanelRow>
 			</PanelBody>
 		</InspectorControls>    	
@@ -73,7 +94,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
     	<div>
         	{ inspectorControls }
             <div className={ className }>
-                Read Time: getReadingTime()
+                Read Time: { getReadingTime() }
             </div>
         </div>
 	);
