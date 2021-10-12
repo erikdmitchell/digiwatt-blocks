@@ -8,6 +8,18 @@ registerBlockType( name, {
 	icon: 'layout',
 	category: 'common',
 	attributes: {
+		featuredImageSizeSlug: {
+			type: 'string',
+			default: 'digiwatt-home-grid',
+		},   
+		featuredImageSizeWidth: {
+			type: 'number',
+			default: null,
+		},
+		featuredImageSizeHeight: {
+			type: 'number',
+			default: null,
+		},		 	
 		readTimeText: {
 			type: 'string',
 			default: 'Minute Read',
