@@ -90,7 +90,7 @@ function dwb_read_time_block_init() {
                     'default' => 95,
                 ),
             ),
-            'render_callback' => 'render_block_digiwatt_read_time',            
+            'render_callback' => 'render_block_digiwatt_read_time',
             'editor_script' => 'dwb-block-script',
             'editor_style' => "dwb-{$block_slug}-block-editor",
             'style' => "dwb-{$block_slug}-block-style",
@@ -105,18 +105,18 @@ function render_block_digiwatt_read_time( $attributes ) { }
 
 function dwb_reading_time() {
     global $post;
-    
+
     $content = get_post_field( 'post_content', $post->ID );
     $word_count = str_word_count( strip_tags( $content ) );
     $readingtime = ceil( $word_count / 200 );
-    
+
     if ( $readingtime == 1 ) {
         $timer = ' minute';
     } else {
         $timer = ' minutes';
     }
-    
+
     $totalreadingtime = $readingtime . $timer;
-    
+
     return $totalreadingtime;
 }

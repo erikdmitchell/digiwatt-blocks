@@ -5,12 +5,12 @@ const name = 'dwb/read-time';
 
 registerBlockType( name, {
 	title: 'Read Time',
-	icon: 'editor-table',
+	icon: 'clock',
 	category: 'common',
 	attributes: {
 		readTimeText: {
 			type: 'string',
-			default: 'minute',
+			default: 'Minute Read',
 		},
 		timePosition: {
 			type: 'string',

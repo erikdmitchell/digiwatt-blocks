@@ -498,45 +498,45 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
   icon: 'editor-table',
   category: 'common',
   attributes: {
-    "postsToShow": {
-      "type": "number",
-      "default": 3
+    postsToShow: {
+      type: 'number',
+      default: 3
     },
-    "excerptLength": {
-      "type": "number",
-      "default": 35
+    excerptLength: {
+      type: 'number',
+      default: 35
     },
-    "columns": {
-      "type": "number",
-      "default": 2
+    columns: {
+      type: 'number',
+      default: 2
     },
-    "order": {
-      "type": "string",
-      "default": "desc"
+    order: {
+      type: 'string',
+      default: 'desc'
     },
-    "orderBy": {
-      "type": "string",
-      "default": "date"
+    orderBy: {
+      type: 'string',
+      default: 'date'
     },
-    "featuredImageSizeSlug": {
-      "type": "string",
-      "default": "digiwatt-home-grid"
+    featuredImageSizeSlug: {
+      type: 'string',
+      default: 'digiwatt-home-grid'
     },
-    "featuredImageSizeWidth": {
-      "type": "number",
-      "default": null
+    featuredImageSizeWidth: {
+      type: 'number',
+      default: null
     },
-    "featuredImageSizeHeight": {
-      "type": "number",
-      "default": null
+    featuredImageSizeHeight: {
+      type: 'number',
+      default: null
     },
-    "featuredImageLargeSizeSlug": {
-      "type": "string",
-      "default": "digiwatt-home-grid-large"
+    featuredImageLargeSizeSlug: {
+      type: 'string',
+      default: 'digiwatt-home-grid-large'
     },
-    "featuredPostExcerptLength": {
-      "type": "number",
-      "default": 95
+    featuredPostExcerptLength: {
+      type: 'number',
+      default: 95
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -630,16 +630,16 @@ function ReadTimeEdit(_ref) {
 
   var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Read Table', 'dwb'),
-    icon: "editor-table"
+    icon: "clock"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["SelectControl"], {
     label: "Time Position",
     labelPosition: "side",
     value: attributes.timePosition,
     options: [{
-      label: "Before",
+      label: 'Before',
       value: 'before'
     }, {
-      label: "After",
+      label: 'After',
       value: 'after'
     }],
     onChange: function onChange(newval) {
@@ -681,16 +681,16 @@ __webpack_require__.r(__webpack_exports__);
 var name = 'dwb/read-time';
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name, {
   title: 'Read Time',
-  icon: 'editor-table',
+  icon: 'clock',
   category: 'common',
   attributes: {
-    "readTimeText": {
-      "type": "string",
-      "default": 'minute'
+    readTimeText: {
+      type: 'string',
+      default: 'Minute Read'
     },
-    "timePosition": {
-      "type": "string",
-      "default": "before"
+    timePosition: {
+      type: 'string',
+      default: 'before'
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]

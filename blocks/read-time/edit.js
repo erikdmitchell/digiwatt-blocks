@@ -40,7 +40,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 
 	const inspectorControls = (
 		<InspectorControls>
-			<PanelBody title={ __( 'Read Table', 'dwb' ) } icon="editor-table">
+			<PanelBody title={ __( 'Read Table', 'dwb' ) } icon="clock">
 				<PanelRow>
 					<SelectControl
 						label="Time Position"
