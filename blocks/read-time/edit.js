@@ -3,14 +3,13 @@ import { count } from '@wordpress/wordcount';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/block-editor';
-import { ToggleControl, PanelBody, PanelRow, SelectControl } from '@wordpress/components';
+import { PanelBody, PanelRow, SelectControl } from '@wordpress/components';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 
 export default function ReadTimeEdit( { attributes, setAttributes } ) {
 	const {
     	className,
-    	text,
-    	pluralText,
+    	readTimeText,
     	timePosition,
 	} = attributes;
 
@@ -30,18 +29,16 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
     // setup reading timer.
 	const getReadingTime = () => {
         const postWordCount = count( post.content.raw, 'words', {} );
+        const readingTimeNumber = Math.ceil( postWordCount / 200 );
         
-        let readingTime = Math.ceil( postWordCount / 200 );
-        let timer = pluralText;
-        
-        if (1 == readingTime) {
-            timer = text;
+        let readingTime = '';
+    
+        if ('before' == timePosition) {
+            readingTime = readTimeText + ' ' + readingTimeNumber;
+        } else {
+            readingTime = readingTimeNumber + ' ' + readTimeText;            
         }
-    
-        // position
-    
-        readingTime = readingTime + ' ' + timer;
-        
+            
         return readingTime;
 	};
 
@@ -54,6 +51,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 			    <PanelRow>
 					<SelectControl
 						label="Time Position"
+						labelPosition="side"
 						value={attributes.timePosition}
 						options={[
 							{label: "Before", value: 'before'},
@@ -66,24 +64,8 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
                     <InputControl
                         label="Text"
                         labelPosition="side"
-                        value={ attributes.text }
-                        onChange={(newval) => setAttributes({ text: newval })}
-                    />                
-                </PanelRow>
-                <PanelRow>
-                    <InputControl
-                        label="Plural Text"
-                        labelPosition="side"
-                        value={ attributes.pluralText }
-                        onChange={(newval) => setAttributes({ pluralText: newval })}
-                    />                
-                </PanelRow>
-                <PanelRow>
-                    <InputControl
-                        label="Before Text?"
-                        labelPosition="side"
-                        value={ attributes.pluralText }
-                        onChange={(newval) => setAttributes({ pluralText: newval })}
+                        value={ attributes.readTimeText }
+                        onChange={(newval) => setAttributes({ readTimeText: newval })}
                     />                
                 </PanelRow>
 			</PanelBody>
@@ -94,7 +76,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
     	<div>
         	{ inspectorControls }
             <div className={ className }>
-                Read Time: { getReadingTime() }
+                { getReadingTime() }
             </div>
         </div>
 	);

@@ -8,17 +8,13 @@ registerBlockType( name, {
 	icon: 'editor-table',
 	category: 'common',
 	attributes: {
-        "text": {
+        "readTimeText": {
             "type": "string",
             "default": 'minute',
         },
-        "pluralText": {
-            "type": "string",
-            "default": 'minutes',
-        },
         "timePosition": {
             "type": "string",
-            "default": "after"
+            "default": "before"
         },                    
 	},
 	edit,

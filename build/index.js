@@ -600,8 +600,7 @@ function ReadTimeEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
   var className = attributes.className,
-      text = attributes.text,
-      pluralText = attributes.pluralText,
+      readTimeText = attributes.readTimeText,
       timePosition = attributes.timePosition;
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
@@ -618,15 +617,15 @@ function ReadTimeEdit(_ref) {
 
   var getReadingTime = function getReadingTime() {
     var postWordCount = Object(_wordpress_wordcount__WEBPACK_IMPORTED_MODULE_2__["count"])(post.content.raw, 'words', {});
-    var readingTime = Math.ceil(postWordCount / 200);
-    var timer = pluralText;
+    var readingTimeNumber = Math.ceil(postWordCount / 200);
+    var readingTime = '';
 
-    if (1 == readingTime) {
-      timer = text;
-    } // position
+    if ('before' == timePosition) {
+      readingTime = readTimeText + ' ' + readingTimeNumber;
+    } else {
+      readingTime = readingTimeNumber + ' ' + readTimeText;
+    }
 
-
-    readingTime = readingTime + ' ' + timer;
     return readingTime;
   };
 
@@ -635,6 +634,7 @@ function ReadTimeEdit(_ref) {
     icon: "editor-table"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["SelectControl"], {
     label: "Time Position",
+    labelPosition: "side",
     value: attributes.timePosition,
     options: [{
       label: "Before",
@@ -651,34 +651,16 @@ function ReadTimeEdit(_ref) {
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["__experimentalInputControl"], {
     label: "Text",
     labelPosition: "side",
-    value: attributes.text,
+    value: attributes.readTimeText,
     onChange: function onChange(newval) {
       return setAttributes({
-        text: newval
-      });
-    }
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["__experimentalInputControl"], {
-    label: "Plural Text",
-    labelPosition: "side",
-    value: attributes.pluralText,
-    onChange: function onChange(newval) {
-      return setAttributes({
-        pluralText: newval
-      });
-    }
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["__experimentalInputControl"], {
-    label: "Before Text?",
-    labelPosition: "side",
-    value: attributes.pluralText,
-    onChange: function onChange(newval) {
-      return setAttributes({
-        pluralText: newval
+        readTimeText: newval
       });
     }
   }))));
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: className
-  }, "Read Time: ", getReadingTime()));
+  }, getReadingTime()));
 }
 
 /***/ }),
@@ -703,17 +685,13 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
   icon: 'editor-table',
   category: 'common',
   attributes: {
-    "text": {
+    "readTimeText": {
       "type": "string",
       "default": 'minute'
     },
-    "pluralText": {
-      "type": "string",
-      "default": 'minutes'
-    },
     "timePosition": {
       "type": "string",
-      "default": "after"
+      "default": "before"
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
