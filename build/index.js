@@ -660,46 +660,15 @@ function ReadTimeEdit(_ref) {
       postID = _useSelect.postID,
       postTitle = _useSelect.postTitle,
       postAuthor = _useSelect.postAuthor,
-      postImage = _useSelect.postImage;
+      postImage = _useSelect.postImage; // convert post object to array - lazy, but easier.
 
-  var hasPost = !!(post !== null && post !== void 0 && post.length);
-  console.log(post);
+
+  var postArr = Object.keys(post);
+  var hasPost = !!(postArr !== null && postArr !== void 0 && postArr.length);
 
   if (!hasPost) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, !Array.isArray(post) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('No post found.'));
   }
-  /*
-  			return {
-  				latestPosts: ! Array.isArray( posts )
-  					? posts
-  					: posts.map( ( post ) => {
-  							if ( ! post.featured_media ) return post;
-  
-  							const image = getMedia( post.featured_media );
-  							let url = get(
-  								image,
-  								[
-  									'media_details',
-  									'sizes',
-  									featuredImageSizeSlug,
-  									'source_url',
-  								],
-  								null
-  							);
-  							if ( ! url ) {
-  								url = get( image, 'source_url', null );
-  							}
-  							const featuredImageInfo = {
-  								url,
-  								alt: image?.alt_text,
-  							};
-  							return { ...post, featuredImageInfo };
-  					  } ),
-  			};
-  		}
-  	);
-  */
-
 
   var postedOn = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "entry-date"
@@ -709,8 +678,14 @@ function ReadTimeEdit(_ref) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("time", {
     datetime: Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('c', post.date),
     className: "entry-date"
-  }, Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('F j, Y', post.date)))); //console.log(postAuthor);
-  //console.log(postAuthor.link);
+  }, Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('F j, Y', post.date)))); // convert author object to array - lazy, but easier.
+  //const postAuthorArr = Object.keys(postAuthor);
+
+  var hasAuthor = !!Object.keys(postAuthor).length;
+
+  if (!hasAuthor) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, !Array.isArray(postAuthor) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('No post author found.'));
+  }
 
   var byline = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "byline"

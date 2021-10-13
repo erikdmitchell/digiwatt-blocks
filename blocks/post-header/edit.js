@@ -41,7 +41,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
             const currentPost = getEntityRecord( 'postType', 'post', currentPostID );
             const title = currentPost.title.rendered;
             const authorID = currentPost.author;
-            const author = getUser( authorID );
+            const author = getUser( authorID );            
             const image = getMedia( currentPost.featured_media );          
         	const featuredImageUrl = get(
     			image,
@@ -76,8 +76,11 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 		},
 	);
 	
-	const hasPost = !! post?.length;
-console.log(post);
+	// convert post object to array - lazy, but easier.
+	const postArr = Object.keys(post);
+	
+	const hasPost = !! postArr?.length;
+
 	if ( ! hasPost ) {
 		return (
 			<div>
@@ -89,37 +92,7 @@ console.log(post);
 			</div>
 		);
 	}
-/*
-			return {
-				latestPosts: ! Array.isArray( posts )
-					? posts
-					: posts.map( ( post ) => {
-							if ( ! post.featured_media ) return post;
 
-							const image = getMedia( post.featured_media );
-							let url = get(
-								image,
-								[
-									'media_details',
-									'sizes',
-									featuredImageSizeSlug,
-									'source_url',
-								],
-								null
-							);
-							if ( ! url ) {
-								url = get( image, 'source_url', null );
-							}
-							const featuredImageInfo = {
-								url,
-								alt: image?.alt_text,
-							};
-							return { ...post, featuredImageInfo };
-					  } ),
-			};
-		}
-	);
-*/
     const postedOn = (
         <div className="entry-date">
             <a 
@@ -130,8 +103,24 @@ console.log(post);
             </a>
         </div>
     );
-//console.log(postAuthor);
-//console.log(postAuthor.link);
+	
+	// convert author object to array - lazy, but easier.
+	//const postAuthorArr = Object.keys(postAuthor);
+	
+	const hasAuthor = !! Object.keys(postAuthor).length;
+
+	if ( ! hasAuthor ) {
+		return (
+			<div>
+				{ ! Array.isArray( postAuthor ) ? (
+					<Spinner />
+				) : (
+					__( 'No post author found.' )
+				) }
+			</div>
+		);
+	}
+	
     const byline = (
         <div className="byline">
             <span className="author vcard">
