@@ -648,7 +648,6 @@ function ReadTimeEdit(_ref) {
         maxHeight: featuredImageSizeHeight
       }
     });
-    console.log(author);
     return {
       post: currentPost,
       postID: currentPostID,
@@ -662,6 +661,45 @@ function ReadTimeEdit(_ref) {
       postTitle = _useSelect.postTitle,
       postAuthor = _useSelect.postAuthor,
       postImage = _useSelect.postImage;
+
+  var hasPost = !!(post !== null && post !== void 0 && post.length);
+  console.log(post);
+
+  if (!hasPost) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, !Array.isArray(post) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('No post found.'));
+  }
+  /*
+  			return {
+  				latestPosts: ! Array.isArray( posts )
+  					? posts
+  					: posts.map( ( post ) => {
+  							if ( ! post.featured_media ) return post;
+  
+  							const image = getMedia( post.featured_media );
+  							let url = get(
+  								image,
+  								[
+  									'media_details',
+  									'sizes',
+  									featuredImageSizeSlug,
+  									'source_url',
+  								],
+  								null
+  							);
+  							if ( ! url ) {
+  								url = get( image, 'source_url', null );
+  							}
+  							const featuredImageInfo = {
+  								url,
+  								alt: image?.alt_text,
+  							};
+  							return { ...post, featuredImageInfo };
+  					  } ),
+  			};
+  		}
+  	);
+  */
+
 
   var postedOn = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "entry-date"

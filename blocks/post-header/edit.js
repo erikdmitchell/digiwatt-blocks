@@ -11,6 +11,7 @@ import { useSelect } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/block-editor';
 import { date } from '@wordpress/date';
 import {
+    Spinner,
 	PanelBody,
 	PanelRow,
 	SelectControl,
@@ -64,7 +65,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 					} }
 				/>
 			);
-console.log(author);
+
 			return {
     			post: currentPost,
 				postID: currentPostID,
@@ -74,7 +75,51 @@ console.log(author);
 			};
 		},
 	);
+	
+	const hasPost = !! post?.length;
+console.log(post);
+	if ( ! hasPost ) {
+		return (
+			<div>
+				{ ! Array.isArray( post ) ? (
+					<Spinner />
+				) : (
+					__( 'No post found.' )
+				) }
+			</div>
+		);
+	}
+/*
+			return {
+				latestPosts: ! Array.isArray( posts )
+					? posts
+					: posts.map( ( post ) => {
+							if ( ! post.featured_media ) return post;
 
+							const image = getMedia( post.featured_media );
+							let url = get(
+								image,
+								[
+									'media_details',
+									'sizes',
+									featuredImageSizeSlug,
+									'source_url',
+								],
+								null
+							);
+							if ( ! url ) {
+								url = get( image, 'source_url', null );
+							}
+							const featuredImageInfo = {
+								url,
+								alt: image?.alt_text,
+							};
+							return { ...post, featuredImageInfo };
+					  } ),
+			};
+		}
+	);
+*/
     const postedOn = (
         <div className="entry-date">
             <a 
@@ -170,7 +215,3 @@ console.log(author);
 		</div>
 	);
 }
-
-
-
-					
