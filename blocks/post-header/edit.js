@@ -9,6 +9,7 @@ import { count } from '@wordpress/wordcount';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/block-editor';
+import { date } from '@wordpress/date';
 import {
 	PanelBody,
 	PanelRow,
@@ -37,8 +38,9 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 			
             const currentPostID = select("core/editor").getCurrentPostId();
             const currentPost = getEntityRecord( 'postType', 'post', currentPostID );
-            const title = select('core/editor').getEditedPostAttribute( 'title' );
-            const authorID = select('core/editor').getEditedPostAttribute( 'author' );
+            const title = currentPost.title.rendered;
+            const authorID = currentPost.author;
+            const author = getUser( authorID );
             const image = getMedia( currentPost.featured_media );          
         	const featuredImageUrl = get(
     			image,
@@ -62,18 +64,38 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 					} }
 				/>
 			);
-
+console.log(author);
 			return {
     			post: currentPost,
 				postID: currentPostID,
 				postTitle: title,
-				postAuthor: authorID ? getUser( authorID ) : null,
+				postAuthor: author,
 				postImage: featuredImage,
 			};
 		},
 	);
 
-
+    const postedOn = (
+        <div className="entry-date">
+            <a 
+                href={ post.link }
+                rel="bookmark"
+            >
+                <time datetime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
+            </a>
+        </div>
+    );
+//console.log(postAuthor);
+//console.log(postAuthor.link);
+    const byline = (
+        <div className="byline">
+            <span className="author vcard">
+                <a className="url fn n" href={postAuthor.link} rel="author">
+                    By {postAuthor.name}
+                </a>
+            </span>
+        </div>
+    );       
 
     const headerContent = (
         <header className="entry-header">  
@@ -84,9 +106,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
                             <h1 className="entry-title">{postTitle}</h1>
                         </div>
                         <div className="meta">
-                            check post type = post
-                            emdotbike_theme_posted_on func
-                            
+                            { postedOn }
                         </div>
                     </div>              
                 </div>
@@ -99,29 +119,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 
     
 /*
-    <header class="entry-header">  
-        <div class="featured-columns">
-            <div class="featured-column"> 
-                <div class="header-content"> 
-                    <div class="title">
-                        <?php
-                        if ( is_single() ) :
-                            the_title( '<h1 class="entry-title">', '</h1>' );
-                        else :
-                            the_title( '<h1 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h1>' );
-                        endif;
-                        ?>
-                            
-                    </div>
-                    <div class="meta">
-                        <?php
-                        if ( 'post' == get_post_type() ) {
-                            emdotbike_theme_posted_on();
-                        }
-                        ?>
-                    </div>
-                </div>              
-            </div>
+
             <?php if (has_post_thumbnail()) : ?>
                 <div class="featured-column">
                     <?php emdotbike_theme_post_thumbnail( 'single' ); ?>
@@ -130,8 +128,6 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
             <?php endif; ?>
                 
             </div>
-        </div>
-    </header>
 */
         
 

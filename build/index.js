@@ -590,14 +590,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/date */ "@wordpress/date");
+/* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);
 
 
 /**
  * External dependencies
  *
  */
+
 
 
 
@@ -631,8 +634,9 @@ function ReadTimeEdit(_ref) {
 
     var currentPostID = select("core/editor").getCurrentPostId();
     var currentPost = getEntityRecord('postType', 'post', currentPostID);
-    var title = select('core/editor').getEditedPostAttribute('title');
-    var authorID = select('core/editor').getEditedPostAttribute('author');
+    var title = currentPost.title.rendered;
+    var authorID = currentPost.author;
+    var author = getUser(authorID);
     var image = getMedia(currentPost.featured_media);
     var featuredImageUrl = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["get"])(image, ['media_details', 'sizes', featuredImageSizeSlug, 'source_url'], null);
     var featuredImageAlt = image === null || image === void 0 ? void 0 : image.alt_text;
@@ -644,11 +648,12 @@ function ReadTimeEdit(_ref) {
         maxHeight: featuredImageSizeHeight
       }
     });
+    console.log(author);
     return {
       post: currentPost,
       postID: currentPostID,
       postTitle: title,
-      postAuthor: authorID ? getUser(authorID) : null,
+      postAuthor: author,
       postImage: featuredImage
     };
   }),
@@ -658,6 +663,26 @@ function ReadTimeEdit(_ref) {
       postAuthor = _useSelect.postAuthor,
       postImage = _useSelect.postImage;
 
+  var postedOn = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "entry-date"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    href: post.link,
+    rel: "bookmark"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("time", {
+    datetime: Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('c', post.date),
+    className: "entry-date"
+  }, Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('F j, Y', post.date)))); //console.log(postAuthor);
+  //console.log(postAuthor.link);
+
+  var byline = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "byline"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    className: "author vcard"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    className: "url fn n",
+    href: postAuthor.link,
+    rel: "author"
+  }, "By ", postAuthor.name)));
   var headerContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("header", {
     className: "entry-header"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -672,31 +697,9 @@ function ReadTimeEdit(_ref) {
     className: "entry-title"
   }, postTitle)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "meta"
-  }, "check post type = post emdotbike_theme_posted_on func"))), "swap some classes if we have a post thumbnail", postImage));
+  }, postedOn))), "swap some classes if we have a post thumbnail", postImage));
   /*
-      <header class="entry-header">  
-          <div class="featured-columns">
-              <div class="featured-column"> 
-                  <div class="header-content"> 
-                      <div class="title">
-                          <?php
-                          if ( is_single() ) :
-                              the_title( '<h1 class="entry-title">', '</h1>' );
-                          else :
-                              the_title( '<h1 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h1>' );
-                          endif;
-                          ?>
-                              
-                      </div>
-                      <div class="meta">
-                          <?php
-                          if ( 'post' == get_post_type() ) {
-                              emdotbike_theme_posted_on();
-                          }
-                          ?>
-                      </div>
-                  </div>              
-              </div>
+  
               <?php if (has_post_thumbnail()) : ?>
                   <div class="featured-column">
                       <?php emdotbike_theme_post_thumbnail( 'single' ); ?>
@@ -705,11 +708,9 @@ function ReadTimeEdit(_ref) {
               <?php endif; ?>
                   
               </div>
-          </div>
-      </header>
   */
 
-  var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["SelectControl"], {
+  var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["SelectControl"], {
     label: "Time Position",
     labelPosition: "side",
     value: attributes.timePosition,
@@ -725,7 +726,7 @@ function ReadTimeEdit(_ref) {
         timePosition: newval
       });
     }
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["__experimentalInputControl"], {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["__experimentalInputControl"], {
     label: "Text",
     labelPosition: "side",
     value: attributes.readTimeText,
