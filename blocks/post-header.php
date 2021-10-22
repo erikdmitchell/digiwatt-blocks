@@ -119,6 +119,12 @@ function render_block_digiwatt_post_header( $attributes ) {
     );
 }
 
+/**
+ * Get post date and author.
+ * 
+ * @access public
+ * @return void
+ */
 function get_dwb_post_header_posted_on() {
     $html = '';
     
@@ -129,6 +135,14 @@ function get_dwb_post_header_posted_on() {
     return $html;
 }
 
+/**
+ * Get the thumbnail.
+ * 
+ * @access public
+ * @param string $size (default: 'full')
+ * @param int $post_id (default: 0)
+ * @return void
+ */
 function get_dwb_post_header_post_thumbnail( $size = 'full', $post_id = 0 ) {
     $thumb = '';
 
