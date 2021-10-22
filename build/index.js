@@ -616,7 +616,7 @@ function PostHeaderEdit(_ref) {
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight,
-      author = attributes.author;
+      align = attributes.align;
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__["useSelect"])(function (select) {
     var _getEditedEntityRecor;
@@ -670,9 +670,8 @@ function PostHeaderEdit(_ref) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, !Array.isArray(post) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('No post found.'));
   }
 
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: className
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("header", {
+  var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["useBlockProps"])();
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("header", {
     className: "entry-header"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "featured-columns"
@@ -706,7 +705,7 @@ function PostHeaderEdit(_ref) {
     className: "featured-column"
   }, postImage) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "featured-column no-thumb"
-  })))));
+  }))));
 }
 
 /***/ }),
@@ -743,9 +742,13 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
       type: 'number',
       default: null
     },
-    author: {
-      type: 'number'
+    align: {
+      type: 'string'
     }
+  },
+  apiVersion: 2,
+  supports: {
+    align: ['wide', 'full']
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
 });

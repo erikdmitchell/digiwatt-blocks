@@ -61,10 +61,11 @@ function dwb_post_header_block_init() {
                     'type' => 'number',
                     'default' => null,
                 ),
-                'postAuthorDetails' => array(
+                'align' => array(
                     'type' => 'string',
                 ),
             ),
+            'api_version' => 2,
             'render_callback' => 'render_block_digiwatt_post_header',
             'editor_script' => 'dwb-block-script',
             'editor_style' => "dwb-{$block_slug}-block-editor",
@@ -107,10 +108,13 @@ function render_block_digiwatt_post_header( $attributes ) {
                 $html .= '<div class="featured-column no-thumb"></div>';
             endif;
         $html .= '</div>';
-    $html .= '</header>';	   
+    $html .= '</header>';
     
-    $class = 'wp-block-dwb-post-header-block';
-    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
+    if (!empty( $attributes['align'] )) {
+        $alignClass = 'align' . $attributes['align'];
+    }
+    
+    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $alignClass ) );
 
     return sprintf(
         '<div %1$s>%2$s</div>',

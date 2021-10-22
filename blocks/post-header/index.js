@@ -19,10 +19,14 @@ registerBlockType( name, {
 		featuredImageSizeHeight: {
 			type: 'number',
 			default: null,
-		},		 	
-        postAuthorDetails: {
-            type: 'string',
-        },
+		},
+		align: {
+			type: 'string',
+		},        
 	},
+	apiVersion: 2,
+	supports: {
+		align: [ 'wide', 'full' ],
+	},	
 	edit,
 } );
