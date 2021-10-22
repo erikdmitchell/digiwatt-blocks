@@ -624,7 +624,6 @@ function PostHeaderEdit(_ref) {
     var _select = select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__["store"]),
         getUser = _select.getUser,
         getMedia = _select.getMedia,
-        getEntityRecord = _select.getEntityRecord,
         getEditedEntityRecord = _select.getEditedEntityRecord;
 
     var _select2 = select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["store"]),
@@ -635,8 +634,8 @@ function PostHeaderEdit(_ref) {
         imageDimensions = _getSettings.imageDimensions;
 
     var currentPostID = select("core/editor").getCurrentPostId();
-    var currentPost = getEntityRecord('postType', 'post', currentPostID);
-    var title = currentPost.title.rendered;
+    var currentPost = getEditedEntityRecord('postType', 'post', currentPostID);
+    var title = currentPost.title;
     var authorID = (_getEditedEntityRecor = getEditedEntityRecord('postType', 'post', currentPostID)) === null || _getEditedEntityRecor === void 0 ? void 0 : _getEditedEntityRecor.author;
     var image = getMedia(currentPost.featured_media);
     var featuredImageUrl = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["get"])(image, ['media_details', 'sizes', featuredImageSizeSlug, 'source_url'], null);
