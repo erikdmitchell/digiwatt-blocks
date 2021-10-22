@@ -23,7 +23,7 @@ import {
 } from '@wordpress/block-editor';
 
 export default function PostHeaderEdit( { attributes, setAttributes } ) {
-	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, author } = attributes;
+	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, postAuthorDetails } = attributes;
 
 	const {
     	post,

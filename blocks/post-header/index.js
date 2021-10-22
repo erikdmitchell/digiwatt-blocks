@@ -20,8 +20,8 @@ registerBlockType( name, {
 			type: 'number',
 			default: null,
 		},		 	
-        author: {
-            type: 'number',
+        postAuthorDetails: {
+            type: 'string',
         },
 	},
 	edit,
