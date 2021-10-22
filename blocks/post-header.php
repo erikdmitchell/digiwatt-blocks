@@ -49,13 +49,20 @@ function dwb_post_header_block_init() {
         "dwb/{$block_slug}",
         array(
             'attributes' => array(
-                'readTimeText' => array(
+                'featuredImageSizeSlug' => array(
                     'type' => 'string',
-                    'default' => 'Minute Read',
+                    'default' => 'digiwatt-home-grid',
                 ),
-                'timePosition' => array(
+                'featuredImageSizeWidth' => array(
+                    'type' => 'number',
+                    'default' => null,
+                ),
+                'featuredImageSizeHeight' => array(
+                    'type' => 'number',
+                    'default' => null,
+                ),
+                'postAuthorDetails' => array(
                     'type' => 'string',
-                    'default' => 'after',
                 ),
             ),
             'render_callback' => 'render_block_digiwatt_post_header',
