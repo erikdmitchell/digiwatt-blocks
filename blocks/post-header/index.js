@@ -20,14 +20,9 @@ registerBlockType( name, {
 			type: 'number',
 			default: null,
 		},		 	
-		readTimeText: {
-			type: 'string',
-			default: 'Minute Read',
-		},
-		timePosition: {
-			type: 'string',
-			default: 'after',
-		},
+        author: {
+            type: 'number',
+        },
 	},
 	edit,
 } );

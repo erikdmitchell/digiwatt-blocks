@@ -22,26 +22,31 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 
-export default function ReadTimeEdit( { attributes, setAttributes } ) {
-	const { className, readTimeText, timePosition, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight } = attributes;
+export default function PostHeaderEdit( { attributes, setAttributes } ) {
+	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, author } = attributes;
 
 	const {
     	post,
 		postID,
 		postTitle,
-		postAuthor,
+        postAuthorDetails,
 		postImage,
 	} = useSelect(
 		( select ) => {
-			const { getUser, getMedia, getEntityRecord } = select( coreStore );
+			const { getUser, getMedia, getEntityRecord, getEditedEntityRecord } = select( coreStore );
 			const { getSettings } = select( blockEditorStore );
 			const { imageSizes, imageDimensions } = getSettings();
 			
             const currentPostID = select("core/editor").getCurrentPostId();
             const currentPost = getEntityRecord( 'postType', 'post', currentPostID );
             const title = currentPost.title.rendered;
-            const authorID = currentPost.author;
-            const author = getUser( authorID );            
+
+			const authorID = getEditedEntityRecord(
+				'postType',
+				'post',
+				currentPostID
+			)?.author;
+
             const image = getMedia( currentPost.featured_media );          
         	const featuredImageUrl = get(
     			image,
@@ -54,7 +59,6 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
     			null
     		); 
     		const featuredImageAlt = image?.alt_text;	
-
             const featuredImage = (
 				<img
 					src={ featuredImageUrl }
@@ -70,7 +74,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
     			post: currentPost,
 				postID: currentPostID,
 				postTitle: title,
-				postAuthor: author,
+				postAuthorDetails: authorID ? getUser( authorID ) : null,
 				postImage: featuredImage,
 			};
 		},
@@ -91,67 +95,8 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 				) }
 			</div>
 		);
-	}
-
-    const postedOn = (
-        <div className="entry-date">
-            <a 
-                href={ post.link }
-                rel="bookmark"
-            >
-                <time datetime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
-            </a>
-        </div>
-    );
+	}     
 	
-	// convert author object to array - lazy, but easier.
-	//const postAuthorArr = Object.keys(postAuthor);
-	
-	const hasAuthor = !! Object.keys(postAuthor).length;
-
-	if ( ! hasAuthor ) {
-		return (
-			<div>
-				{ ! Array.isArray( postAuthor ) ? (
-					<Spinner />
-				) : (
-					__( 'No post author found.' )
-				) }
-			</div>
-		);
-	}
-	
-    const byline = (
-        <div className="byline">
-            <span className="author vcard">
-                <a className="url fn n" href={postAuthor.link} rel="author">
-                    By {postAuthor.name}
-                </a>
-            </span>
-        </div>
-    );       
-
-    const headerContent = (
-        <header className="entry-header">  
-            <div className="featured-columns">
-                <div className="featured-column"> 
-                    <div className="header-content"> 
-                        <div className="title">
-                            <h1 className="entry-title">{postTitle}</h1>
-                        </div>
-                        <div className="meta">
-                            { postedOn }
-                        </div>
-                    </div>              
-                </div>
-                swap some classes if we have a post thumbnail
-                { postImage }
-            </div>
-        </header> 
-    );  
-
-
-    
 /*
 
             <?php if (has_post_thumbnail()) : ?>
@@ -197,10 +142,42 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 		</InspectorControls>
 	);
 
-	return (
+	return (    	
 		<div>
 			{ inspectorControls }
-			<div className={ className }>{ headerContent }</div>
+			<div className={ className }>
+                <header className="entry-header">  
+                    <div className="featured-columns">
+                        <div className="featured-column"> 
+                            <div className="header-content"> 
+                                <div className="title">
+                                    <h1 className="entry-title">{postTitle}</h1>
+                                </div>
+                                <div className="meta">
+                                    <div className="entry-date">
+                                        <a 
+                                            href={ post.link }
+                                            rel="bookmark"
+                                        >
+                                            <time dateTime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
+                                        </a>
+                                    </div>
+                                    
+                                    <div className="byline">
+                                        <span className="author vcard">
+                                            <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
+                                                By {postAuthorDetails ? postAuthorDetails.name : ''}
+                                            </a>
+                                        </span>
+                                    </div>        
+                                </div>
+                            </div>              
+                        </div>
+                        swap some classes if we have a post thumbnail
+                        { postImage }
+                    </div>
+                </header> 			
+			</div>
 		</div>
 	);
 }
