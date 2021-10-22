@@ -94,7 +94,7 @@ function render_block_digiwatt_post_header( $attributes ) {
                         $html .= '<h1 class="entry-title">'.get_the_title( $post ).'</h1>';
                     $html .= '</div>';
                     $html .= '<div class="meta">';
-                        $html .= 'GET emdotbike_theme_posted_on();';
+                        $html .= get_dwb_post_header_posted_on();
                     $html .= '</div>';
                 $html .= '</div>';        
             $html .= '</div>';
@@ -119,17 +119,14 @@ function render_block_digiwatt_post_header( $attributes ) {
     );
 }
 
-function get_dwb_post_header_posted_on( $show_author = false ) {
-    if ( is_sticky() && is_home() && ! is_paged() ) {
-        echo '<span class="featured-post">' . _e( 'Sticky', 'emdotbike' ) . '</span>';
-    }
+function get_dwb_post_header_posted_on() {
+    $html = '';
+    
+    $html .= wp_kses_post( '<div class="entry-date"><a href="' . get_permalink() . '" rel="bookmark"><time class="entry-date" datetime="' . get_the_date( 'c' ) . '">' . get_the_date() . '</time></a></div>' );
+    
+    $html .= wp_kses_post( '<div class="byline"><span class="author vcard"><a class="url fn n" href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" rel="author">By ' . get_the_author() . '</a></div></span>' );
 
-    // Set up and print post meta information. -- hide date if sticky.
-    if ( ! is_sticky() ) :
-        echo wp_kses_post( '<div class="entry-date"><a href="' . get_permalink() . '" rel="bookmark"><time class="entry-date" datetime="' . get_the_date( 'c' ) . '">' . get_the_date() . '</time></a></div>' );
-    endif;
-
-    echo wp_kses_post( '<div class="byline"><span class="author vcard"><a class="url fn n" href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" rel="author">By ' . get_the_author() . '</a></div></span>' );
+    return $html;
 }
 
 function get_dwb_post_header_post_thumbnail( $size = 'full', $post_id = 0 ) {
