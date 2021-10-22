@@ -47,7 +47,8 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 				currentPostID
 			)?.author;
 
-            const image = getMedia( currentPost.featured_media );          
+            const image = getMedia( currentPost.featured_media );
+                    
         	const featuredImageUrl = get(
     			image,
     			[
@@ -58,6 +59,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
     			],
     			null
     		); 
+   		
     		const featuredImageAlt = image?.alt_text;	
             const featuredImage = (
 				<img
@@ -75,7 +77,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 				postID: currentPostID,
 				postTitle: title,
 				postAuthorDetails: authorID ? getUser( authorID ) : null,
-				postImage: featuredImage,
+				postImage: featuredImageUrl ? featuredImage : null,
 			};
 		},
 	);
@@ -96,20 +98,6 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 			</div>
 		);
 	}     
-	
-/*
-
-            <?php if (has_post_thumbnail()) : ?>
-                <div class="featured-column">
-                    <?php emdotbike_theme_post_thumbnail( 'single' ); ?>
-            <?php else : ?>
-                <div class="featured-column no-thumb">
-            <?php endif; ?>
-                
-            </div>
-*/
-        
-
 
 	const inspectorControls = (
 		<InspectorControls>
@@ -173,8 +161,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                                 </div>
                             </div>              
                         </div>
-                        swap some classes if we have a post thumbnail
-                        { postImage }
+                        {postImage ? <div className="featured-column">{ postImage }</div> : <div className="featured-column no-thumb"></div>}
                     </div>
                 </header> 			
 			</div>

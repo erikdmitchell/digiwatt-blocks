@@ -654,7 +654,7 @@ function PostHeaderEdit(_ref) {
       postID: currentPostID,
       postTitle: title,
       postAuthorDetails: authorID ? getUser(authorID) : null,
-      postImage: featuredImage
+      postImage: featuredImageUrl ? featuredImage : null
     };
   }),
       post = _useSelect.post,
@@ -670,18 +670,6 @@ function PostHeaderEdit(_ref) {
   if (!hasPost) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, !Array.isArray(post) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('No post found.'));
   }
-  /*
-  
-              <?php if (has_post_thumbnail()) : ?>
-                  <div class="featured-column">
-                      <?php emdotbike_theme_post_thumbnail( 'single' ); ?>
-              <?php else : ?>
-                  <div class="featured-column no-thumb">
-              <?php endif; ?>
-                  
-              </div>
-  */
-
 
   var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["SelectControl"], {
     label: "Time Position",
@@ -741,7 +729,11 @@ function PostHeaderEdit(_ref) {
     className: "url fn n",
     href: postAuthorDetails ? postAuthorDetails.link : '#',
     rel: "author"
-  }, "By ", postAuthorDetails ? postAuthorDetails.name : '')))))), "swap some classes if we have a post thumbnail", postImage))));
+  }, "By ", postAuthorDetails ? postAuthorDetails.name : '')))))), postImage ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "featured-column"
+  }, postImage) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "featured-column no-thumb"
+  })))));
 }
 
 /***/ }),
