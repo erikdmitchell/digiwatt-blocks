@@ -97,42 +97,10 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 				) }
 			</div>
 		);
-	}     
-
-	const inspectorControls = (
-		<InspectorControls>
-			<PanelBody>
-				<PanelRow>
-					<SelectControl
-						label="Time Position"
-						labelPosition="side"
-						value={ attributes.timePosition }
-						options={ [
-							{ label: 'Before', value: 'before' },
-							{ label: 'After', value: 'after' },
-						] }
-						onChange={ ( newval ) =>
-							setAttributes( { timePosition: newval } )
-						}
-					/>
-				</PanelRow>
-				<PanelRow>
-					<InputControl
-						label="Text"
-						labelPosition="side"
-						value={ attributes.readTimeText }
-						onChange={ ( newval ) =>
-							setAttributes( { readTimeText: newval } )
-						}
-					/>
-				</PanelRow>
-			</PanelBody>
-		</InspectorControls>
-	);
+	}
 
 	return (    	
 		<div>
-			{ inspectorControls }
 			<div className={ className }>
                 <header className="entry-header">  
                     <div className="featured-columns">
