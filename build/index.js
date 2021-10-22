@@ -575,7 +575,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ReadTimeEdit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PostHeaderEdit; });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
@@ -609,21 +609,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ReadTimeEdit(_ref) {
+function PostHeaderEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
   var className = attributes.className,
-      readTimeText = attributes.readTimeText,
-      timePosition = attributes.timePosition,
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
-      featuredImageSizeHeight = attributes.featuredImageSizeHeight;
+      featuredImageSizeHeight = attributes.featuredImageSizeHeight,
+      author = attributes.author;
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__["useSelect"])(function (select) {
+    var _getEditedEntityRecor;
+
     var _select = select(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__["store"]),
         getUser = _select.getUser,
         getMedia = _select.getMedia,
-        getEntityRecord = _select.getEntityRecord;
+        getEntityRecord = _select.getEntityRecord,
+        getEditedEntityRecord = _select.getEditedEntityRecord;
 
     var _select2 = select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["store"]),
         getSettings = _select2.getSettings;
@@ -635,8 +637,7 @@ function ReadTimeEdit(_ref) {
     var currentPostID = select("core/editor").getCurrentPostId();
     var currentPost = getEntityRecord('postType', 'post', currentPostID);
     var title = currentPost.title.rendered;
-    var authorID = currentPost.author;
-    var author = getUser(authorID);
+    var authorID = (_getEditedEntityRecor = getEditedEntityRecord('postType', 'post', currentPostID)) === null || _getEditedEntityRecor === void 0 ? void 0 : _getEditedEntityRecor.author;
     var image = getMedia(currentPost.featured_media);
     var featuredImageUrl = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["get"])(image, ['media_details', 'sizes', featuredImageSizeSlug, 'source_url'], null);
     var featuredImageAlt = image === null || image === void 0 ? void 0 : image.alt_text;
@@ -648,67 +649,27 @@ function ReadTimeEdit(_ref) {
         maxHeight: featuredImageSizeHeight
       }
     });
-    console.log(author);
     return {
       post: currentPost,
       postID: currentPostID,
       postTitle: title,
-      postAuthor: author,
-      postImage: featuredImage
+      postAuthorDetails: authorID ? getUser(authorID) : null,
+      postImage: featuredImageUrl ? featuredImage : null
     };
   }),
       post = _useSelect.post,
       postID = _useSelect.postID,
       postTitle = _useSelect.postTitle,
-      postAuthor = _useSelect.postAuthor,
-      postImage = _useSelect.postImage;
+      postAuthorDetails = _useSelect.postAuthorDetails,
+      postImage = _useSelect.postImage; // convert post object to array - lazy, but easier.
 
-  var postedOn = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "entry-date"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-    href: post.link,
-    rel: "bookmark"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("time", {
-    datetime: Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('c', post.date),
-    className: "entry-date"
-  }, Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('F j, Y', post.date)))); //console.log(postAuthor);
-  //console.log(postAuthor.link);
 
-  var byline = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "byline"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
-    className: "author vcard"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-    className: "url fn n",
-    href: postAuthor.link,
-    rel: "author"
-  }, "By ", postAuthor.name)));
-  var headerContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("header", {
-    className: "entry-header"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "featured-columns"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "featured-column"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "header-content"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "title"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
-    className: "entry-title"
-  }, postTitle)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "meta"
-  }, postedOn))), "swap some classes if we have a post thumbnail", postImage));
-  /*
-  
-              <?php if (has_post_thumbnail()) : ?>
-                  <div class="featured-column">
-                      <?php emdotbike_theme_post_thumbnail( 'single' ); ?>
-              <?php else : ?>
-                  <div class="featured-column no-thumb">
-              <?php endif; ?>
-                  
-              </div>
-  */
+  var postArr = Object.keys(post);
+  var hasPost = !!(postArr !== null && postArr !== void 0 && postArr.length);
+
+  if (!hasPost) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, !Array.isArray(post) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('No post found.'));
+  }
 
   var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["SelectControl"], {
     label: "Time Position",
@@ -738,7 +699,41 @@ function ReadTimeEdit(_ref) {
   }))));
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: className
-  }, headerContent));
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("header", {
+    className: "entry-header"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "featured-columns"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "featured-column"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "header-content"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "title"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
+    className: "entry-title"
+  }, postTitle)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "meta"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "entry-date"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    href: post.link,
+    rel: "bookmark"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("time", {
+    dateTime: Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('c', post.date),
+    className: "entry-date"
+  }, Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_7__["date"])('F j, Y', post.date)))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "byline"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    className: "author vcard"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    className: "url fn n",
+    href: postAuthorDetails ? postAuthorDetails.link : '#',
+    rel: "author"
+  }, "By ", postAuthorDetails ? postAuthorDetails.name : '')))))), postImage ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "featured-column"
+  }, postImage) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "featured-column no-thumb"
+  })))));
 }
 
 /***/ }),
@@ -775,13 +770,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
       type: 'number',
       default: null
     },
-    readTimeText: {
-      type: 'string',
-      default: 'Minute Read'
-    },
-    timePosition: {
-      type: 'string',
-      default: 'after'
+    author: {
+      type: 'number'
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]

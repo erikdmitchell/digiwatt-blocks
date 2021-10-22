@@ -11,6 +11,7 @@ import { useSelect } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/block-editor';
 import { date } from '@wordpress/date';
 import {
+    Spinner,
 	PanelBody,
 	PanelRow,
 	SelectControl,
@@ -21,27 +22,33 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 
-export default function ReadTimeEdit( { attributes, setAttributes } ) {
-	const { className, readTimeText, timePosition, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight } = attributes;
+export default function PostHeaderEdit( { attributes, setAttributes } ) {
+	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, author } = attributes;
 
 	const {
     	post,
 		postID,
 		postTitle,
-		postAuthor,
+        postAuthorDetails,
 		postImage,
 	} = useSelect(
 		( select ) => {
-			const { getUser, getMedia, getEntityRecord } = select( coreStore );
+			const { getUser, getMedia, getEntityRecord, getEditedEntityRecord } = select( coreStore );
 			const { getSettings } = select( blockEditorStore );
 			const { imageSizes, imageDimensions } = getSettings();
 			
             const currentPostID = select("core/editor").getCurrentPostId();
             const currentPost = getEntityRecord( 'postType', 'post', currentPostID );
             const title = currentPost.title.rendered;
-            const authorID = currentPost.author;
-            const author = getUser( authorID );
-            const image = getMedia( currentPost.featured_media );          
+
+			const authorID = getEditedEntityRecord(
+				'postType',
+				'post',
+				currentPostID
+			)?.author;
+
+            const image = getMedia( currentPost.featured_media );
+                    
         	const featuredImageUrl = get(
     			image,
     			[
@@ -52,8 +59,8 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
     			],
     			null
     		); 
+   		
     		const featuredImageAlt = image?.alt_text;	
-
             const featuredImage = (
 				<img
 					src={ featuredImageUrl }
@@ -64,73 +71,33 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 					} }
 				/>
 			);
-console.log(author);
+
 			return {
     			post: currentPost,
 				postID: currentPostID,
 				postTitle: title,
-				postAuthor: author,
-				postImage: featuredImage,
+				postAuthorDetails: authorID ? getUser( authorID ) : null,
+				postImage: featuredImageUrl ? featuredImage : null,
 			};
 		},
 	);
+	
+	// convert post object to array - lazy, but easier.
+	const postArr = Object.keys(post);
+	
+	const hasPost = !! postArr?.length;
 
-    const postedOn = (
-        <div className="entry-date">
-            <a 
-                href={ post.link }
-                rel="bookmark"
-            >
-                <time datetime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
-            </a>
-        </div>
-    );
-//console.log(postAuthor);
-//console.log(postAuthor.link);
-    const byline = (
-        <div className="byline">
-            <span className="author vcard">
-                <a className="url fn n" href={postAuthor.link} rel="author">
-                    By {postAuthor.name}
-                </a>
-            </span>
-        </div>
-    );       
-
-    const headerContent = (
-        <header className="entry-header">  
-            <div className="featured-columns">
-                <div className="featured-column"> 
-                    <div className="header-content"> 
-                        <div className="title">
-                            <h1 className="entry-title">{postTitle}</h1>
-                        </div>
-                        <div className="meta">
-                            { postedOn }
-                        </div>
-                    </div>              
-                </div>
-                swap some classes if we have a post thumbnail
-                { postImage }
-            </div>
-        </header> 
-    );  
-
-
-    
-/*
-
-            <?php if (has_post_thumbnail()) : ?>
-                <div class="featured-column">
-                    <?php emdotbike_theme_post_thumbnail( 'single' ); ?>
-            <?php else : ?>
-                <div class="featured-column no-thumb">
-            <?php endif; ?>
-                
-            </div>
-*/
-        
-
+	if ( ! hasPost ) {
+		return (
+			<div>
+				{ ! Array.isArray( post ) ? (
+					<Spinner />
+				) : (
+					__( 'No post found.' )
+				) }
+			</div>
+		);
+	}     
 
 	const inspectorControls = (
 		<InspectorControls>
@@ -163,14 +130,41 @@ console.log(author);
 		</InspectorControls>
 	);
 
-	return (
+	return (    	
 		<div>
 			{ inspectorControls }
-			<div className={ className }>{ headerContent }</div>
+			<div className={ className }>
+                <header className="entry-header">  
+                    <div className="featured-columns">
+                        <div className="featured-column"> 
+                            <div className="header-content"> 
+                                <div className="title">
+                                    <h1 className="entry-title">{postTitle}</h1>
+                                </div>
+                                <div className="meta">
+                                    <div className="entry-date">
+                                        <a 
+                                            href={ post.link }
+                                            rel="bookmark"
+                                        >
+                                            <time dateTime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
+                                        </a>
+                                    </div>
+                                    
+                                    <div className="byline">
+                                        <span className="author vcard">
+                                            <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
+                                                By {postAuthorDetails ? postAuthorDetails.name : ''}
+                                            </a>
+                                        </span>
+                                    </div>        
+                                </div>
+                            </div>              
+                        </div>
+                        {postImage ? <div className="featured-column">{ postImage }</div> : <div className="featured-column no-thumb"></div>}
+                    </div>
+                </header> 			
+			</div>
 		</div>
 	);
 }
-
-
-
-					
