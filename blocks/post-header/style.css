@@ -1,1 +1,91 @@
 /* main styles */
+.wp-block-dwb-post-header {
+    margin-bottom: 2rem;
+}
+
+.wp-block-dwb-post-header .featured-columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;                  
+}
+
+.wp-block-dwb-post-header .featured-column {
+    flex-basis: 0;
+    flex-grow: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+
+    &:last-child {
+        flex-basis: 55%;              
+    }
+
+    &:first-child {
+        flex-basis: 45%;                              
+    }
+    
+    &.no-thumb {
+/*         background: $color__background-post-header; */
+    }      
+}
+
+.wp-block-dwb-post-header .featured-column.no-thumb {
+/*         background: $color__background-post-header; */    
+}
+
+.wp-block-dwb-post-header .header-content {
+/*     background: $color__background-post-header; */
+/*     color: $color__text-post-header; */
+    padding: 2rem 2rem 0 4rem;        
+    height: 100%;                    
+}
+
+.wp-block-dwb-post-header .header-content h1 {
+    margin: 0;               
+}  
+    
+.wp-block-dwb-post-header .header-content a,
+.wp-block-dwb-post-header .header-contenta:hover,
+.wp-block-dwb-post-header .header-contenta:visited {
+    text-decoration: none;
+/*         color: $color__text-post-header; */
+} 
+    
+.wp-block-dwb-post-header .header-content .title {
+    margin: 2rem 0 1rem 0;                
+}
+        
+.wp-block-dwb-post-header .post-thumbnail {
+    height: 400px;
+    max-height: 400px;           
+}    
+
+.wp-block-dwb-post-header .post-thumbnail img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+@media (max-width: 576px) {
+    .wp-block-dwb-post-header .featured-columns {
+        flex-direction: column-reverse;                 
+    }
+
+    .wp-block-dwb-post-header .header-content {
+        padding: 1rem 1.5rem;
+    }
+    
+    .wp-block-dwb-post-header .header-content h1 {
+        font-size: 1.75rem;
+    }
+    
+    .wp-block-dwb-post-header .header-content .title {
+        margin: 0 0 1rem 0;
+    }
+        
+    .wp-block-dwb-post-header .post-thumbnail {
+        height: 200px;
+    }
+} 
