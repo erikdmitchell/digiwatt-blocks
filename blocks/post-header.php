@@ -87,7 +87,7 @@ function render_block_digiwatt_post_header( $attributes ) {
     
     $html = '';
 
-    $html .= '<header class="entry-header">';
+    //$html .= '<header class="entry-header">';
         $html .= '<div class="featured-columns">';
             $html .= '<div class="featured-column">';
                 $html .= '<div class="header-content">';
@@ -108,16 +108,16 @@ function render_block_digiwatt_post_header( $attributes ) {
                 $html .= '<div class="featured-column no-thumb"></div>';
             endif;
         $html .= '</div>';
-    $html .= '</header>';
+    //$html .= '</header>';
     
     if (!empty( $attributes['align'] )) {
         $alignClass = 'align' . $attributes['align'];
     }
     
-    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $alignClass ) );
+    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => "$alignClass entry-header" ) );
 
     return sprintf(
-        '<div %1$s>%2$s</div>',
+        '<header %1$s>%2$s</header>',
         $wrapper_attributes,
         $html,
     );

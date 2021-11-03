@@ -99,40 +99,42 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 		);
 	}
 	
-	const blockProps = useBlockProps();
+	//const blockProps = useBlockProps();
+	
+    const blockProps = useBlockProps( {
+      className: 'entry-header',
+    } );	
 
 	return (
-		<div { ...blockProps }>
-            <header className="entry-header">  
-                <div className="featured-columns">
-                    <div className="featured-column"> 
-                        <div className="header-content"> 
-                            <div className="title">
-                                <h1 className="entry-title">{postTitle}</h1>
+        <header { ...blockProps }>  
+            <div className="featured-columns">
+                <div className="featured-column"> 
+                    <div className="header-content"> 
+                        <div className="title">
+                            <h1 className="entry-title">{postTitle}</h1>
+                        </div>
+                        <div className="meta">
+                            <div className="entry-date">
+                                <a 
+                                    href={ post.link }
+                                    rel="bookmark"
+                                >
+                                    <time dateTime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
+                                </a>
                             </div>
-                            <div className="meta">
-                                <div className="entry-date">
-                                    <a 
-                                        href={ post.link }
-                                        rel="bookmark"
-                                    >
-                                        <time dateTime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
+                            
+                            <div className="byline">
+                                <span className="author vcard">
+                                    <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
+                                        By {postAuthorDetails ? postAuthorDetails.name : ''}
                                     </a>
-                                </div>
-                                
-                                <div className="byline">
-                                    <span className="author vcard">
-                                        <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
-                                            By {postAuthorDetails ? postAuthorDetails.name : ''}
-                                        </a>
-                                    </span>
-                                </div>        
-                            </div>
-                        </div>              
-                    </div>
-                    {postImage ? <div className="featured-column">{ postImage }</div> : <div className="featured-column no-thumb"></div>}
+                                </span>
+                            </div>        
+                        </div>
+                    </div>              
                 </div>
-            </header> 			
-		</div>
+                {postImage ? <div className="featured-column">{ postImage }</div> : <div className="featured-column no-thumb"></div>}
+            </div>
+        </header> 			
 	);
 }
