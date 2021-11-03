@@ -89,6 +89,23 @@ add_action( 'init', 'dwb_post_header_block_init' );
 function render_block_digiwatt_post_header( $attributes ) {
     global $post;
     
+/*
+	const { textColor, customTextColor } = props.attributes;
+	let divClass;
+	let divStyles = {};
+	if (textColor != undefined) {
+		divClass = getColorClassName('color', textColor);
+	}
+	if (customTextColor != undefined) {
+		divStyles.color = customTextColor;
+	}
+	return(
+		<div className={divClass} style={divStyles}>
+			PanelColorSettings Demo
+		</div>
+	); 
+*/   
+    
     $html = '';
 
     $html .= '<div class="featured-columns">';
@@ -105,7 +122,6 @@ function render_block_digiwatt_post_header( $attributes ) {
         
         if (has_post_thumbnail()) :
             $html .= '<div class="featured-column">';
-//             <div class="post-thumbnail"><img data-src="http://bike.test/wp-content/uploads/pexels-chris-peeters-12838-3119x480.jpg" class="img-responsive lazyloaded" src="http://bike.test/wp-content/uploads/pexels-chris-peeters-12838-3119x480.jpg"><noscript><img src="http://bike.test/wp-content/uploads/pexels-chris-peeters-12838-3119x480.jpg" class="img-responsive" /></noscript></div>
                 $html .= '<div class="post-thumbnail">'.get_dwb_post_header_post_thumbnail( $attributes['featuredImageSizeSlug'], $post->ID).'</div>';
             $html .= '</div>';
         else :

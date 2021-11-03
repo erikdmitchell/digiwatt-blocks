@@ -8,7 +8,6 @@ import { __ } from '@wordpress/i18n';
 import { count } from '@wordpress/wordcount';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-// import { InspectorControls, useBlockProps, withColors, PanelColorSettings, getColorClassName, ColorPalette } from '@wordpress/block-editor';
 import { date } from '@wordpress/date';
 import {
     Spinner,
@@ -19,7 +18,7 @@ import {
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import {
-    InspectorControls, useBlockProps, withColors, PanelColorSettings, getColorClassName, ColorPalette,
+    InspectorControls, useBlockProps, withColors, getColorClassName, ColorPalette,
 	__experimentalImageSizeControl as ImageSizeControl,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
@@ -95,22 +94,22 @@ const bgStyle = { backgroundColor: overlayColor.color };
 
 const hasBackground = !! ( url || overlayColor.color || gradientValue );
 */
+
+// 	let divClass;
+
 	
 	const inspectorControls = (
 		<InspectorControls>
 			<Panel>
 				<PanelBody
-					title={ __( 'Home Grid', 'dwb' ) }
-					icon="editor-table"
+					title={ __( 'Background Color', 'dwb' ) }
 				>
-
-                            <ColorPalette
-								disableCustomColors={ true }
-								value={ backgroundColor }
-								onChange={ setBackgroundColor }
-								clearable={ false }
-							/>
-
+                <ColorPalette
+// 					disableCustomColors={ true }
+					value={ backgroundColor.color }
+					onChange={ setBackgroundColor }
+// 					clearable={ false }
+				/>
 				</PanelBody>
 			</Panel>
 		</InspectorControls>
@@ -129,6 +128,16 @@ const hasBackground = !! ( url || overlayColor.color || gradientValue );
 		);
 	}  
 	
+	// set our background color.
+	let headerDivStyles = {};
+	
+	if (backgroundColor != undefined) {
+		if (backgroundColor.color != undefined) {
+			headerDivStyles.backgroundColor = backgroundColor.color;
+		}
+	}	
+	
+	// get block properties and add custom class.
     const blockProps = useBlockProps( {
       className: 'entry-header',
     } );	
@@ -136,7 +145,7 @@ const hasBackground = !! ( url || overlayColor.color || gradientValue );
 	return (
     	<>
         	{ inspectorControls }
-            <header { ...blockProps }>  
+            <header { ...blockProps } style={headerDivStyles}>
                 <div className="featured-columns">
                     <div className="featured-column"> 
                         <div className="header-content"> 
@@ -169,8 +178,6 @@ const hasBackground = !! ( url || overlayColor.color || gradientValue );
         </>			
 	);
 }
-
-// export default withColors( 'backgroundColor', { textColor: 'color' } )( ButtonEdit );
 
 export default compose( [
 	withColors( { backgroundColor: 'background-color' } ),
