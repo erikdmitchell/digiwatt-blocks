@@ -25,7 +25,10 @@ registerBlockType( name, {
 		},   
         backgroundColor: {
 			type: 'string',
-		},     
+		}, 
+        textColor: {
+			type: 'string',
+		}, 		    
 	},
 	apiVersion: 2,
 	supports: {

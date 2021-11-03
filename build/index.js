@@ -618,7 +618,9 @@ function PostHeaderEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes,
       backgroundColor = _ref.backgroundColor,
-      setBackgroundColor = _ref.setBackgroundColor;
+      setBackgroundColor = _ref.setBackgroundColor,
+      textColor = _ref.textColor,
+      setTextColor = _ref.setTextColor;
   var className = attributes.className,
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
@@ -681,16 +683,36 @@ function PostHeaderEdit(_ref) {
 
   var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Background Color', 'dwb')
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["ColorPalette"] // 					disableCustomColors={ true }
-  , {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["ColorPalette"], {
     value: backgroundColor.color,
-    onChange: setBackgroundColor // 					clearable={ false }
-
+    onChange: setBackgroundColor
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelBody"], {
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Text Color', 'dwb')
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["ColorPalette"], {
+    value: textColor.color,
+    onChange: setTextColor
   }))));
+  /*
+  <PanelColorSettings 
+  	title={__('Color settings')}
+  	colorSettings={[
+  		{
+  			value: textColor.color,
+  			onChange: setTextColor,
+  			label: __('Text color')
+  		},
+  		{
+  			value: backgroundColor.color,
+  			onChange: setBackgroundColor,
+  			label: __('Background color')
+  		},
+  	]}
+  />
+  */
 
   if (!hasPost) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, !Array.isArray(post) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('No post found.'));
-  } // set our background color.
+  } // set our main (header div) styles.
 
 
   var headerDivStyles = {};
@@ -698,6 +720,12 @@ function PostHeaderEdit(_ref) {
   if (backgroundColor != undefined) {
     if (backgroundColor.color != undefined) {
       headerDivStyles.backgroundColor = backgroundColor.color;
+    }
+  }
+
+  if (textColor != undefined) {
+    if (textColor.color != undefined) {
+      headerDivStyles.color = textColor.color;
     }
   } // get block properties and add custom class.
 
@@ -743,7 +771,8 @@ function PostHeaderEdit(_ref) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_10__["compose"])([Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["withColors"])({
-  backgroundColor: 'background-color'
+  backgroundColor: 'background-color',
+  textColor: 'color'
 })])(PostHeaderEdit));
 
 /***/ }),
@@ -784,6 +813,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
       type: 'string'
     },
     backgroundColor: {
+      type: 'string'
+    },
+    textColor: {
       type: 'string'
     }
   },

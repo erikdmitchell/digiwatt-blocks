@@ -68,6 +68,9 @@ function dwb_post_header_block_init() {
                 'backgroundColor' => array(
                     'type' => 'string',
                 ),
+                'textColor' => array(
+                    'type' => 'string',
+                ),
             ),
             'api_version' => 2,
             'render_callback' => 'render_block_digiwatt_post_header',
