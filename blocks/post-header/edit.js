@@ -18,7 +18,8 @@ import {
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import {
-    InspectorControls, useBlockProps, withColors, getColorClassName, ColorPalette,
+    InspectorControls, useBlockProps, withColors, getColorClassName,
+    PanelColorSettings,
 	__experimentalImageSizeControl as ImageSizeControl,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
@@ -101,44 +102,24 @@ const hasBackground = !! ( url || overlayColor.color || gradientValue );
 	const inspectorControls = (
 		<InspectorControls>
 			<Panel>
-				<PanelBody
-					title={ __( 'Background Color', 'dwb' ) }
-				>
-                <ColorPalette
-					value={ backgroundColor.color }
-					onChange={ setBackgroundColor }
-				/>
-				</PanelBody>
-				<PanelBody
-					title={ __( 'Text Color', 'dwb' ) }
-				>
-                <ColorPalette
-					value={ textColor.color }
-					onChange={ setTextColor }
-				/>
-				</PanelBody>
+                <PanelColorSettings 
+                    title={ __( 'Color Settings', 'dwb' ) }
+                	colorSettings={[
+                		{
+                			value: textColor.color,
+                			onChange: setTextColor,
+                			label: __('Text Color')
+                		},
+                		{
+                			value: backgroundColor.color,
+                			onChange: setBackgroundColor,
+                			label: __('Background Color')
+                		},
+                	]}
+                />
 			</Panel>
 		</InspectorControls>
 	);	
-	
-
-/*
-<PanelColorSettings 
-	title={__('Color settings')}
-	colorSettings={[
-		{
-			value: textColor.color,
-			onChange: setTextColor,
-			label: __('Text color')
-		},
-		{
-			value: backgroundColor.color,
-			onChange: setBackgroundColor,
-			label: __('Background color')
-		},
-	]}
-/>
-*/
 
 	if ( ! hasPost ) {
 		return (
