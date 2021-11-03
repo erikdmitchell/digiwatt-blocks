@@ -51,7 +51,8 @@ function dwb_post_header_block_init() {
             'attributes' => array(
                 'featuredImageSizeSlug' => array(
                     'type' => 'string',
-                    'default' => 'digiwatt-home-grid',
+                    //'default' => 'digiwatt-home-grid',
+                    'default' => 'single',
                 ),
                 'featuredImageSizeWidth' => array(
                     'type' => 'number',
@@ -87,28 +88,27 @@ function render_block_digiwatt_post_header( $attributes ) {
     
     $html = '';
 
-    //$html .= '<header class="entry-header">';
-        $html .= '<div class="featured-columns">';
-            $html .= '<div class="featured-column">';
-                $html .= '<div class="header-content">';
-                    $html .= '<div class="title">';
-                        $html .= '<h1 class="entry-title">'.get_the_title( $post ).'</h1>';
-                    $html .= '</div>';
-                    $html .= '<div class="meta">';
-                        $html .= get_dwb_post_header_posted_on();
-                    $html .= '</div>';
-                $html .= '</div>';        
-            $html .= '</div>';
-            
-            if (has_post_thumbnail()) :
-                $html .= '<div class="featured-column">';
-                    $html .= get_dwb_post_header_post_thumbnail( $attributes['featuredImageSizeSlug'], $post->ID);
+    $html .= '<div class="featured-columns">';
+        $html .= '<div class="featured-column">';
+            $html .= '<div class="header-content">';
+                $html .= '<div class="title">';
+                    $html .= '<h1 class="entry-title">'.get_the_title( $post ).'</h1>';
                 $html .= '</div>';
-            else :
-                $html .= '<div class="featured-column no-thumb"></div>';
-            endif;
+                $html .= '<div class="meta">';
+                    $html .= get_dwb_post_header_posted_on();
+                $html .= '</div>';
+            $html .= '</div>';        
         $html .= '</div>';
-    //$html .= '</header>';
+        
+        if (has_post_thumbnail()) :
+            $html .= '<div class="featured-column">';
+//             <div class="post-thumbnail"><img data-src="http://bike.test/wp-content/uploads/pexels-chris-peeters-12838-3119x480.jpg" class="img-responsive lazyloaded" src="http://bike.test/wp-content/uploads/pexels-chris-peeters-12838-3119x480.jpg"><noscript><img src="http://bike.test/wp-content/uploads/pexels-chris-peeters-12838-3119x480.jpg" class="img-responsive" /></noscript></div>
+                $html .= '<div class="post-thumbnail">'.get_dwb_post_header_post_thumbnail( $attributes['featuredImageSizeSlug'], $post->ID).'</div>';
+            $html .= '</div>';
+        else :
+            $html .= '<div class="featured-column no-thumb"></div>';
+        endif;
+    $html .= '</div>';
     
     if (!empty( $attributes['align'] )) {
         $alignClass = 'align' . $attributes['align'];
