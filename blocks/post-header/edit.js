@@ -8,21 +8,24 @@ import { __ } from '@wordpress/i18n';
 import { count } from '@wordpress/wordcount';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+// import { InspectorControls, useBlockProps, withColors, PanelColorSettings, getColorClassName, ColorPalette } from '@wordpress/block-editor';
 import { date } from '@wordpress/date';
 import {
     Spinner,
+    Panel,
 	PanelBody,
 	PanelRow,
 	SelectControl,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import {
+    InspectorControls, useBlockProps, withColors, PanelColorSettings, getColorClassName, ColorPalette,
 	__experimentalImageSizeControl as ImageSizeControl,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
+import { compose } from '@wordpress/compose';
 
-export default function PostHeaderEdit( { attributes, setAttributes } ) {
+function PostHeaderEdit( { attributes, setAttributes, backgroundColor, setBackgroundColor } ) {   
 	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, align } = attributes;
 
 	const {
@@ -86,6 +89,33 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 	const postArr = Object.keys(post);
 	
 	const hasPost = !! postArr?.length;
+	
+/*
+const bgStyle = { backgroundColor: overlayColor.color };
+
+const hasBackground = !! ( url || overlayColor.color || gradientValue );
+*/
+	
+	const inspectorControls = (
+		<InspectorControls>
+			<Panel>
+				<PanelBody
+					title={ __( 'Home Grid', 'dwb' ) }
+					icon="editor-table"
+				>
+
+                            <ColorPalette
+								disableCustomColors={ true }
+								value={ backgroundColor }
+								onChange={ setBackgroundColor }
+								clearable={ false }
+							/>
+
+				</PanelBody>
+			</Panel>
+		</InspectorControls>
+	);	
+	
 
 	if ( ! hasPost ) {
 		return (
@@ -97,44 +127,51 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 				) }
 			</div>
 		);
-	}
-	
-	//const blockProps = useBlockProps();
+	}  
 	
     const blockProps = useBlockProps( {
       className: 'entry-header',
     } );	
 
 	return (
-        <header { ...blockProps }>  
-            <div className="featured-columns">
-                <div className="featured-column"> 
-                    <div className="header-content"> 
-                        <div className="title">
-                            <h1 className="entry-title">{postTitle}</h1>
-                        </div>
-                        <div className="meta">
-                            <div className="entry-date">
-                                <a 
-                                    href={ post.link }
-                                    rel="bookmark"
-                                >
-                                    <time dateTime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
-                                </a>
+    	<>
+        	{ inspectorControls }
+            <header { ...blockProps }>  
+                <div className="featured-columns">
+                    <div className="featured-column"> 
+                        <div className="header-content"> 
+                            <div className="title">
+                                <h1 className="entry-title">{postTitle}</h1>
                             </div>
-                            
-                            <div className="byline">
-                                <span className="author vcard">
-                                    <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
-                                        By {postAuthorDetails ? postAuthorDetails.name : ''}
+                            <div className="meta">
+                                <div className="entry-date">
+                                    <a 
+                                        href={ post.link }
+                                        rel="bookmark"
+                                    >
+                                        <time dateTime={date('c', post.date)} className="entry-date">{date('F j, Y', post.date)}</time>
                                     </a>
-                                </span>
-                            </div>        
-                        </div>
-                    </div>              
+                                </div>
+                                
+                                <div className="byline">
+                                    <span className="author vcard">
+                                        <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
+                                            By {postAuthorDetails ? postAuthorDetails.name : ''}
+                                        </a>
+                                    </span>
+                                </div>        
+                            </div>
+                        </div>              
+                    </div>
+                    {postImage ? <div className="featured-column">{ postImage }</div> : <div className="featured-column no-thumb"></div>}
                 </div>
-                {postImage ? <div className="featured-column">{ postImage }</div> : <div className="featured-column no-thumb"></div>}
-            </div>
-        </header> 			
+            </header> 
+        </>			
 	);
 }
+
+// export default withColors( 'backgroundColor', { textColor: 'color' } )( ButtonEdit );
+
+export default compose( [
+	withColors( { backgroundColor: 'background-color' } ),
+] )( PostHeaderEdit );

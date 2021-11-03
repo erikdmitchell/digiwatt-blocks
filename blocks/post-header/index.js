@@ -22,7 +22,10 @@ registerBlockType( name, {
 		},
 		align: {
 			type: 'string',
-		},        
+		},   
+        backgroundColor: {
+			type: 'string',
+		},     
 	},
 	apiVersion: 2,
 	supports: {
