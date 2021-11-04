@@ -21,6 +21,7 @@ import {
 } from '@wordpress/components';
 import {
     InspectorControls, 
+    PanelColorSettings,
     useBlockProps,
 	__experimentalImageSizeControl as ImageSizeControl,
 	store as blockEditorStore,
@@ -28,7 +29,7 @@ import {
 import { compose } from '@wordpress/compose';
 
 export default function PostHeaderEdit( { attributes, setAttributes } ) {   
-	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, align, backgroundColor } = attributes;
+	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, align, backgroundColor, textColor } = attributes;
 
 	const {
     	post,
@@ -91,35 +92,12 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 	const postArr = Object.keys(post);
 	
 	const hasPost = !! postArr?.length;
-	
-/*
-const bgStyle = { backgroundColor: overlayColor.color };
-
-const hasBackground = !! ( url || overlayColor.color || gradientValue );
-*/
-
-// 	let divClass;
-
-/*
-
-
-	// is it a predefined in a theme color?
-	var formClasses = (( props.formColor.class || '' ) + ' ' + props.className ).trim();
-
-	// form background color
-	var formStyles = {
-		backgroundColor: props.formColor.class ? undefined : props.attributes.customFormColor,
-	};
-
-*/
-// console.log(attributes);	
-console.log(backgroundColor);	
 
     const onChangeTextColor = ( hexColor ) => {
         setAttributes( { textColor: hexColor } );
     };
         
-     const onChangeBGColor = ( hexColor ) => {
+    const onChangeBGColor = ( hexColor ) => {
         setAttributes( { backgroundColor: hexColor } );
     };
 	
@@ -128,31 +106,32 @@ console.log(backgroundColor);
 			<Panel>
 			    <PanelBody>
                     <ColorPalette
+                        colors = { colors }
                         value= {backgroundColor}
                         onChange= { onChangeBGColor }
                     />
                 </PanelBody>
-			</Panel>
-		</InspectorControls>
-	);	
-	
-	/*
+                
                 <PanelColorSettings 
                     title={ __( 'Color Settings', 'dwb' ) }
                 	colorSettings={[
                 		{
-                			value: textColor.color,
-                			onChange: setTextColor,
+                			value: textColor,
+                			onChange: onChangeTextColor,
                 			label: __('Text Color')
                 		},
                 		{
-                			value: backgroundColor.color,
-                			onChange: setBackgroundColor,
+                			value: backgroundColor,
+                			onChange: onChangeBGColor,
                 			label: __('Background Color')
-                		},
+                		},                		
                 	]}
                 />
-*/
+                
+                
+			</Panel>
+		</InspectorControls>
+	);
 	
 /*
 	const blockProps = useBlockProps( {

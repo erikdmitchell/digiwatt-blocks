@@ -622,7 +622,8 @@ function PostHeaderEdit(_ref) {
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight,
       align = attributes.align,
-      backgroundColor = attributes.backgroundColor;
+      backgroundColor = attributes.backgroundColor,
+      textColor = attributes.textColor;
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["useSelect"])(function (select) {
     var _getEditedEntityRecor;
@@ -671,28 +672,6 @@ function PostHeaderEdit(_ref) {
 
   var postArr = Object.keys(post);
   var hasPost = !!(postArr !== null && postArr !== void 0 && postArr.length);
-  /*
-  const bgStyle = { backgroundColor: overlayColor.color };
-  
-  const hasBackground = !! ( url || overlayColor.color || gradientValue );
-  */
-  // 	let divClass;
-
-  /*
-  
-  
-  	// is it a predefined in a theme color?
-  	var formClasses = (( props.formColor.class || '' ) + ' ' + props.className ).trim();
-  
-  	// form background color
-  	var formStyles = {
-  		backgroundColor: props.formColor.class ? undefined : props.attributes.customFormColor,
-  	};
-  
-  */
-  // console.log(attributes);	
-
-  console.log(backgroundColor);
 
   var onChangeTextColor = function onChangeTextColor(hexColor) {
     setAttributes({
@@ -707,27 +686,21 @@ function PostHeaderEdit(_ref) {
   };
 
   var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["ColorPalette"], {
+    colors: colors,
     value: backgroundColor,
     onChange: onChangeBGColor
-  }))));
-  /*
-                 <PanelColorSettings 
-                     title={ __( 'Color Settings', 'dwb' ) }
-                 	colorSettings={[
-                 		{
-                 			value: textColor.color,
-                 			onChange: setTextColor,
-                 			label: __('Text Color')
-                 		},
-                 		{
-                 			value: backgroundColor.color,
-                 			onChange: setBackgroundColor,
-                 			label: __('Background Color')
-                 		},
-                 	]}
-                 />
-  */
-
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["PanelColorSettings"], {
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Color Settings', 'dwb'),
+    colorSettings: [{
+      value: textColor,
+      onChange: onChangeTextColor,
+      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Text Color')
+    }, {
+      value: backgroundColor,
+      onChange: onChangeBGColor,
+      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Background Color')
+    }]
+  })));
   /*
   	const blockProps = useBlockProps( {
   		ref: navRef,
