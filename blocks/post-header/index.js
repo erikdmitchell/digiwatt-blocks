@@ -19,10 +19,7 @@ registerBlockType( name, {
 		featuredImageSizeHeight: {
 			type: 'number',
 			default: null,
-		},
-		align: {
-			type: 'string',
-		},   
+		},  
         backgroundColor: {
 			type: 'string',
 		}, 

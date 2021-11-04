@@ -618,7 +618,6 @@ function PostHeaderEdit(_ref) {
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight,
-      align = attributes.align,
       backgroundColor = attributes.backgroundColor,
       textColor = attributes.textColor;
 
@@ -775,9 +774,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
     featuredImageSizeHeight: {
       type: 'number',
       default: null
-    },
-    align: {
-      type: 'string'
     },
     backgroundColor: {
       type: 'string'

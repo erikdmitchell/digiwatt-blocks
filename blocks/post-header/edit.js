@@ -10,8 +10,6 @@ import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { date } from '@wordpress/date';
 import {
-    ColorPicker,
-    ColorPalette,
     Spinner,
     Panel,
 	PanelBody,
@@ -29,7 +27,7 @@ import {
 import { compose } from '@wordpress/compose';
 
 export default function PostHeaderEdit( { attributes, setAttributes } ) {   
-	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, align, backgroundColor, textColor } = attributes;
+	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, backgroundColor, textColor } = attributes;
 
 	const {
     	post,
