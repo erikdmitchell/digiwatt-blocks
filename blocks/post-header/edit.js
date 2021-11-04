@@ -103,15 +103,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 	
 	const inspectorControls = (
 		<InspectorControls>
-			<Panel>
-			    <PanelBody>
-                    <ColorPalette
-                        colors = { colors }
-                        value= {backgroundColor}
-                        onChange= { onChangeBGColor }
-                    />
-                </PanelBody>
-                
+			<Panel>                
                 <PanelColorSettings 
                     title={ __( 'Color Settings', 'dwb' ) }
                 	colorSettings={[
@@ -132,31 +124,6 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 			</Panel>
 		</InspectorControls>
 	);
-	
-/*
-	const blockProps = useBlockProps( {
-		ref: navRef,
-		className: classnames( className, {
-			[ `items-justified-${ attributes.itemsJustification }` ]: itemsJustification,
-			'is-vertical': orientation === 'vertical',
-			'is-responsive': 'never' !== overlayMenu,
-			'has-text-color': !! textColor.color || !! textColor?.class,
-			[ getColorClassName(
-				'color',
-				textColor?.slug
-			) ]: !! textColor?.slug,
-			'has-background': !! backgroundColor.color || backgroundColor.class,
-			[ getColorClassName(
-				'background-color',
-				backgroundColor?.slug
-			) ]: !! backgroundColor?.slug,
-		} ),
-		style: {
-			color: ! textColor?.slug && textColor?.color,
-			backgroundColor: ! backgroundColor?.slug && backgroundColor?.color,
-		},
-	} );
-*/	
 
 	if ( ! hasPost ) {
 		return (
@@ -169,46 +136,20 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 			</div>
 		);
 	}  
-	
-	// set our main (header div) styles.
-	let headerDivClass;
-	let headerDivStyles = {};
-	
-	
-	
-/*
-	if (backgroundColor != undefined) {
-		if (backgroundColor.color != undefined) {
-			headerDivStyles.backgroundColor = backgroundColor.color;
-		}
-	}
-*/	
-
-/*
-	if (backgroundColor != undefined) {
-		if (backgroundColor.class != undefined) {
-			headerDivClass = backgroundColor.class;
-		} else {
-			headerDivStyles.color = backgroundColor.color;
-		}
-	}
-
-	if (textColor != undefined) {
-		if (textColor.color != undefined) {
-			headerDivStyles.color = textColor.color;
-		}
-	}
-*/
-	
-	// get block properties and add custom class.
+		
+	// get block properties and add custom ones.
     const blockProps = useBlockProps( {
         className: 'entry-header',
+        style: {
+            color: textColor != undefined ? textColor : '',
+            backgroundColor: backgroundColor != undefined ? backgroundColor : '',
+		},
     } );	
 
 	return (
     	<>
         	{ inspectorControls }
-            <header { ...blockProps } style={headerDivStyles}>
+            <header { ...blockProps }>
                 <div className="featured-columns">
                     <div className="featured-column"> 
                         <div className="header-content"> 
