@@ -92,22 +92,28 @@ add_action( 'init', 'dwb_post_header_block_init' );
 function render_block_digiwatt_post_header( $attributes ) {
     global $post;
     
+// print_r($attributes);
+
 /*
-	const { textColor, customTextColor } = props.attributes;
-	let divClass;
-	let divStyles = {};
-	if (textColor != undefined) {
-		divClass = getColorClassName('color', textColor);
-	}
-	if (customTextColor != undefined) {
-		divStyles.color = customTextColor;
-	}
-	return(
-		<div className={divClass} style={divStyles}>
-			PanelColorSettings Demo
-		</div>
-	); 
-*/   
+.wp-block-dwb-post-header .featured-column.no-thumb {
+        background: $color__background-post-header;    
+}
+
+.wp-block-dwb-post-header .header-content {
+    background: $color__background-post-header;
+    color: $color__text-post-header;                   
+} 
+*/ 
+
+/*
+
+		if (textColor != undefined) {
+			divClass = getColorClassName('color', textColor);
+		}
+		if (customTextColor != undefined) {
+			divStyles.color = customTextColor;
+		}
+*/
     
     $html = '';
 
@@ -136,7 +142,7 @@ function render_block_digiwatt_post_header( $attributes ) {
         $alignClass = 'align' . $attributes['align'];
     }
     
-    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => "$alignClass entry-header" ) );
+    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => "$alignClass entry-header", 'style' => 'foo' ) );
 
     return sprintf(
         '<header %1$s>%2$s</header>',

@@ -575,6 +575,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PostHeaderEdit; });
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
@@ -613,19 +614,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 function PostHeaderEdit(_ref) {
   var attributes = _ref.attributes,
-      setAttributes = _ref.setAttributes,
-      backgroundColor = _ref.backgroundColor,
-      setBackgroundColor = _ref.setBackgroundColor,
-      textColor = _ref.textColor,
-      setTextColor = _ref.setTextColor;
+      setAttributes = _ref.setAttributes;
   var className = attributes.className,
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight,
-      align = attributes.align;
+      align = attributes.align,
+      backgroundColor = attributes.backgroundColor;
 
   var _useSelect = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["useSelect"])(function (select) {
     var _getEditedEntityRecor;
@@ -681,38 +678,112 @@ function PostHeaderEdit(_ref) {
   */
   // 	let divClass;
 
-  var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["PanelColorSettings"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Color Settings', 'dwb'),
-    colorSettings: [{
-      value: textColor.color,
-      onChange: setTextColor,
-      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Text Color')
-    }, {
-      value: backgroundColor.color,
-      onChange: setBackgroundColor,
-      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Background Color')
-    }]
-  })));
+  /*
+  
+  
+  	// is it a predefined in a theme color?
+  	var formClasses = (( props.formColor.class || '' ) + ' ' + props.className ).trim();
+  
+  	// form background color
+  	var formStyles = {
+  		backgroundColor: props.formColor.class ? undefined : props.attributes.customFormColor,
+  	};
+  
+  */
+  // console.log(attributes);	
+
+  console.log(backgroundColor);
+
+  var onChangeTextColor = function onChangeTextColor(hexColor) {
+    setAttributes({
+      textColor: hexColor
+    });
+  };
+
+  var onChangeBGColor = function onChangeBGColor(hexColor) {
+    setAttributes({
+      backgroundColor: hexColor
+    });
+  };
+
+  var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["ColorPalette"], {
+    value: backgroundColor,
+    onChange: onChangeBGColor
+  }))));
+  /*
+                 <PanelColorSettings 
+                     title={ __( 'Color Settings', 'dwb' ) }
+                 	colorSettings={[
+                 		{
+                 			value: textColor.color,
+                 			onChange: setTextColor,
+                 			label: __('Text Color')
+                 		},
+                 		{
+                 			value: backgroundColor.color,
+                 			onChange: setBackgroundColor,
+                 			label: __('Background Color')
+                 		},
+                 	]}
+                 />
+  */
+
+  /*
+  	const blockProps = useBlockProps( {
+  		ref: navRef,
+  		className: classnames( className, {
+  			[ `items-justified-${ attributes.itemsJustification }` ]: itemsJustification,
+  			'is-vertical': orientation === 'vertical',
+  			'is-responsive': 'never' !== overlayMenu,
+  			'has-text-color': !! textColor.color || !! textColor?.class,
+  			[ getColorClassName(
+  				'color',
+  				textColor?.slug
+  			) ]: !! textColor?.slug,
+  			'has-background': !! backgroundColor.color || backgroundColor.class,
+  			[ getColorClassName(
+  				'background-color',
+  				backgroundColor?.slug
+  			) ]: !! backgroundColor?.slug,
+  		} ),
+  		style: {
+  			color: ! textColor?.slug && textColor?.color,
+  			backgroundColor: ! backgroundColor?.slug && backgroundColor?.color,
+  		},
+  	} );
+  */
 
   if (!hasPost) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, !Array.isArray(post) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('No post found.'));
   } // set our main (header div) styles.
 
 
+  var headerDivClass;
   var headerDivStyles = {};
+  /*
+  	if (backgroundColor != undefined) {
+  		if (backgroundColor.color != undefined) {
+  			headerDivStyles.backgroundColor = backgroundColor.color;
+  		}
+  	}
+  */
 
-  if (backgroundColor != undefined) {
-    if (backgroundColor.color != undefined) {
-      headerDivStyles.backgroundColor = backgroundColor.color;
-    }
-  }
-
-  if (textColor != undefined) {
-    if (textColor.color != undefined) {
-      headerDivStyles.color = textColor.color;
-    }
-  } // get block properties and add custom class.
-
+  /*
+  	if (backgroundColor != undefined) {
+  		if (backgroundColor.class != undefined) {
+  			headerDivClass = backgroundColor.class;
+  		} else {
+  			headerDivStyles.color = backgroundColor.color;
+  		}
+  	}
+  
+  	if (textColor != undefined) {
+  		if (textColor.color != undefined) {
+  			headerDivStyles.color = textColor.color;
+  		}
+  	}
+  */
+  // get block properties and add custom class.
 
   var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["useBlockProps"])({
     className: 'entry-header'
@@ -753,11 +824,6 @@ function PostHeaderEdit(_ref) {
     className: "featured-column no-thumb"
   }))));
 }
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_10__["compose"])([Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_9__["withColors"])({
-  backgroundColor: 'background-color',
-  textColor: 'color'
-})])(PostHeaderEdit));
 
 /***/ }),
 

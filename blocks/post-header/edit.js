@@ -10,6 +10,8 @@ import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { date } from '@wordpress/date';
 import {
+    ColorPicker,
+    ColorPalette,
     Spinner,
     Panel,
 	PanelBody,
@@ -18,15 +20,15 @@ import {
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import {
-    InspectorControls, useBlockProps, withColors, getColorClassName,
-    PanelColorSettings,
+    InspectorControls, 
+    useBlockProps,
 	__experimentalImageSizeControl as ImageSizeControl,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 
-function PostHeaderEdit( { attributes, setAttributes, backgroundColor, setBackgroundColor, textColor, setTextColor } ) {   
-	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, align } = attributes;
+export default function PostHeaderEdit( { attributes, setAttributes } ) {   
+	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, align, backgroundColor } = attributes;
 
 	const {
     	post,
@@ -98,10 +100,43 @@ const hasBackground = !! ( url || overlayColor.color || gradientValue );
 
 // 	let divClass;
 
+/*
+
+
+	// is it a predefined in a theme color?
+	var formClasses = (( props.formColor.class || '' ) + ' ' + props.className ).trim();
+
+	// form background color
+	var formStyles = {
+		backgroundColor: props.formColor.class ? undefined : props.attributes.customFormColor,
+	};
+
+*/
+// console.log(attributes);	
+console.log(backgroundColor);	
+
+    const onChangeTextColor = ( hexColor ) => {
+        setAttributes( { textColor: hexColor } );
+    };
+        
+     const onChangeBGColor = ( hexColor ) => {
+        setAttributes( { backgroundColor: hexColor } );
+    };
 	
 	const inspectorControls = (
 		<InspectorControls>
 			<Panel>
+			    <PanelBody>
+                    <ColorPalette
+                        value= {backgroundColor}
+                        onChange= { onChangeBGColor }
+                    />
+                </PanelBody>
+			</Panel>
+		</InspectorControls>
+	);	
+	
+	/*
                 <PanelColorSettings 
                     title={ __( 'Color Settings', 'dwb' ) }
                 	colorSettings={[
@@ -117,9 +152,32 @@ const hasBackground = !! ( url || overlayColor.color || gradientValue );
                 		},
                 	]}
                 />
-			</Panel>
-		</InspectorControls>
-	);	
+*/
+	
+/*
+	const blockProps = useBlockProps( {
+		ref: navRef,
+		className: classnames( className, {
+			[ `items-justified-${ attributes.itemsJustification }` ]: itemsJustification,
+			'is-vertical': orientation === 'vertical',
+			'is-responsive': 'never' !== overlayMenu,
+			'has-text-color': !! textColor.color || !! textColor?.class,
+			[ getColorClassName(
+				'color',
+				textColor?.slug
+			) ]: !! textColor?.slug,
+			'has-background': !! backgroundColor.color || backgroundColor.class,
+			[ getColorClassName(
+				'background-color',
+				backgroundColor?.slug
+			) ]: !! backgroundColor?.slug,
+		} ),
+		style: {
+			color: ! textColor?.slug && textColor?.color,
+			backgroundColor: ! backgroundColor?.slug && backgroundColor?.color,
+		},
+	} );
+*/	
 
 	if ( ! hasPost ) {
 		return (
@@ -134,23 +192,38 @@ const hasBackground = !! ( url || overlayColor.color || gradientValue );
 	}  
 	
 	// set our main (header div) styles.
+	let headerDivClass;
 	let headerDivStyles = {};
 	
+	
+	
+/*
 	if (backgroundColor != undefined) {
 		if (backgroundColor.color != undefined) {
 			headerDivStyles.backgroundColor = backgroundColor.color;
 		}
-	}	
+	}
+*/	
+
+/*
+	if (backgroundColor != undefined) {
+		if (backgroundColor.class != undefined) {
+			headerDivClass = backgroundColor.class;
+		} else {
+			headerDivStyles.color = backgroundColor.color;
+		}
+	}
 
 	if (textColor != undefined) {
 		if (textColor.color != undefined) {
 			headerDivStyles.color = textColor.color;
 		}
 	}
+*/
 	
 	// get block properties and add custom class.
     const blockProps = useBlockProps( {
-      className: 'entry-header',
+        className: 'entry-header',
     } );	
 
 	return (
@@ -189,7 +262,3 @@ const hasBackground = !! ( url || overlayColor.color || gradientValue );
         </>			
 	);
 }
-
-export default compose( [
-	withColors( { backgroundColor: 'background-color', textColor: 'color' } ),
-] )( PostHeaderEdit );
