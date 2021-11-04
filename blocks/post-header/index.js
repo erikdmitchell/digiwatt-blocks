@@ -27,9 +27,6 @@ registerBlockType( name, {
 			type: 'string',
 		}, 		    
 	},
-	apiVersion: 2,
-	supports: {
-		align: [ 'wide', 'full' ],
-	},	
+	apiVersion: 2,	
 	edit,
 } );

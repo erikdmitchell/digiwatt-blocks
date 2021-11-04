@@ -783,9 +783,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
     }
   },
   apiVersion: 2,
-  supports: {
-    align: ['wide', 'full']
-  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 

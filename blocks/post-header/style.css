@@ -30,8 +30,6 @@
 }
 
 .wp-block-dwb-post-header .header-content {
-/*     background: $color__background-post-header; */
-/*     color: $color__text-post-header; */
     padding: 2rem 2rem 0 4rem;        
     height: 100%;                    
 }

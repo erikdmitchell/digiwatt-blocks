@@ -92,10 +92,28 @@ function render_block_digiwatt_post_header( $attributes ) {
 // print_r($attributes);
     
     $html = '';
+    $header_content_styles = '';
+    $header_content_style = array();
+    
+    if (!empty( $attributes['textColor'] )) {
+        $header_content_style['color'] = $attributes['textColor'];
+    }
+    
+    if (!empty( $attributes['backgroundColor'] )) {
+        $header_content_style['background-color'] = $attributes['backgroundColor'];
+    }    
 
+    $header_content_styles = implode(' ', array_map(
+        function ($v, $k) {
+            return $k.':'.$v.';';
+        },
+        $header_content_style, 
+        array_keys($header_content_style)
+    ));
+    
     $html .= '<div class="featured-columns">';
         $html .= '<div class="featured-column">';
-            $html .= '<div class="header-content">';
+            $html .= '<div class="header-content" style="'.$header_content_styles.'">';
                 $html .= '<div class="title">';
                     $html .= '<h1 class="entry-title">'.get_the_title( $post ).'</h1>';
                 $html .= '</div>';
@@ -113,7 +131,7 @@ function render_block_digiwatt_post_header( $attributes ) {
             $html .= '<div class="featured-column no-thumb"></div>';
         endif;
     $html .= '</div>';
-    
+
     $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'entry-header' ) );
 
     return sprintf(
