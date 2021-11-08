@@ -25,10 +25,6 @@
     flex-basis: 45%;                              
 }
 
-.wp-block-dwb-post-header .featured-column.no-thumb {
-/*         background: $color__background-post-header; */    
-}
-
 .wp-block-dwb-post-header .header-content {
     padding: 2rem 2rem 0 4rem;        
     height: 100%;                    

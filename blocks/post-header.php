@@ -94,6 +94,7 @@ function render_block_digiwatt_post_header( $attributes ) {
     $html = '';
     $header_content_styles = '';
     $header_content_style = array();
+    $no_thumb_style = '';
     
     if (!empty( $attributes['textColor'] )) {
         $header_content_style['color'] = $attributes['textColor'];
@@ -102,6 +103,10 @@ function render_block_digiwatt_post_header( $attributes ) {
     if (!empty( $attributes['backgroundColor'] )) {
         $header_content_style['background-color'] = $attributes['backgroundColor'];
     }    
+
+    if (!has_post_thumbnail() && !empty( $attributes['backgroundColor'] )) {
+        $no_thumb_style = 'style="background:'.$attributes['backgroundColor'].'; height:400px;">';
+    }       
 
     $header_content_styles = implode(' ', array_map(
         function ($v, $k) {
@@ -128,7 +133,7 @@ function render_block_digiwatt_post_header( $attributes ) {
                 $html .= '<div class="post-thumbnail">'.get_dwb_post_header_post_thumbnail( $attributes['featuredImageSizeSlug'], $post->ID).'</div>';
             $html .= '</div>';
         else :
-            $html .= '<div class="featured-column no-thumb"></div>';
+            $html .= '<div class="featured-column no-thumb" '.$no_thumb_style.'></div>'; // force style here        
         endif;
     $html .= '</div>';
 
