@@ -721,6 +721,7 @@ function PostHeaderEdit(_ref) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "entry-date"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    className: "header-link",
     href: post.link,
     rel: "bookmark"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("time", {

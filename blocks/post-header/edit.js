@@ -142,7 +142,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
             color: textColor != undefined ? textColor : '',
             backgroundColor: backgroundColor != undefined ? backgroundColor : '',
 		},
-    } );	
+    } );
 
 	return (
     	<>
@@ -157,6 +157,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                             <div className="meta">
                                 <div className="entry-date">
                                     <a 
+                                        className="header-link"
                                         href={ post.link }
                                         rel="bookmark"
                                     >
