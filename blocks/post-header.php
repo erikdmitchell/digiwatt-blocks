@@ -116,7 +116,7 @@ function render_block_digiwatt_post_header( $attributes ) {
     if (!empty($attributes['align'])) {
         $align_image = ' align' . $attributes['align'];
     }
-//print_r($attributes);
+
     $header_content_styles = implode(' ', array_map(
         function ($v, $k) {
             return $k.':'.$v.';';
