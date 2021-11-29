@@ -146,7 +146,7 @@ function render_block_digiwatt_post_header( $attributes ) {
         endif;
     $html .= '</div>';
 
-    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'entry-header' . $align_image ) );
+    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_image ) );
 
     return sprintf(
         '<header %1$s>%2$s</header>',

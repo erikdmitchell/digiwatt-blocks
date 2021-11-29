@@ -701,7 +701,6 @@ function PostHeaderEdit(_ref) {
 
 
   var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_8__["useBlockProps"])({
-    className: 'entry-header',
     style: {
       color: textColor != undefined ? textColor : '',
       backgroundColor: backgroundColor != undefined ? backgroundColor : ''

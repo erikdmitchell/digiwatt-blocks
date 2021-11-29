@@ -137,7 +137,6 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 		
 	// get block properties and add custom ones.
     const blockProps = useBlockProps( {
-        className: 'entry-header',
         style: {
             color: textColor != undefined ? textColor : '',
             backgroundColor: backgroundColor != undefined ? backgroundColor : '',
