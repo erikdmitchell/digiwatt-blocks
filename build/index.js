@@ -615,6 +615,7 @@ function PostHeaderEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
   var className = attributes.className,
+      align = attributes.align,
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight,
@@ -762,8 +763,13 @@ var name = 'dwb/post-header';
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name, {
   title: 'Post Header',
   icon: 'layout',
+  apiVersion: 2,
   category: 'common',
   attributes: {
+    align: {
+      type: 'string',
+      default: 'full'
+    },
     featuredImageSizeSlug: {
       type: 'string',
       default: 'digiwatt-home-grid'
@@ -783,7 +789,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
       type: 'string'
     }
   },
-  apiVersion: 2,
+  supports: {
+    align: ['wide', 'full']
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 

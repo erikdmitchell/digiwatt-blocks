@@ -49,6 +49,10 @@ function dwb_post_header_block_init() {
         "dwb/{$block_slug}",
         array(
             'attributes' => array(
+                'align' => array(
+                    'type' => 'string',
+                    'default' => 'full',
+                ),
                 'featuredImageSizeSlug' => array(
                     'type' => 'string',
                     //'default' => 'digiwatt-home-grid',
@@ -95,6 +99,7 @@ function render_block_digiwatt_post_header( $attributes ) {
     $header_content_styles = '';
     $header_content_style = array();
     $no_thumb_style = '';
+    $align_image = '';
     
     if (!empty( $attributes['textColor'] )) {
         $header_content_style['color'] = $attributes['textColor'];
@@ -108,6 +113,10 @@ function render_block_digiwatt_post_header( $attributes ) {
         $no_thumb_style = 'style="background:'.$attributes['backgroundColor'].'; height:400px;">';
     }       
 
+    if (!empty($attributes['align'])) {
+        $align_image = ' align' . $attributes['align'];
+    }
+//print_r($attributes);
     $header_content_styles = implode(' ', array_map(
         function ($v, $k) {
             return $k.':'.$v.';';
@@ -127,7 +136,7 @@ function render_block_digiwatt_post_header( $attributes ) {
                 $html .= '</div>';
             $html .= '</div>';        
         $html .= '</div>';
-        
+                
         if (has_post_thumbnail()) :
             $html .= '<div class="featured-column">';
                 $html .= '<div class="post-thumbnail">'.get_dwb_post_header_post_thumbnail( $attributes['featuredImageSizeSlug'], $post->ID).'</div>';
@@ -137,7 +146,7 @@ function render_block_digiwatt_post_header( $attributes ) {
         endif;
     $html .= '</div>';
 
-    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'entry-header' ) );
+    $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'entry-header' . $align_image ) );
 
     return sprintf(
         '<header %1$s>%2$s</header>',

@@ -27,7 +27,7 @@ import {
 import { compose } from '@wordpress/compose';
 
 export default function PostHeaderEdit( { attributes, setAttributes } ) {   
-	const { className, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, backgroundColor, textColor } = attributes;
+	const { className, align, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, backgroundColor, textColor } = attributes;
 
 	const {
     	post,
@@ -98,7 +98,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
     const onChangeBGColor = ( hexColor ) => {
         setAttributes( { backgroundColor: hexColor } );
     };
-	
+
 	const inspectorControls = (
 		<InspectorControls>
 			<Panel>                
@@ -122,7 +122,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 			</Panel>
 		</InspectorControls>
 	);
-
+    
 	if ( ! hasPost ) {
 		return (
 			<div>
