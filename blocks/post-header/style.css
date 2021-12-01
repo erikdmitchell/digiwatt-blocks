@@ -44,7 +44,8 @@
     margin: 2rem 0 1rem 0;                
 }
         
-.wp-block-dwb-post-header .post-thumbnail {
+.wp-block-dwb-post-header .post-thumbnail,
+.wp-block-dwb-post-header .no-thumb {
     height: 400px;
     max-height: 400px;           
 }    
