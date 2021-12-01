@@ -9,7 +9,7 @@ Located in the `blocks` folder
 ### NPM Commands/Tasks
 
 ```
-"test": "echo \"You have Strava watts\" && exit 1",
+"test": "echo \"You have DigiWatts" && exit 1",
 "build": "wp-scripts build blocks/index.js",
 "format:js:src": "wp-scripts format-js",
 "lint:js:src": "wp-scripts lint-js",

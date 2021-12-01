@@ -1,12 +1,16 @@
 <?php
+/**
+ * Register home grid block.
+ */
+
 
 /**
- * Register blocks.
+ * Register the Home Grid Block.
  *
  * @access public
  * @return void
  */
-function digiwatt_register_blocks() {
+function digiwatt_register_home_grid_block() {
     // Fail if block editor is not supported
     if ( ! function_exists( 'register_block_type' ) ) {
         return;
@@ -14,17 +18,8 @@ function digiwatt_register_blocks() {
 
     // automatically load dependencies and version
     $asset_file = include( DWB_ABSPATH . 'build/index.asset.php' );
-    $blocks = array( 'tagline', 'about' );
-
-    // register blocks.
-    foreach ( $blocks as $block ) {
-        digiwatt_register_block_type( $block );
-        digiwatt_register_block_script( $block, $asset_file );
-        digiwatt_register_block_style( $block, 'style', $asset_file );
-        digiwatt_register_block_style( $block, 'editor', $asset_file );
-    }
-
     $block_slug = 'home-grid';
+
     register_block_type(
         'dwb/' . $block_slug,
         array(
@@ -64,105 +59,54 @@ function digiwatt_register_blocks() {
                 'featuredImageLargeSizeSlug' => array(
                     'type' => 'string',
                     'default' => 'digiwatt-home-grid-large',
-                ), 
+                ),
                 'featuredPostExcerptLength' => array(
                     'type' => 'number',
                     'default' => 95,
-                ),                               
+                ),
             ),
             'render_callback' => 'render_block_digiwatt_home_grid',
-            'editor_script' => "dwb-{$block_slug}-block-script",
+            'editor_script' => 'dwb-block-script',
             'editor_style' => "dwb-{$block_slug}-block-editor",
             'style' => "dwb-{$block_slug}-block-style",
         )
     );
 
     add_image_size( 'digiwatt-home-grid', 650, 300, true );
-    add_image_size( 'digiwatt-home-grid-large', 765, 550, true );    
-
-    $filename = 'style';
-    wp_register_style(
-        "dwb-{$block_slug}-block-{$filename}",
-        DWB_ABSURL . "blocks/{$block_slug}/{$filename}.css",
-        array(),
-        filemtime( DWB_ABSPATH . "blocks/{$block_slug}/{$filename}.css" )
-    );
-
-    $filename = 'editor';
-    wp_register_style(
-        "dwb-{$block_slug}-block-{$filename}",
-        DWB_ABSURL . "blocks/{$block_slug}/{$filename}.css",
-        array(),
-        filemtime( DWB_ABSPATH . "blocks/{$block_slug}/{$filename}.css" )
-    );
-}
-add_action( 'init', 'digiwatt_register_blocks' );
-
-/**
- * Register blok type.
- *
- * @access public
- * @param string $block_slug (default: '')
- * @return void
- */
-function digiwatt_register_block_type( $block_slug = '' ) {
-    if ( empty( $block_slug ) ) {
-        return;
-    }
-
-    register_block_type(
-        "dwb/dwb-{$block_slug}-block",
-        array(
-            'editor_script' => "dwb-{$block_slug}-block-script",
-            'editor_style' => "dwb-{$block_slug}-block-editor",
-            'style' => "dwb-{$block_slug}-block-style",
-        )
-    );
-}
-
-/**
- * Register block script.
- *
- * @access public
- * @param string $block_slug (default: '')
- * @param array  $asset_file (default: array())
- * @return void
- */
-function digiwatt_register_block_script( $block_slug = '', $asset_file = array() ) {
-    if ( empty( $block_slug ) || empty( $asset_file ) ) {
-        return;
-    }
+    add_image_size( 'digiwatt-home-grid-large', 765, 550, true );
 
     wp_register_script(
-        "dwb-{$block_slug}-block-script",
+        'dwb-block-script',
         DWB_ABSURL . 'build/index.js',
         $asset_file['dependencies'],
         $asset_file['version']
     );
-}
 
-/**
- * Register block style.
- *
- * @access public
- * @param string $block_slug (default: '')
- * @param string $filename (default: 'style')
- * @param array  $asset_file (default: array())
- * @return void
- */
-function digiwatt_register_block_style( $block_slug = '', $filename = 'style', $asset_file = array() ) {
-    if ( empty( $block_slug ) || empty( $asset_file ) ) {
-        return;
-    }
-
+    $editor_css = 'editor.css';
     wp_register_style(
-        "dwb-{$block_slug}-block-{$filename}",
-        DWB_ABSURL . "blocks/{$block_slug}/{$filename}.css",
+        "dwb-{$block_slug}-block-editor",
+        DWB_ABSURL . "blocks/{$block_slug}/{$editor_css}",
         array(),
-        filemtime( DWB_ABSPATH . "blocks/{$block_slug}/{$filename}.css" )
+        filemtime( DWB_ABSPATH . "blocks/{$block_slug}/{$editor_css}" )
+    );
+
+    $style_css = 'style.css';
+    wp_register_style(
+        "dwb-{$block_slug}-block-style",
+        DWB_ABSURL . "blocks/{$block_slug}/{$style_css}",
+        array(),
+        filemtime( DWB_ABSPATH . "blocks/{$block_slug}/{$style_css}" )
     );
 }
+add_action( 'init', 'digiwatt_register_home_grid_block' );
 
+/**
+ * Displays the Home Grid block.
+ *
+ * @access public
+ * @param mixed $attributes (array).
+ * @return string
+ */
 function render_block_digiwatt_home_grid( $attributes ) {
     global $post;
 
@@ -175,16 +119,21 @@ function render_block_digiwatt_home_grid( $attributes ) {
     );
 
     $recent_posts = get_posts( $args );
-    $last_post_key = count($recent_posts) - 1;
+    $last_post_key = count( $recent_posts ) - 1;
     $col_counter = 1;
     $posts_markup = '';
 
     foreach ( $recent_posts as $key => $post ) {
         $post_link = esc_url( get_permalink( $post ) );
 
+        // at the begining create "row".
+        if ( 0 == $key || 3 == $key ) {
+            $posts_markup .= '<div class="wp-block-columns">';
+        }
+
         // first post gets its own col, then the second post begins the second col.
-        if (0 == $key || 1 == $key) {
-            $posts_markup  .= '<div class="wp-block-column home-grid-col hgc-'.$col_counter.'">';
+        if ( 0 == $key || 1 == $key || 3 <= $key ) {
+            $posts_markup  .= '<div class="wp-block-column home-grid-col hgc-' . $col_counter . '">';
         }
 
         $posts_markup .= '<div class="home-grid-post">';
@@ -199,12 +148,12 @@ function render_block_digiwatt_home_grid( $attributes ) {
             }
 
             $image_classes = 'img-responsive';
-            
+
             // first post gets larger thumb.
-            if (0 == $key) {
+            if ( 0 == $key ) {
                 $image_size_slug = $attributes['featuredImageLargeSizeSlug'];
             } else {
-                $image_size_slug = $attributes['featuredImageSizeSlug'];   
+                $image_size_slug = $attributes['featuredImageSizeSlug'];
             }
 
             $featured_image = get_the_post_thumbnail(
@@ -225,6 +174,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
         }
 
         $title = get_the_title( $post );
+
         if ( ! $title ) {
             $title = __( '(no title)' );
         }
@@ -234,7 +184,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
             $title
         );
 
-        // begin excerpt
+        // begin excerpt.
         $extra = ' <a href="' . get_permalink( $post ) . '" rel="noreferrer noopener">read more...</a>';
 
         if ( post_password_required( $post ) ) {
@@ -247,12 +197,12 @@ function render_block_digiwatt_home_grid( $attributes ) {
         } else {
             $the_excerpt = $post->post_content;
         }
-        
+
         // first post gets longer excerpt.
-        if (0 == $key) {
-            $excerpt_length = $attributes['featuredPostExcerptLength'];  
+        if ( 0 == $key ) {
+            $excerpt_length = $attributes['featuredPostExcerptLength'];
         } else {
-            $excerpt_length = $attributes['excerptLength'];  
+            $excerpt_length = $attributes['excerptLength'];
         }
 
         $the_excerpt = strip_shortcodes( strip_tags( $the_excerpt ) );
@@ -268,15 +218,25 @@ function render_block_digiwatt_home_grid( $attributes ) {
             '<div class="excerpt">%1$s</div>',
             $trimmed_excerpt
         );
-        // end excertp
+        // end excerpt.
 
         $posts_markup .= '</div>';
 
         // first post gets its own col, then the last post closes the second col.
-        if (0 == $key || $last_post_key == $key) {
+        if ( 0 == $key || 2 == $key || 3 <= $key ) {
             $posts_markup .= '</div>';
             $col_counter++;
-        }        
+        }
+
+        // close first "row".
+        if ( 2 == $key ) {
+            $posts_markup .= '</div>';
+        }
+
+        // close .wp-block-columns and column at final post.
+        if ( $last_post_key == $key ) {
+            $posts_markup .= '</div>';
+        }
     }
 
     $more_button = '<div class="more-articles"><a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">More Articles</a></div>';
@@ -286,7 +246,7 @@ function render_block_digiwatt_home_grid( $attributes ) {
     $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
 
     return sprintf(
-        '<div %1$s><div class="wp-block-columns">%2$s</div>%3$s</div>',
+        '<div %1$s>%2$s%3$s</div>',
         $wrapper_attributes,
         $posts_markup,
         $more_button

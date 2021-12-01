@@ -29,7 +29,7 @@ var buildInclude = [
 	'!./.stylelintrc',
 	'!./{vendor,vendor/**/*}',
 	'!svn/**',
-	'!**/*.log'
+	'!**/*.log',
 ];
 
 var phpSrc = [
@@ -49,7 +49,7 @@ var cssInclude = [
 	'!inc/css/*',
 	'!vendor/**',
 	'!build/**',
-	'!blocks/**',	
+	'!blocks/**',
 ];
 
 var jsInclude = [
@@ -63,7 +63,7 @@ var jsInclude = [
 	'!**/gulpfile.js',
 	'!inc/js/html5shiv.js',
 	'!inc/js/respond.js',
-    '!build/**',
+	'!build/**',
 	'!blocks/**',
 ];
 
