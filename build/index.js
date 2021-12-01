@@ -690,7 +690,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
     },
     timePosition: {
       type: 'string',
-      default: 'before'
+      default: 'after'
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
