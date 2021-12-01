@@ -619,6 +619,7 @@ function PostHeaderEdit(_ref) {
       featuredImageSizeSlug = attributes.featuredImageSizeSlug,
       featuredImageSizeWidth = attributes.featuredImageSizeWidth,
       featuredImageSizeHeight = attributes.featuredImageSizeHeight,
+      imageAlign = attributes.imageAlign,
       backgroundColor = attributes.backgroundColor,
       textColor = attributes.textColor;
 
@@ -693,7 +694,25 @@ function PostHeaderEdit(_ref) {
       onChange: onChangeBGColor,
       label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Background Color')
     }]
-  })));
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelBody"], {
+    title: "Image Settings",
+    initialOpen: true
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["RadioControl"], {
+    label: "Alignement",
+    selected: imageAlign,
+    options: [{
+      label: 'Left',
+      value: 'left'
+    }, {
+      label: 'Right',
+      value: 'right'
+    }],
+    onChange: function onChange(value) {
+      setAttributes({
+        imageAlign: value
+      });
+    }
+  })))));
 
   if (!hasPost) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, !Array.isArray(post) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Spinner"], null) : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('No post found.'));
@@ -707,9 +726,9 @@ function PostHeaderEdit(_ref) {
     }
   });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("header", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "featured-columns"
+    className: "columns image-" + imageAlign
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "featured-column"
+    className: "column"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "header-content"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -736,9 +755,9 @@ function PostHeaderEdit(_ref) {
     href: postAuthorDetails ? postAuthorDetails.link : '#',
     rel: "author"
   }, "By ", postAuthorDetails ? postAuthorDetails.name : '')))))), postImage ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "featured-column"
+    className: "column"
   }, postImage) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "featured-column no-thumb"
+    className: "column no-thumb"
   }))));
 }
 
@@ -769,6 +788,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
       type: 'string',
       default: 'full'
     },
+    backgroundColor: {
+      type: 'string'
+    },
     featuredImageSizeSlug: {
       type: 'string',
       default: 'digiwatt-home-grid'
@@ -781,15 +803,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
       type: 'number',
       default: null
     },
-    backgroundColor: {
-      type: 'string'
+    imageAlign: {
+      type: 'string',
+      default: 'right'
     },
     textColor: {
       type: 'string'
     }
   },
   supports: {
-    align: ['wide', 'full']
+    align: ['wide', 'full'],
+    imageAlign: ['left', 'right']
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
 });

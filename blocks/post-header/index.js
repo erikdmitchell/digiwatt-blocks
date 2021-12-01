@@ -13,6 +13,9 @@ registerBlockType( name, {
     		type: 'string',
     		default: 'full',
     	},    	
+        backgroundColor: {
+			type: 'string',
+		},    	
 		featuredImageSizeSlug: {
 			type: 'string',
 			default: 'digiwatt-home-grid',
@@ -24,16 +27,18 @@ registerBlockType( name, {
 		featuredImageSizeHeight: {
 			type: 'number',
 			default: null,
-		},  
-        backgroundColor: {
-			type: 'string',
-		}, 
+		},
+    	imageAlign: {
+    		type: 'string',
+    		default: 'right',
+    	}, 
         textColor: {
 			type: 'string',
 		}, 		    
 	},
 	supports: {
-        align: [ 'wide', 'full' ], 	
+        align: [ 'wide', 'full' ],
+        imageAlign: [ 'left', 'right' ], 	
 	},
 	edit,
 } );
