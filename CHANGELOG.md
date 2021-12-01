@@ -1,8 +1,14 @@
 # DigiWatt Blocks Changelog
 
+## 0.2.0
+
+* Updated home grid layout
+* Added Post Header block
+* Minor bug fixes and code cleanup
+
 ## 0.1.21
 
-* Parallax image on mboile fixed
+* Parallax image on mobile fixed
 * Home grid: uses wp columns classes
 
 ## 0.1.2
