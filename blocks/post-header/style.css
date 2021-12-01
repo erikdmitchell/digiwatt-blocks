@@ -3,25 +3,25 @@
     margin-bottom: 2rem;
 }
 
-.wp-block-dwb-post-header .featured-columns {
+.wp-block-dwb-post-header .columns {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;                  
 }
 
-.wp-block-dwb-post-header .featured-column {
+.wp-block-dwb-post-header .column {
     flex-basis: 0;
     flex-grow: 1;
     min-width: 0;
     overflow-wrap: break-word;
 }
 
-.wp-block-dwb-post-header .featured-column:last-child {
+.wp-block-dwb-post-header .column:last-child {
     flex-basis: 55%;              
 }
 
-.wp-block-dwb-post-header .featured-column:first-child {
+.wp-block-dwb-post-header .column:first-child {
     flex-basis: 45%;                              
 }
 

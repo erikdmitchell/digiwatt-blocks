@@ -125,8 +125,8 @@ function render_block_digiwatt_post_header( $attributes ) {
         array_keys($header_content_style)
     ));
     
-    $html .= '<div class="featured-columns">';
-        $html .= '<div class="featured-column">';
+    $html .= '<div class="columns">';
+        $html .= '<div class="column">';
             $html .= '<div class="header-content" style="'.$header_content_styles.'">';
                 $html .= '<div class="title">';
                     $html .= '<h1 class="entry-title">'.get_the_title( $post ).'</h1>';
@@ -138,11 +138,11 @@ function render_block_digiwatt_post_header( $attributes ) {
         $html .= '</div>';
                 
         if (has_post_thumbnail()) :
-            $html .= '<div class="featured-column">';
+            $html .= '<div class="column">';
                 $html .= '<div class="post-thumbnail">'.get_dwb_post_header_post_thumbnail( $attributes['featuredImageSizeSlug'], $post->ID).'</div>';
             $html .= '</div>';
         else :
-            $html .= '<div class="featured-column no-thumb" '.$no_thumb_style.'></div>'; // force style here        
+            $html .= '<div class="column no-thumb" '.$no_thumb_style.'></div>'; // force style here        
         endif;
     $html .= '</div>';
 

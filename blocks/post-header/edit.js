@@ -10,14 +10,15 @@ import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { date } from '@wordpress/date';
 import {
-    Spinner,
     Panel,
 	PanelBody,
 	PanelRow,
+    RadioControl,
 	SelectControl,
+    Spinner,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
-import {
+import {   
     InspectorControls, 
     PanelColorSettings,
     useBlockProps,
@@ -27,7 +28,7 @@ import {
 import { compose } from '@wordpress/compose';
 
 export default function PostHeaderEdit( { attributes, setAttributes } ) {   
-	const { className, align, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, backgroundColor, textColor } = attributes;
+	const { className, align, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, imageAlign, backgroundColor, textColor } = attributes;
 
 	const {
     	post,
@@ -117,9 +118,22 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                 		},                		
                 	]}
                 />
-                
-                
-			</Panel>
+                <PanelBody title="Image Settings" initialOpen={ true }>
+                    <PanelRow>
+                        <RadioControl
+                            label="Alignement"
+                            selected={ imageAlign }
+                            options={ [
+                                { label: 'Left', value: 'left' },
+                                { label: 'Right', value: 'right' },
+                            ] }
+                            onChange={ (value) => {
+                                setAttributes( { imageAlign: value } );
+                            } }                            
+                        />
+                    </PanelRow>
+                </PanelBody>
+            </Panel>
 		</InspectorControls>
 	);
     
@@ -147,8 +161,8 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
     	<>
         	{ inspectorControls }
             <header { ...blockProps }>
-                <div className="featured-columns">
-                    <div className="featured-column"> 
+                <div className="columns">
+                    <div className="column"> 
                         <div className="header-content"> 
                             <div className="title">
                                 <h1 className="entry-title">{postTitle}</h1>
@@ -174,7 +188,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                             </div>
                         </div>              
                     </div>
-                    {postImage ? <div className="featured-column">{ postImage }</div> : <div className="featured-column no-thumb"></div>}
+                    {postImage ? <div className="column">{ postImage }</div> : <div className="column no-thumb"></div>}
                 </div>
             </header> 
         </>			
