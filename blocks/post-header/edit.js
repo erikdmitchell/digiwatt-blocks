@@ -161,7 +161,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
     	<>
         	{ inspectorControls }
             <header { ...blockProps }>
-                <div className="columns">
+                <div className={"columns image-" + imageAlign}>
                     <div className="column"> 
                         <div className="header-content"> 
                             <div className="title">
