@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "dwb/excerpt",
+	"title": "DWB Excerpt",
+	"category": "theme",
+	"description": "Display a post's excerpt.",
+	"textdomain": "dwb",
+	"attributes": {
+		"textAlign": {
+			"type": "string"
+		},
+		"moreText": {
+			"type": "string"
+		},
+		"showMoreOnNewLine": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"usesContext": [ "postId", "postType", "queryId" ],
+	"supports": {
+		"html": false,
+		"color": {
+			"gradients": true,
+			"link": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		}
+	},
+    "editorScript": "file:index.js"
+}
