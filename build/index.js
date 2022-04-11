@@ -242,7 +242,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
 /*! exports provided: $schema, apiVersion, name, title, category, description, textdomain, attributes, usesContext, supports, editorScript, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"$schema\":\"https://schemas.wp.org/trunk/block.json\",\"apiVersion\":2,\"name\":\"dwb/excerpt\",\"title\":\"DWB Excerpt\",\"category\":\"theme\",\"description\":\"Display a post's excerpt.\",\"textdomain\":\"dwb\",\"attributes\":{\"textAlign\":{\"type\":\"string\"},\"moreText\":{\"type\":\"string\"},\"showMoreOnNewLine\":{\"type\":\"boolean\",\"default\":true}},\"usesContext\":[\"postId\",\"postType\",\"queryId\"],\"supports\":{\"html\":false,\"color\":{\"gradients\":true,\"link\":true},\"spacing\":{\"margin\":true,\"padding\":true},\"typography\":{\"fontSize\":true,\"lineHeight\":true}},\"editorScript\":\"file:index.js\"}");
+module.exports = JSON.parse("{\"$schema\":\"https://schemas.wp.org/trunk/block.json\",\"apiVersion\":2,\"name\":\"dwb/excerpt\",\"title\":\"DWB Excerpt\",\"category\":\"theme\",\"description\":\"Display a post's excerpt.\",\"textdomain\":\"dwb\",\"attributes\":{\"textAlign\":{\"type\":\"string\"},\"moreText\":{\"type\":\"string\"},\"showMoreOnNewLine\":{\"type\":\"boolean\",\"default\":true},\"excerptLength\":{\"type\":\"number\",\"default\":35}},\"usesContext\":[\"postId\",\"postType\",\"queryId\"],\"supports\":{\"html\":false,\"color\":{\"gradients\":true,\"link\":true},\"spacing\":{\"margin\":true,\"padding\":true},\"typography\":{\"fontSize\":true,\"lineHeight\":true}},\"editorScript\":\"file:index.js\"}");
 
 /***/ }),
 
@@ -255,7 +255,7 @@ module.exports = JSON.parse("{\"$schema\":\"https://schemas.wp.org/trunk/block.j
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PostExcerptEditor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ExcerptEditor; });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
@@ -294,20 +294,22 @@ __webpack_require__.r(__webpack_exports__);
  */
 //import { useCanEditEntity } from '../utils/hooks';
 
-function PostExcerptEditor(_ref) {
+function ExcerptEditor(_ref) {
   var _ref$attributes = _ref.attributes,
       textAlign = _ref$attributes.textAlign,
       moreText = _ref$attributes.moreText,
       showMoreOnNewLine = _ref$attributes.showMoreOnNewLine,
+      excerptLength = _ref$attributes.excerptLength,
       setAttributes = _ref.setAttributes,
       isSelected = _ref.isSelected,
       _ref$context = _ref.context,
       postId = _ref$context.postId,
       postType = _ref$context.postType,
       queryId = _ref$context.queryId;
-  var isDescendentOfQueryLoop = Number.isFinite(queryId);
-  var userCanEdit = useCanEditEntity('postType', postType, postId);
-  var isEditable = userCanEdit && !isDescendentOfQueryLoop;
+  var isDescendentOfQueryLoop = Number.isFinite(queryId); //const userCanEdit = useCanEditEntity( 'postType', postType, postId );
+  //const isEditable = userCanEdit && ! isDescendentOfQueryLoop;
+
+  var isEditable = true;
 
   var _useEntityProp = Object(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__["useEntityProp"])('postType', postType, 'excerpt', postId),
       _useEntityProp2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_useEntityProp, 3),
@@ -383,6 +385,17 @@ function PostExcerptEditor(_ref) {
         showMoreOnNewLine: newShowMoreOnNewLine
       });
     }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["RangeControl"], {
+    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Excerpt Length'),
+    value: excerptLength,
+    onChange: function onChange(value) {
+      return setAttributes({
+        excerptLength: value
+      });
+    },
+    min: 30,
+    max: 100,
+    required: true
   }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", blockProps, excerptContent, !showMoreOnNewLine && ' ', showMoreOnNewLine ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("p", {
     className: "wp-block-post-excerpt__more-text"
   }, readMoreLink) : readMoreLink));
@@ -741,52 +754,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])(name
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _about__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./about */ "./blocks/about/index.js");
-/* harmony import */ var _home_grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home-grid */ "./blocks/home-grid/index.js");
-/* harmony import */ var _post_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./post-header */ "./blocks/post-header/index.js");
-/* harmony import */ var _read_time__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./read-time */ "./blocks/read-time/index.js");
-/* harmony import */ var _tagline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tagline */ "./blocks/tagline/index.js");
-/* harmony import */ var _excerpt__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./excerpt */ "./blocks/excerpt/index.js");
+/* harmony import */ var _excerpt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./excerpt */ "./blocks/excerpt/index.js");
+/* harmony import */ var _home_grid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home-grid */ "./blocks/home-grid/index.js");
+/* harmony import */ var _post_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./post-header */ "./blocks/post-header/index.js");
+/* harmony import */ var _read_time__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./read-time */ "./blocks/read-time/index.js");
+/* harmony import */ var _tagline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tagline */ "./blocks/tagline/index.js");
 
 
 
 
 
 
-/**
- * WordPress dependencies
- */
-
-/*
-import {
-	registerBlockType,
-	setDefaultBlockName,
-	setFreeformContentHandlerName,
-	setUnregisteredTypeHandlerName,
-	setGroupingBlockName,
-} from '@wordpress/blocks';
-*/
-
-/**
- * Internal dependencies
- */
-// import * as postExcerpt from './post-excerpt';
-
-/**
- * Function to register an individual block.
- *
- * @param {Object} block The block to be registered.
- *
- */
-
-/*
-const registerBlock = ( block ) => {
-	if ( ! block ) {
-		return;
-	}
-	const { metadata, settings, name } = block;
-	registerBlockType( { name, ...metadata }, settings );
-};
-*/
 
 /***/ }),
 

@@ -6,7 +6,7 @@
 	"category": "theme",
 	"description": "Display a post's excerpt.",
 	"textdomain": "dwb",
-	"attributes": {
+	"attributes": {    	
 		"textAlign": {
 			"type": "string"
 		},
@@ -16,7 +16,11 @@
 		"showMoreOnNewLine": {
 			"type": "boolean",
 			"default": true
-		}
+		},
+        "excerptLength": {
+            "type": "number",
+            "default": 35
+        }		
 	},
 	"usesContext": [ "postId", "postType", "queryId" ],
 	"supports": {

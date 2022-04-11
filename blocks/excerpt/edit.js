@@ -16,7 +16,7 @@ import {
 	Warning,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl } from '@wordpress/components';
+import { PanelBody, RangeControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -24,15 +24,16 @@ import { __ } from '@wordpress/i18n';
  */
 //import { useCanEditEntity } from '../utils/hooks';
 
-export default function PostExcerptEditor( {
-	attributes: { textAlign, moreText, showMoreOnNewLine },
+export default function ExcerptEditor( {
+	attributes: { textAlign, moreText, showMoreOnNewLine, excerptLength },
 	setAttributes,
 	isSelected,
 	context: { postId, postType, queryId },
 } ) {
 	const isDescendentOfQueryLoop = Number.isFinite( queryId );
-	const userCanEdit = useCanEditEntity( 'postType', postType, postId );
-	const isEditable = userCanEdit && ! isDescendentOfQueryLoop;
+	//const userCanEdit = useCanEditEntity( 'postType', postType, postId );
+	//const isEditable = userCanEdit && ! isDescendentOfQueryLoop;
+	const isEditable = true;
 	const [
 		rawExcerpt,
 		setExcerpt,
@@ -124,6 +125,16 @@ export default function PostExcerptEditor( {
 							} )
 						}
 					/>
+					<RangeControl
+						label={ __( 'Excerpt Length' ) }
+						value={ excerptLength }
+						onChange={ ( value ) =>
+							setAttributes( { excerptLength: value } )
+						}
+						min={ 30 }
+						max={ 100 }
+						required
+					/>					
 				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>
