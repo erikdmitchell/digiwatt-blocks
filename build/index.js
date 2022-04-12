@@ -242,7 +242,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('dwb
 /*! exports provided: $schema, apiVersion, name, title, category, description, textdomain, attributes, usesContext, supports, editorScript, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"$schema\":\"https://schemas.wp.org/trunk/block.json\",\"apiVersion\":2,\"name\":\"dwb/excerpt\",\"title\":\"DWB Excerpt\",\"category\":\"theme\",\"description\":\"Display a post's excerpt.\",\"textdomain\":\"dwb\",\"attributes\":{\"textAlign\":{\"type\":\"string\"},\"moreText\":{\"type\":\"string\"},\"showMoreOnNewLine\":{\"type\":\"boolean\",\"default\":true},\"excerptLength\":{\"type\":\"number\",\"default\":35}},\"usesContext\":[\"postId\",\"postType\",\"queryId\"],\"supports\":{\"html\":false,\"color\":{\"gradients\":true,\"link\":true},\"spacing\":{\"margin\":true,\"padding\":true},\"typography\":{\"fontSize\":true,\"lineHeight\":true}},\"editorScript\":\"file:./index.js\"}");
+module.exports = JSON.parse("{\"$schema\":\"https://schemas.wp.org/trunk/block.json\",\"apiVersion\":2,\"name\":\"dwb/excerpt\",\"title\":\"DWB Excerpt\",\"category\":\"theme\",\"description\":\"Display a post's excerpt.\",\"textdomain\":\"dwb\",\"attributes\":{\"textAlign\":{\"type\":\"string\"},\"moreText\":{\"type\":\"string\"},\"showMoreOnNewLine\":{\"type\":\"boolean\",\"default\":false},\"excerptLength\":{\"type\":\"number\",\"default\":35}},\"usesContext\":[\"postId\",\"postType\",\"queryId\"],\"supports\":{\"html\":false,\"color\":{\"gradients\":true,\"link\":true},\"spacing\":{\"margin\":true,\"padding\":true},\"typography\":{\"fontSize\":true,\"lineHeight\":true}},\"editorScript\":\"file:./index.js\"}");
 
 /***/ }),
 

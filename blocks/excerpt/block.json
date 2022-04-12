@@ -15,7 +15,7 @@
 		},
 		"showMoreOnNewLine": {
 			"type": "boolean",
-			"default": true
+			"default": false
 		},
         "excerptLength": {
             "type": "number",
