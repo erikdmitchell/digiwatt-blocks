@@ -44,6 +44,8 @@ export default function ExcerptEditor( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
 		} ),
 	} );
+//console.log(postId);
+//console.log(postType);	
 	/**
 	 * When excerpt is editable, strip the html tags from
 	 * rendered excerpt. This will be used if the entity's
@@ -51,15 +53,19 @@ export default function ExcerptEditor( {
 	 */
 	const strippedRenderedExcerpt = useMemo( () => {
 		if ( ! renderedExcerpt ) return '';
+		
 		const document = new window.DOMParser().parseFromString(
 			renderedExcerpt,
 			'text/html'
 		);
+		
 		return document.body.textContent || document.body.innerText || '';
 	}, [ renderedExcerpt ] );
+	
 	if ( ! postType || ! postId ) {
 		return <div { ...blockProps }>{ __( 'Post Excerpt' ) }</div>;
 	}
+	
 	if ( isProtected && ! userCanEdit ) {
 		return (
 			<div { ...blockProps }>
@@ -71,6 +77,7 @@ export default function ExcerptEditor( {
 			</div>
 		);
 	}
+	
 	const readMoreLink = (
 		<RichText
 			className="wp-block-post-excerpt__more-link"
@@ -84,9 +91,11 @@ export default function ExcerptEditor( {
 			withoutInteractiveFormatting={ true }
 		/>
 	);
+	
 	const excerptClassName = classnames( 'wp-block-post-excerpt__excerpt', {
 		'is-inline': ! showMoreOnNewLine,
 	} );
+	
 	const excerptContent = isEditable ? (
 		<RichText
 			className={ excerptClassName }
@@ -104,6 +113,7 @@ export default function ExcerptEditor( {
 			{ strippedRenderedExcerpt || __( 'No post excerpt found' ) }
 		</p>
 	);
+	
 	return (
 		<>
 			<BlockControls>

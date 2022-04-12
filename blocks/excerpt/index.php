@@ -18,7 +18,7 @@ function render_block_dwb_excerpt( $attributes, $content, $block ) {
 		return '';
 	}
 
-	$excerpt = get_the_excerpt();
+	$excerpt = dwb_post_excerpt($block->context['postId'], $attributes['excerptLength']);
 
 	if ( empty( $excerpt ) ) {
 		return '';
