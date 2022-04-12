@@ -1,6 +1,9 @@
 # DigiWatt Blocks Changelog
 
-## 0.2.1
+## 0.3.0
+
+* Added DWB Excerpt block
+* Removed Home Grid block
 
 ## 0.2.0
 

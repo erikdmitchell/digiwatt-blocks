@@ -100,8 +100,7 @@ final class DWB {
         include_once( DWB_ABSPATH . 'includes/functions.php' );
                 
         include_once( DWB_ABSPATH . 'blocks/about.php' );
-        include_once( DWB_ABSPATH . 'blocks/excerpt/index.php' );        
-        include_once( DWB_ABSPATH . 'blocks/home-grid.php' );
+        include_once( DWB_ABSPATH . 'blocks/excerpt/index.php' );
         include_once( DWB_ABSPATH . 'blocks/post-header.php' );
         include_once( DWB_ABSPATH . 'blocks/read-time.php' );
         include_once( DWB_ABSPATH . 'blocks/tagline.php' );
