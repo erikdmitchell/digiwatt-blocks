@@ -140,7 +140,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                         <ToggleControl
                             label="Show Author"
                             checked={ showAuthor }
-                            onChange={ () => {
+                            onChange={ ( value ) => {                                
                                 setAttributes( { showAuthor: value } )
                             } }
                         />
@@ -169,6 +169,17 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
             backgroundColor: backgroundColor != undefined ? backgroundColor : '',
 		},
     } );
+    
+    // byline.
+	const byline = (
+        <div className="byline">
+            <span className="author vcard">
+                <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
+                    By {postAuthorDetails ? postAuthorDetails.name : ''}
+                </a>
+            </span>
+        </div> 
+	); 
 
 	return (
     	<>
@@ -191,13 +202,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                                     </a>
                                 </div>
                                 
-                                <div className="byline">
-                                    <span className="author vcard">
-                                        <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
-                                            By {postAuthorDetails ? postAuthorDetails.name : ''}
-                                        </a>
-                                    </span>
-                                </div>        
+                                {showAuthor ? byline : ''}       
                             </div>
                         </div>              
                     </div>
