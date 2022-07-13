@@ -16,9 +16,10 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 	const { post } = useSelect( ( select ) => {
 		const { getEntityRecord } = select( coreStore );
 		const currentPostId = select( 'core/editor' ).getCurrentPostId();
+        const currentPostType = select('core/editor').getCurrentPostType();		
 
 		return {
-			post: getEntityRecord( 'postType', 'post', currentPostId ),
+			post: getEntityRecord( 'postType', currentPostType, currentPostId ),
 		};
 	} );
 
