@@ -9,17 +9,17 @@ registerBlockType( name, {
 	apiVersion: 2,
 	category: 'common',
 	attributes: {
-    	align: {
-    		type: 'string',
-    		default: 'full',
-    	},    	
-        backgroundColor: {
+		align: {
 			type: 'string',
-		},    	
+			default: 'full',
+		},
+		backgroundColor: {
+			type: 'string',
+		},
 		featuredImageSizeSlug: {
 			type: 'string',
 			default: 'digiwatt-home-grid',
-		},   
+		},
 		featuredImageSizeWidth: {
 			type: 'number',
 			default: null,
@@ -28,21 +28,21 @@ registerBlockType( name, {
 			type: 'number',
 			default: null,
 		},
-    	imageAlign: {
-    		type: 'string',
-    		default: 'right',
-    	}, 
-    	showAuthor: {
-			'type': 'boolean',
-			'default': true,
-    	},    	
-        textColor: {
+		imageAlign: {
 			type: 'string',
-		}, 		    
+			default: 'right',
+		},
+		showAuthor: {
+			type: 'boolean',
+			default: true,
+		},
+		textColor: {
+			type: 'string',
+		},
 	},
 	supports: {
-        align: [ 'wide', 'full' ],
-        imageAlign: [ 'left', 'right' ], 	
+		align: [ 'wide', 'full' ],
+		imageAlign: [ 'left', 'right' ],
 	},
 	edit,
 } );
