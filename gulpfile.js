@@ -86,8 +86,6 @@ const gulp = require( 'gulp' ),
 	jshint = require( 'gulp-jshint' ), // JSHint plugin
 	stylish = require( 'jshint-stylish' ), // JSHint Stylish plugin
 	stylelint = require( 'gulp-stylelint' ), // stylelint plugin
-	gulpphpcs = require( 'gulp-phpcs' ), // Gulp plugin for running PHP Code Sniffer.
-	gphpcbf = require( 'gulp-phpcbf' ), // PHP Code Beautifier
 	gutil = require( 'gulp-util' ), // gulp util
 	gzip = require( 'gulp-zip' );
 
@@ -210,41 +208,8 @@ function beautifyjs( done ) {
 }
 
 /**
- * PHP
+ * Misc
  */
-
-// PHP Code Sniffer.
-function phpcs( done ) {
-	return gulp
-		.src( phpSrc )
-		.pipe(
-			gulpphpcs( {
-				bin: 'vendor/bin/phpcs',
-				standard: './phpcs.ruleset.xml',
-				warningSeverity: 0,
-			} )
-		)
-		.pipe( gulpphpcs.reporter( 'log' ) );
-	done();
-}
-
-// PHP Code Beautifier.
-function phpcbf( done ) {
-	return gulp
-		.src( phpSrc )
-		.pipe(
-			gphpcbf( {
-				bin: 'vendor/bin/phpcbf',
-				standard: './phpcs.ruleset.xml',
-				warningSeverity: 0,
-			} )
-		)
-		.on( 'error', gutil.log )
-		.pipe( gulp.dest( './' ) );
-	done();
-}
-
-/**/
 
 // Watch files
 function watchFiles() {
@@ -275,8 +240,6 @@ exports.styles = styles;
 exports.js = js;
 exports.lintjs = lintjs;
 exports.beautifyjs = beautifyjs;
-exports.phpcs = phpcs;
-exports.phpcbf = phpcbf;
 exports.zip = zip;
 exports.build = build;
 exports.watch = watch;
