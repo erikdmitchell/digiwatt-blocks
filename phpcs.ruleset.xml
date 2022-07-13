@@ -48,7 +48,11 @@
     <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
     
     <rule ref="Squiz.Commenting.FunctionComment.MissingParamTag" />
-    <rule ref="Squiz.Commenting.FileComment.MissingPackageTag" />      
+    <rule ref="Squiz.Commenting.FileComment.MissingPackageTag" /> 
+    
+    <ruel ref="Squiz.Commenting.FileComment.Missing">
+        <exclude>*/assets/build/blocks.asset.php</exclude>
+    </ruel>
      
     <rule ref="WordPress.DB.DirectDatabaseQuery.DirectQuery" />        
     <rule ref="WordPress.DB.DirectDatabaseQuery.NoCaching" />        
