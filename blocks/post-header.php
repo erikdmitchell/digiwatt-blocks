@@ -59,14 +59,14 @@ function dwb_post_header_block_init() {
             ),
             'api_version'     => 2,
             'render_callback' => 'render_block_digiwatt_post_header',
-            'editor_script' => "dwb-{$block_slug}-block-script",
+            'editor_script' => "dwb-block-script",
             'editor_style'    => "dwb-{$block_slug}-block-editor",
             'style'           => "dwb-{$block_slug}-block-style",
         ),
     );
     
     wp_register_script(
-        "dwb-{$block_slug}-block-script",
+        "dwb-block-script",
         DWB_ASSETS_URL . 'build/blocks.js',
         $asset_file['dependencies'],
         $asset_file['version']
