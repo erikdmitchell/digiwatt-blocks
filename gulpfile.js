@@ -1,5 +1,5 @@
 // Project configuration
-var buildInclude = [
+const buildInclude = [
 	// include common file types
 	'**/*.php',
 	'**/*.html',
@@ -32,13 +32,13 @@ var buildInclude = [
 	'!**/*.log',
 ];
 
-var phpSrc = [
+const phpSrc = [
 	'**/*.php', // Include all files
 	'!node_modules/**/*', // Exclude node_modules
 	'!vendor/**', // Exclude vendor
 ];
 
-var cssInclude = [
+const cssInclude = [
 	// include css
 	'**/*.css',
 
@@ -52,7 +52,7 @@ var cssInclude = [
 	'!blocks/**',
 ];
 
-var jsInclude = [
+const jsInclude = [
 	// include js
 	'**/*.js',
 

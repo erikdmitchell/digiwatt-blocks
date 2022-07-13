@@ -43,16 +43,14 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 
 	const { post, postID, postTitle, postAuthorDetails, postImage } = useSelect(
 		( select ) => {
-			const { getUser, getMedia, getEditedEntityRecord } = select(
-				coreStore
-			);
+			const { getUser, getMedia, getEditedEntityRecord } =
+				select( coreStore );
 			const { getSettings } = select( blockEditorStore );
 			const { imageSizes, imageDimensions } = getSettings();
 
 			const currentPostID = select( 'core/editor' ).getCurrentPostId();
-			const currentPostType = select(
-				'core/editor'
-			).getCurrentPostType();
+			const currentPostType =
+				select( 'core/editor' ).getCurrentPostType();
 			const currentPost = getEditedEntityRecord(
 				'postType',
 				currentPostType,
