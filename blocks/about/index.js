@@ -57,7 +57,7 @@ registerBlockType( 'dwb/about-block', {
 
 		const blockStyle = {
 			background:
-				mediaURL != 0
+				mediaURL !== 0
 					? 'url("' + mediaURL + '") no-repeat center center fixed'
 					: 'none',
 		};
@@ -88,7 +88,7 @@ registerBlockType( 'dwb/about-block', {
 							/>
 						</MediaUploadCheck>
 
-						{ mediaID != 0 && (
+						{ mediaID !== 0 && (
 							<MediaUploadCheck>
 								<MediaUpload
 									title={ __( 'Replace image', 'awp' ) }
@@ -108,7 +108,7 @@ registerBlockType( 'dwb/about-block', {
 							</MediaUploadCheck>
 						) }
 
-						{ mediaID != 0 && (
+						{ mediaID !== 0 && (
 							<MediaUploadCheck>
 								<Button
 									onClick={ removeMedia }
@@ -144,7 +144,7 @@ registerBlockType( 'dwb/about-block', {
 
 		const blockStyle = {
 			background:
-				mediaURL != 0
+				mediaURL !== 0
 					? 'url("' + mediaURL + '") no-repeat center center fixed'
 					: 'none',
 		};

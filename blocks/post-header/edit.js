@@ -2,10 +2,9 @@
  * External dependencies
  *
  */
-import { get, includes, invoke, isUndefined, pickBy } from 'lodash';
+import { get } from 'lodash';
 
 import { __ } from '@wordpress/i18n';
-import { count } from '@wordpress/wordcount';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { date } from '@wordpress/date';
@@ -14,19 +13,15 @@ import {
 	PanelBody,
 	PanelRow,
 	RadioControl,
-	SelectControl,
 	Spinner,
 	ToggleControl,
-	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import {
 	InspectorControls,
 	PanelColorSettings,
 	useBlockProps,
-	__experimentalImageSizeControl as ImageSizeControl,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
 
 export default function PostHeaderEdit( { attributes, setAttributes } ) {
 	const {
@@ -41,12 +36,11 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 		textColor,
 	} = attributes;
 
-	const { post, postID, postTitle, postAuthorDetails, postImage } = useSelect(
+	const { post, postTitle, postAuthorDetails, postImage } = useSelect(
 		( select ) => {
 			const { getUser, getMedia, getEditedEntityRecord } =
 				select( coreStore );
 			const { getSettings } = select( blockEditorStore );
-			const { imageSizes, imageDimensions } = getSettings();
 
 			const currentPostID = select( 'core/editor' ).getCurrentPostId();
 			const currentPostType =
@@ -91,7 +85,6 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 
 			return {
 				post: currentPost,
-				postID: currentPostID,
 				postTitle: title,
 				postAuthorDetails: authorID ? getUser( authorID ) : null,
 				postImage: featuredImageUrl ? featuredImage : null,
@@ -175,9 +168,9 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 	// get block properties and add custom ones.
 	const blockProps = useBlockProps( {
 		style: {
-			color: textColor != undefined ? textColor : '',
+			color: textColor !== undefined ? textColor : '',
 			backgroundColor:
-				backgroundColor != undefined ? backgroundColor : '',
+				backgroundColor !== undefined ? backgroundColor : '',
 		},
 	} );
 

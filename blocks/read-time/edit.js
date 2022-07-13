@@ -34,7 +34,7 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 
 		const readingTimeNumber = Math.ceil( postWordCount / 200 );
 
-		if ( 'before' == timePosition ) {
+		if ( 'before' === timePosition ) {
 			readingTime = readTimeText + ' ' + readingTimeNumber;
 		} else {
 			readingTime = readingTimeNumber + ' ' + readTimeText;

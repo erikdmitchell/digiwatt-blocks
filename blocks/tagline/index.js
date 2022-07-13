@@ -27,7 +27,7 @@ registerBlockType( 'dwb/tagline-block', {
 			selector: 'img',
 			attribute: 'src',
 		},
-		bg_color: {
+		bgColor: {
 			type: 'string',
 			default: '#8ed2fc',
 		},
@@ -41,7 +41,7 @@ registerBlockType( 'dwb/tagline-block', {
 	edit: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaID, mediaURL, bg_color },
+			attributes: { title, mediaID, mediaURL, bgColor },
 			setAttributes,
 		} = props;
 
@@ -57,7 +57,7 @@ registerBlockType( 'dwb/tagline-block', {
 		};
 
 		const onChangeBGColor = ( hexColor ) => {
-			setAttributes( { bg_color: hexColor } );
+			setAttributes( { bgColor: hexColor } );
 		};
 
 		return (
@@ -77,7 +77,7 @@ registerBlockType( 'dwb/tagline-block', {
 
 				<div
 					className={ className }
-					style={ { backgroundColor: bg_color } }
+					style={ { backgroundColor: bgColor } }
 				>
 					<div className="tagline-wrapper">
 						<MediaUpload
@@ -126,13 +126,10 @@ registerBlockType( 'dwb/tagline-block', {
 	save: ( props ) => {
 		const {
 			className,
-			attributes: { title, mediaURL, bg_color },
+			attributes: { title, mediaURL, bgColor },
 		} = props;
 		return (
-			<div
-				className={ className }
-				style={ { backgroundColor: bg_color } }
-			>
+			<div className={ className } style={ { backgroundColor: bgColor } }>
 				<div className="tagline-wrapper">
 					{ mediaURL && (
 						<div className="image-wrapper">

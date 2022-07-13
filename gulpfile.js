@@ -32,12 +32,6 @@ const buildInclude = [
 	'!**/*.log',
 ];
 
-const phpSrc = [
-	'**/*.php', // Include all files
-	'!node_modules/**/*', // Exclude node_modules
-	'!vendor/**', // Exclude vendor
-];
-
 const cssInclude = [
 	// include css
 	'**/*.css',
@@ -73,20 +67,12 @@ const gulp = require( 'gulp' ),
 	minifycss = require( 'gulp-uglifycss' ),
 	uglify = require( 'gulp-uglify' ),
 	rename = require( 'gulp-rename' ),
-	concat = require( 'gulp-concat' ),
-	notify = require( 'gulp-notify' ),
-	runSequence = require( 'run-sequence' ),
 	gulpsass = require( 'gulp-sass' ),
-	plugins = require( 'gulp-load-plugins' )( {
-		camelize: true,
-	} ),
-	ignore = require( 'gulp-ignore' ), // Helps with ignoring files and directories in our run tasks
 	plumber = require( 'gulp-plumber' ), // Helps prevent stream crashing on errors
 	sourcemaps = require( 'gulp-sourcemaps' ),
 	jshint = require( 'gulp-jshint' ), // JSHint plugin
 	stylish = require( 'jshint-stylish' ), // JSHint Stylish plugin
 	stylelint = require( 'gulp-stylelint' ), // stylelint plugin
-	gutil = require( 'gulp-util' ), // gulp util
 	gzip = require( 'gulp-zip' );
 
 /**
@@ -201,12 +187,6 @@ function lintjs( done ) {
 	done();
 }
 
-// make pretty
-function beautifyjs( done ) {
-	return gulp.src( jsInclude ).pipe( beautify() ).pipe( gulp.dest( './' ) );
-	done();
-}
-
 /**
  * Misc
  */
@@ -239,7 +219,6 @@ exports.lintcss = lintcss;
 exports.styles = styles;
 exports.js = js;
 exports.lintjs = lintjs;
-exports.beautifyjs = beautifyjs;
 exports.zip = zip;
 exports.build = build;
 exports.watch = watch;
