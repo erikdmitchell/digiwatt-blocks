@@ -44,12 +44,13 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 			const { imageSizes, imageDimensions } = getSettings();
 			
             const currentPostID = select("core/editor").getCurrentPostId();
-            const currentPost = getEditedEntityRecord( 'postType', 'post', currentPostID );
+            const currentPostType = select('core/editor').getCurrentPostType();
+            const currentPost = getEditedEntityRecord( 'postType', currentPostType, currentPostID ); // post needs to be page?
             const title = currentPost.title;
 
 			const authorID = getEditedEntityRecord(
 				'postType',
-				'post',
+				currentPostType,
 				currentPostID
 			)?.author;
 
