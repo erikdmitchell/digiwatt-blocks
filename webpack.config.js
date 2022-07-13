@@ -6,7 +6,6 @@ module.exports = {
     ...defaultConfig,
     entry: {
         blocks: './blocks/index.js',
-        app: './app/index.js',
     },
     output: {
         filename: '[name].js',
