@@ -32,6 +32,10 @@ registerBlockType( name, {
     		type: 'string',
     		default: 'right',
     	}, 
+    	showAuthor: {
+			'type': 'boolean',
+			'default': true,
+    	},    	
         textColor: {
 			type: 'string',
 		}, 		    

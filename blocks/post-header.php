@@ -73,6 +73,10 @@ function dwb_post_header_block_init() {
                 'backgroundColor' => array(
                     'type' => 'string',
                 ),
+            	'showAuthor' => array(
+        			'type' => 'boolean',
+        			'default' => true,
+            	),                 
                 'textColor' => array(
                     'type' => 'string',
                 ),

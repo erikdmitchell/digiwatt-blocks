@@ -16,6 +16,7 @@ import {
     RadioControl,
 	SelectControl,
     Spinner,
+    ToggleControl,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import {   
@@ -28,7 +29,7 @@ import {
 import { compose } from '@wordpress/compose';
 
 export default function PostHeaderEdit( { attributes, setAttributes } ) {   
-	const { className, align, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, imageAlign, backgroundColor, textColor } = attributes;
+	const { className, align, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, imageAlign, backgroundColor, showAuthor, textColor } = attributes;
 
 	const {
     	post,
@@ -133,6 +134,17 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                         />
                     </PanelRow>
                 </PanelBody>
+                <PanelBody title="Misc" initialOpen={ true }>
+                    <PanelRow>
+                        <ToggleControl
+                            label="Show Author"
+                            checked={ showAuthor }
+                            onChange={ () => {
+                                setAttributes( { showAuthor: value } )
+                            } }
+                        />
+                    </PanelRow>
+                </PanelBody>                 
             </Panel>
 		</InspectorControls>
 	);
