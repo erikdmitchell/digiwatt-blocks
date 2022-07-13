@@ -1,0 +1,8 @@
+parameters:
+    level: 1
+    paths:
+        - includes/
+        - plugin-name.php
+    excludePaths:
+        - vendor/
+    ignoreErrors:
