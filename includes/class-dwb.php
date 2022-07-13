@@ -74,7 +74,7 @@ final class DWB {
         $this->define( 'DWB_ABSURL', plugin_dir_url( DWB_PLUGIN_FILE ) );
         $this->define( 'DWB_URL', plugin_dir_url( __FILE__ ) );
         $this->define( 'DWB_ASSETS_URL', plugin_dir_url( __DIR__ ) . 'assets/' );
-        $this->define( 'DWB_ASSETS_PATH', dirname( DWB_PLUGIN_FILE ) . '/assets/' );        
+        $this->define( 'DWB_ASSETS_PATH', dirname( DWB_PLUGIN_FILE ) . '/assets/' );
     }
 
     /**
@@ -98,12 +98,12 @@ final class DWB {
      * @return void
      */
     public function includes() {
-        include_once( DWB_ABSPATH . 'includes/functions.php' );
-                
-        include_once( DWB_ABSPATH . 'blocks/about.php' );
-        include_once( DWB_ABSPATH . 'blocks/post-header.php' );
-        include_once( DWB_ABSPATH . 'blocks/read-time.php' );
-        include_once( DWB_ABSPATH . 'blocks/tagline.php' );
+        include_once DWB_ABSPATH . 'includes/functions.php';
+
+        include_once DWB_ABSPATH . 'blocks/about.php';
+        include_once DWB_ABSPATH . 'blocks/post-header.php';
+        include_once DWB_ABSPATH . 'blocks/read-time.php';
+        include_once DWB_ABSPATH . 'blocks/tagline.php';
     }
 
     /**
@@ -131,7 +131,7 @@ final class DWB {
      * @access public
      * @return void
      */
-    public function frontend_scripts_styles() {     
+    public function frontend_scripts_styles() {
         $build_path        = 'assets/build/';
         $script_asset_path = DWB_ASSETS_PATH . 'build/app.asset.php';
         $script_info       = file_exists( $script_asset_path ) ? include $script_asset_path : array(
@@ -139,9 +139,9 @@ final class DWB {
             'version'      => $this->version,
         );
 
-        wp_enqueue_script( 'dwb-app', DWB_ASSETS_URL . 'build/app.js', $script_info['dependencies'], $script_info['version'], true );    
-        
-    }  
+        wp_enqueue_script( 'dwb-blocks', DWB_ASSETS_URL . 'build/blocks.js', $script_info['dependencies'], $script_info['version'], true );
+
+    }
 
 }
 
