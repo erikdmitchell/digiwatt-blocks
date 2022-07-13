@@ -4,13 +4,16 @@
   "description": "DigiWatt Blocks",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"You have DigiWatts\" && exit 1",
     "build": "wp-scripts build blocks/index.js",
     "format": "wp-scripts format",
-    "format:js:src": "wp-scripts format-js",
-    "lint:js:src": "wp-scripts lint-js",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
     "packages-update": "wp-scripts packages-update",
-    "start": "wp-scripts start"
+    "start": "wp-scripts start",
+    "format:js:src": "wp-scripts format-js",
+    "lint:js:src": "wp-scripts lint-js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +30,7 @@
     "@babel/core": "^7.17.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
-    "@wordpress/scripts": "^22.2.1",
+    "@wordpress/scripts": "^23.5.0",
     "babel-loader": "^8.2.3",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^5.0.0",
@@ -58,9 +61,9 @@
     "stylelint": "^10.1.0"
   },
   "dependencies": {
+    "@wordpress/api-fetch": "^6.10.0",
+    "@wordpress/components": "^19.15.0",
     "classnames": "^2.3.1",
-    "@wordpress/api-fetch": "^5.2.2",
-    "@wordpress/components": "^17.0.0",
     "gulp-sourcemaps": "^2.6.5",
     "node-sass": "^4.14.1"
   }
