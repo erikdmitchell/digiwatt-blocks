@@ -18,16 +18,7 @@ function dwb_post_header_block_init() {
         return;
     }
 
-    // automatically load dependencies and version
-    $asset_file = include( DWB_ABSPATH . 'build/index.asset.php' );
     $block_slug = 'post-header';
-
-    wp_register_script(
-        'dwb-block-script',
-        DWB_ABSURL . 'build/index.js',
-        $asset_file['dependencies'],
-        $asset_file['version']
-    );
 
     $editor_css = 'editor.css';
     wp_register_style(
@@ -83,7 +74,6 @@ function dwb_post_header_block_init() {
             ),
             'api_version' => 2,
             'render_callback' => 'render_block_digiwatt_post_header',
-            'editor_script' => 'dwb-block-script',
             'editor_style' => "dwb-{$block_slug}-block-editor",
             'style' => "dwb-{$block_slug}-block-style",
         ),
