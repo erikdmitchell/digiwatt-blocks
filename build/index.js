@@ -576,9 +576,14 @@ function ReadTimeEdit(_ref) {
 
 
   var getReadingTime = function getReadingTime() {
-    var postWordCount = Object(_wordpress_wordcount__WEBPACK_IMPORTED_MODULE_2__["count"])(post.content.raw, 'words', {});
-    var readingTimeNumber = Math.ceil(postWordCount / 200);
+    var postWordCount = 0;
     var readingTime = '';
+
+    if (typeof post !== 'undefined' && post !== null) {
+      postWordCount = Object(_wordpress_wordcount__WEBPACK_IMPORTED_MODULE_2__["count"])(post.content.raw, 'words', {});
+    }
+
+    var readingTimeNumber = Math.ceil(postWordCount / 200);
 
     if ('before' == timePosition) {
       readingTime = readTimeText + ' ' + readingTimeNumber;

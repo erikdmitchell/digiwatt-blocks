@@ -24,10 +24,14 @@ export default function ReadTimeEdit( { attributes, setAttributes } ) {
 
 	// setup reading timer.
 	const getReadingTime = () => {
-		const postWordCount = count( post.content.raw, 'words', {} );
-		const readingTimeNumber = Math.ceil( postWordCount / 200 );
-
+        let postWordCount = 0;
 		let readingTime = '';
+		
+		if ( typeof post !== 'undefined' && post !== null ) {
+            postWordCount = count( post.content.raw, 'words', {} );
+        }
+        
+        const readingTimeNumber = Math.ceil( postWordCount / 200 );
 
 		if ( 'before' == timePosition ) {
 			readingTime = readTimeText + ' ' + readingTimeNumber;
