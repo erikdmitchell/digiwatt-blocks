@@ -16,6 +16,7 @@ import {
     RadioControl,
 	SelectControl,
     Spinner,
+    ToggleControl,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import {   
@@ -28,7 +29,7 @@ import {
 import { compose } from '@wordpress/compose';
 
 export default function PostHeaderEdit( { attributes, setAttributes } ) {   
-	const { className, align, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, imageAlign, backgroundColor, textColor } = attributes;
+	const { className, align, featuredImageSizeSlug, featuredImageSizeWidth, featuredImageSizeHeight, imageAlign, backgroundColor, showAuthor, textColor } = attributes;
 
 	const {
     	post,
@@ -43,12 +44,13 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
 			const { imageSizes, imageDimensions } = getSettings();
 			
             const currentPostID = select("core/editor").getCurrentPostId();
-            const currentPost = getEditedEntityRecord( 'postType', 'post', currentPostID );
+            const currentPostType = select('core/editor').getCurrentPostType();
+            const currentPost = getEditedEntityRecord( 'postType', currentPostType, currentPostID ); // post needs to be page?
             const title = currentPost.title;
 
 			const authorID = getEditedEntityRecord(
 				'postType',
-				'post',
+				currentPostType,
 				currentPostID
 			)?.author;
 
@@ -133,6 +135,17 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                         />
                     </PanelRow>
                 </PanelBody>
+                <PanelBody title="Misc" initialOpen={ true }>
+                    <PanelRow>
+                        <ToggleControl
+                            label="Show Author"
+                            checked={ showAuthor }
+                            onChange={ ( value ) => {                                
+                                setAttributes( { showAuthor: value } )
+                            } }
+                        />
+                    </PanelRow>
+                </PanelBody>                 
             </Panel>
 		</InspectorControls>
 	);
@@ -156,6 +169,17 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
             backgroundColor: backgroundColor != undefined ? backgroundColor : '',
 		},
     } );
+    
+    // byline.
+	const byline = (
+        <div className="byline">
+            <span className="author vcard">
+                <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
+                    By {postAuthorDetails ? postAuthorDetails.name : ''}
+                </a>
+            </span>
+        </div> 
+	); 
 
 	return (
     	<>
@@ -178,13 +202,7 @@ export default function PostHeaderEdit( { attributes, setAttributes } ) {
                                     </a>
                                 </div>
                                 
-                                <div className="byline">
-                                    <span className="author vcard">
-                                        <a className="url fn n" href={postAuthorDetails ? postAuthorDetails.link : '#'} rel="author">
-                                            By {postAuthorDetails ? postAuthorDetails.name : ''}
-                                        </a>
-                                    </span>
-                                </div>        
+                                {showAuthor ? byline : ''}       
                             </div>
                         </div>              
                     </div>
