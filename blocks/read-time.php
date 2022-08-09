@@ -19,12 +19,12 @@ function dwb_read_time_block_init() {
     }
 
     // automatically load dependencies and version
-    $asset_file = include( DWB_ABSPATH . 'build/index.asset.php' );
+    $asset_file = include DWB_ASSETS_PATH . 'build/blocks.asset.php';
     $block_slug = 'read-time';
 
     wp_register_script(
         'dwb-block-script',
-        DWB_ABSURL . 'build/index.js',
+        DWB_ASSETS_URL . 'build/blocks.js',
         $asset_file['dependencies'],
         $asset_file['version']
     );

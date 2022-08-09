@@ -21,7 +21,7 @@ final class DWB {
      * @var string
      * @access public
      */
-    public $version = '0.1.21';
+    public $version = '0.2.1';
 
     /**
      * _instance
@@ -74,6 +74,7 @@ final class DWB {
         $this->define( 'DWB_ABSURL', plugin_dir_url( DWB_PLUGIN_FILE ) );
         $this->define( 'DWB_URL', plugin_dir_url( __FILE__ ) );
         $this->define( 'DWB_ASSETS_URL', plugin_dir_url( __DIR__ ) . 'assets/' );
+        $this->define( 'DWB_ASSETS_PATH', dirname( DWB_PLUGIN_FILE ) . '/assets/' );
     }
 
     /**
@@ -97,13 +98,12 @@ final class DWB {
      * @return void
      */
     public function includes() {
-        include_once( DWB_ABSPATH . 'includes/functions.php' );
-                
-        include_once( DWB_ABSPATH . 'blocks/about.php' );
-        include_once( DWB_ABSPATH . 'blocks/home-grid.php' );
-        include_once( DWB_ABSPATH . 'blocks/post-header.php' );
-        include_once( DWB_ABSPATH . 'blocks/read-time.php' );
-        include_once( DWB_ABSPATH . 'blocks/tagline.php' );
+        include_once DWB_ABSPATH . 'includes/functions.php';
+
+        include_once DWB_ABSPATH . 'blocks/about.php';
+        include_once DWB_ABSPATH . 'blocks/post-header.php';
+        include_once DWB_ABSPATH . 'blocks/read-time.php';
+        include_once DWB_ABSPATH . 'blocks/tagline.php';
     }
 
     /**
@@ -114,7 +114,7 @@ final class DWB {
      */
     private function init_hooks() {
         add_action( 'init', array( $this, 'init' ), 0 );
-        add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts_styles' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts_styles' ) );       
     }
 
     /**
@@ -131,7 +131,17 @@ final class DWB {
      * @access public
      * @return void
      */
-    public function frontend_scripts_styles() {}
+    public function frontend_scripts_styles() {
+        $build_path        = 'assets/build/';
+        $script_asset_path = DWB_ASSETS_PATH . 'build/app.asset.php';
+        $script_info       = file_exists( $script_asset_path ) ? include $script_asset_path : array(
+            'dependencies' => array(),
+            'version'      => $this->version,
+        );
+
+        wp_enqueue_script( 'dwb-blocks', DWB_ASSETS_URL . 'build/blocks.js', $script_info['dependencies'], $script_info['version'], true );
+
+    }
 
 }
 
